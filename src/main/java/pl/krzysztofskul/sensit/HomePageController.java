@@ -13,4 +13,9 @@ public class HomePageController {
 		return "sensit home page";
 	}
 	
+	@GetMapping("/smnsh/test")
+	@ResponseBody
+	public String smnshTestPage() {
+		return "smnsh test page";
+	}
 }

@@ -7,15 +7,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HomePageController {
 
-	@GetMapping("/home")
+	@GetMapping({"/home", "/"})
 	@ResponseBody
 	public String home() {
 		return "sensit home page";
 	}
 	
-	@GetMapping("/smnsh/test")
-	@ResponseBody
-	public String smnshTestPage() {
-		return "smnsh test page";
+	@GetMapping("/home-thymeleaf")
+	public String homeThymeleaf() {
+		return "thymeleaf";
 	}
 }

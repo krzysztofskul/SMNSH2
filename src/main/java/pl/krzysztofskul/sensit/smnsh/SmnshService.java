@@ -1,4 +1,4 @@
-package pl.krzysztofskul.sensit;
+package pl.krzysztofskul.sensit.smnsh;
 
 import java.util.List;
 
@@ -8,24 +8,24 @@ import org.springframework.stereotype.Service;
 import pl.krzysztofskul.sensit.smnsh.project.Project;
 
 @Service
-public class SensitService {
+public class SmnshService {
 
-	private SensitRepo sensitRepo;
+	private SmnshRepo smnshRepo;
 
 	/**
-	 * @param sensitRepo
+	 * @param smnshRepo
 	 */
 	@Autowired
-	public SensitService(SensitRepo sensitRepo) {
-		this.sensitRepo = sensitRepo;
+	public SmnshService(SmnshRepo smnshRepo) {
+		this.smnshRepo = smnshRepo;
 	}
 	
 	public Project save(Project project) {
-		return sensitRepo.save(project);
+		return smnshRepo.save(project);
 	}
 	
 	public List<Project> loadAll() {
-		return sensitRepo.findAll();
+		return smnshRepo.findAll();
 	}
 	
 }

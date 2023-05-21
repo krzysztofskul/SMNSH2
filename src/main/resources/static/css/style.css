@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.sensit-test {
+	background-color: yellow;
+}
+
+.sensit-header {
+	height: 150px;
+	background-color: #f2f2f2;
+}
+
+.sensit-footer {
+	font-size: 16px;
+	height: 75px;
+	background-color: #f2f2f2;	
+}
+
+.sensit-Hmin250px {
+	min-height: 200px;
+	background-color: gray;
+}

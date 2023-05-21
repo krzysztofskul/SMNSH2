@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xlmns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- CSS -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+	<div th:replace="./header" :: header class="sensit-header"></div>
+	
+	<div style="min-height:250px">
+	
+		<table class="table table-hover">
+		  <thead>
+		    <tr>
+		      <th scope="col" style="width:5%">ID</th>
+		      <th scope="col">Kod projektu<br><span style="font-style:italic">Project code</span></th>
+		      <th scope="col">Nazwa projektu/Project name</th>
+		      <th scope="col">Inwestor/Investor</th>
+		      <th scope="col">Nr umowy/Contract no.</th>
+		      <th scope="col">Aparat/Device</th>
+		      <th scope="col">Handlowiec/Sales rep.</th>
+		      <th scope="col">Kierownik projektu/Project manager</th>
+		      <th scope="col">Termin realizacji/Deadline</th>
+		      <th scope="col">OPCJE/OPTIONS</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr th:each="project: ${projectList}">
+		      <th scope="row" th:text="${project.id}"/>
+		      <td th:text="${project.code}"></td>
+		      <td th:text="${project.name}"></td>
+		      
+		      <td th:text="${project.investor}"></td>
+		      <td th:text="${project.contractNo}"></td>
+		      <td th:text="${project.device}"></td>
+		      <td th:text="${project.salesRep}"></td>
+		      <td th:text="${project.projectManager}"></td>
+		      <td th:text="${project.deadline}"></td>
+		      <td>
+		      	<button class="btn btn-outline-secondary">SZCZEGÓŁY/DETAILS</button>
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+		
+	</div>
+	
+	<div th:replace="./footer" :: footer class="sensit-footer"></div>
+	
+</body>
+</html>

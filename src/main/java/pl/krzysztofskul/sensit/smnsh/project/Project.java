@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
+import pl.krzysztofskul.sensit.smnsh.user.User;
 
 @Entity
 @Table(name = "projects")
@@ -28,7 +30,8 @@ public class Project {
 	private String name;
 	private String code;
 	
-	private String salesRep;
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private User salesRep;
 	private String contractNo;
 	
 	private String investor;
@@ -114,21 +117,21 @@ public class Project {
 	public void setCode(String code) {
 		this.code = code;
 	}
-
+	
 	/**
 	 * @return the salesRep
 	 */
-	public String getSalesRep() {
+	public User getSalesRep() {
 		return salesRep;
 	}
 
 	/**
 	 * @param salesRep the salesRep to set
 	 */
-	public void setSalesRep(String salesRep) {
+	public void setSalesRep(User salesRep) {
 		this.salesRep = salesRep;
 	}
-	
+
 	/**
 	 * @return the contractNo
 	 */

@@ -38,7 +38,7 @@
 		      <td th:text="${project.investor}"></td>
 		      <td th:text="${project.contractNo}"></td>
 		      <td th:text="${project.device}"></td>
-		      <td th:text="${project.salesRep}"></td>
+		      <td th:text="${project.salesRep.nameFirst} + ' ' + ${project.salesRep.nameLast}"></td>
 		      <td th:text="${project.projectManager}"></td>
 		      <td th:text="${project.deadline}"></td>
 		      <td>

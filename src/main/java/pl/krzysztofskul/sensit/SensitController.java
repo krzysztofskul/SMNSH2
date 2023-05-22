@@ -13,9 +13,8 @@ import pl.krzysztofskul.sensit.smnsh.project.ProjectService;
 public class SensitController {
 
 	@GetMapping({"/home", "/"})
-	@ResponseBody
 	public String home() {
-		return "sensit home page";
+		return "redirect:/smnsh/test/thymeleaf/projects";
 	}
 
 }

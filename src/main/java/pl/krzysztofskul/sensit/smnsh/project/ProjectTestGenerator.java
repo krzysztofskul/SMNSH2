@@ -12,20 +12,25 @@ import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
+import pl.krzysztofskul.sensit.smnsh.user.UserService;
 
 @Service
 public class ProjectTestGenerator {
 
 	private ProjectRepo projectRepo;
+	private UserService userService;
 
 	/**
+	 * CONSTRUCTOR
+	 * 
 	 * @param projectRepo
+	 * @param userService
 	 */
-	@Autowired
-	public ProjectTestGenerator(ProjectRepo projectRepo) {
+	public ProjectTestGenerator(ProjectRepo projectRepo, UserService userService) {
 		this.projectRepo = projectRepo;
+		this.userService = userService;
 	}
-	
+
 	/**
 	 * Creates and return demo projects
 	 * @return project list
@@ -40,10 +45,9 @@ public class ProjectTestGenerator {
 			project.setName("Demo project " + loremIpsum.getTitle(1));					
 			project.setCode("TES000"+i);
 			
-			project.setSalesRep("Wojciech G.");
+			project.setSalesRep(userService.loadByEmail("wojciech.g@example.com"));
 			
-			project.setInvestor(loremIpsum.getName() + " Med-Investments sp. z o.o.");
-			project.setLocation(loremIpsum.getZipCode() + " "+ loremIpsum.getCity() + "; ul. " + loremIpsum.getName() + new Random().nextInt(199)+1);
+			project.setInvestor(loremIpsum.getTitle(1) + " Med-Investments sp. z o.o.");
 			project.setLocation("09-199 Warszawa, ul. Testowa 99");
 			project.setUser("Pracownia demonstracyjna w szpitalu klinicznym");
 			

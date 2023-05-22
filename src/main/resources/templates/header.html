@@ -1,10 +1,15 @@
 <div th:fragment="header" class="sensit-header border-bottom p-2">
-		<h5>SMNSH APP.</h4>
+		
+		<div class="text-right">
+			<h5 class="d-inline-block"><span style="color:#009898">PROJECT & HEALTHCARE</span> <span style="color:#ec6602">APP.</span></h5>
+			<img class="d-inline-block" height="30px" th:src="@{/pics/logo-smnsh.svg}"/>	
+		</div>	
 		<div>
-			<ul>
-				<li><a href="/smnsh/test/initData">init smnsh test data</a></li>
-				<li><a href="/smnsh/test/thymeleaf/projects">test projects thymeleaf</a></li>
-				<li><a href="/smnsh/test/jsp/projects">test projects jsp</a></li>
+			<ul class="nav nav-pills mb-2">
+				<li class="nav-item btn btn-outline-secondary m-1"><a href="/">HOME</a></li>
+				<li class="nav-item btn btn-outline-secondary m-1"><a href="/smnsh/test/initData">INIT DEMO/TEST DATA</a></li>
+				<li class="nav-item btn btn-outline-secondary m-1"><a href="/smnsh/test/thymeleaf/projects">PROJECTS (thymeleaf)</a></li>
+				<li class="nav-item btn btn-outline-secondary m-1"><a href="/smnsh/test/jsp/projects">PROJECTS (jsp)</a></li>
 			</ul>
 		</div>
 	</div>

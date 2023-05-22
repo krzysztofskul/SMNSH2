@@ -24,6 +24,9 @@ public class User {
 
     @OneToMany(mappedBy = "salesRep")
     private List<Project> projectListAsSalesRep = new ArrayList<Project>();
+
+    @OneToMany(mappedBy = "projectManager")
+    private List<Project> projectListAsProjectManager = new ArrayList<Project>();
     
     private UserBusinessPosition businessPosition;
 
@@ -114,6 +117,20 @@ public class User {
 	 */
 	public void setProjectListAsSalesRep(List<Project> projectListAsSalesRep) {
 		this.projectListAsSalesRep = projectListAsSalesRep;
+	}
+	
+	/**
+	 * @return the projectListAsProjectManager
+	 */
+	public List<Project> getProjectListAsProjectManager() {
+		return projectListAsProjectManager;
+	}
+
+	/**
+	 * @param projectListAsProjectManager the projectListAsProjectManager to set
+	 */
+	public void setProjectListAsProjectManager(List<Project> projectListAsProjectManager) {
+		this.projectListAsProjectManager = projectListAsProjectManager;
 	}
 
 	/**

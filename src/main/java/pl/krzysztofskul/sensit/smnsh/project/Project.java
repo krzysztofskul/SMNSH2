@@ -40,7 +40,8 @@ public class Project {
 	
 	private String device;
 	
-	private String projectManager;
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	private User projectManager;
 	
     @OneToMany(
     		mappedBy = "project",
@@ -205,14 +206,14 @@ public class Project {
 	/**
 	 * @return the projectManager
 	 */
-	public String getProjectManager() {
+	public User getProjectManager() {
 		return projectManager;
 	}
 
 	/**
 	 * @param projectManager the projectManager to set
 	 */
-	public void setProjectManager(String projectManager) {
+	public void setProjectManager(User projectManager) {
 		this.projectManager = projectManager;
 	}
 

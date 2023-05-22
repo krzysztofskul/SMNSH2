@@ -60,7 +60,7 @@ public class SmnshTestController {
 	@GetMapping("/thymeleaf/projects")
 	public String homeThymeleaf(Model model) {
 		model.addAttribute("projectList", projectService.loadAll());
-		return "/test/projects";
+		return "/test/projects/all";
 	}
 	
 	/*
@@ -69,7 +69,7 @@ public class SmnshTestController {
 	@GetMapping("/jsp/projects")
 	public ModelAndView homeJsp(Model model) {
 		model.addAttribute("projectList", projectService.loadAll());
-		ModelAndView modelAndView = new ModelAndView("/test/projects");
+		ModelAndView modelAndView = new ModelAndView("");
 		return modelAndView;
 	}
 	

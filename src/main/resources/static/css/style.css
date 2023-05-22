@@ -1,11 +1,17 @@
 @charset "UTF-8";
 
+@import url(./style-cards.css);
+
 .sensit-test {
 	background-color: yellow;
 }
 
 .sensit-header {
 	height: 150px;
+	background-color: #f2f2f2;
+}
+
+.sensit-menu{
 	background-color: #f2f2f2;
 }
 

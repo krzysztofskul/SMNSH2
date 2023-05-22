@@ -1,0 +1,10 @@
+<div th:fragment="menu-project (projectId)" class="sensit-menu border-bottom p-2">
+		<div>
+			<ul class="nav nav-pills mb-2">
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a th:href="@{/smnsh/projects/{projectId}(projectId=${projectId})}">DANE HANDLOWE</a></li>
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="/#">KARTA PROJEKTU</a></li>
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a th:href="@{/smnsh/projects/{projectId}/mielstones(projectId=${projectId})}">KAMIENIE MILOWE</a></li>
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a th:href="@{/smnsh/projects/{projectId}/stakeholders(projectId=${projectId})}">INTERESARIUSZE</a></li>
+			</ul>
+		</div>
+</div>

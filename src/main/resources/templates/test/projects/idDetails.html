@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xlmns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>PROJECT & HEALTHCARE APP.</title>
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- CSS -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+	<div th:replace="./header" :: header class="sensit-header"></div>
+	<div th:replace="./menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
+
+	<div class="container">
+		
+		<div class="card sensit-card">
+			<div class="card-header"></div>
+			<div class="card-body">
+				<div class="row">	
+					<div class="col-4 title">Nazwa projektu</div>
+					<div class="col-8 content"><span th:text="${project.name}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Kod projektu</div>
+					<div class="col-8 content"><span th:text="${project.code}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Aparat</div>
+					<div class="col-8 content"><span th:text="${project.device}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Nr umowy</div>
+					<div class="col-8 content"><span th:text="${project.contractNo}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Inwestor</div>
+					<div class="col-8 content"><span th:text="${project.investor}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Lokalizacja</div>
+					<div class="col-8 content"><span th:text="${project.location}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Użytkownik końcowy</div>
+					<div class="col-8 content"><span th:text="${project.user}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Termin realizacji</div>
+					<div class="col-8 content"><span th:text="${project.deadline}"/></div>
+				</div>
+			</div>
+			<div class="card-footer"></div>
+		</div>
+
+	</div>
+
+	<div th:replace="./footer" :: footer class="sensit-footer"></div>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 package pl.krzysztofskul.sensit.smnsh.project.stakeholder;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,6 +40,16 @@ public class Stakeholder {
 	 */
 	public Stakeholder(String businessPosition) {
 		this.businessPosition = businessPosition;
+	}
+
+	/**
+	 * Constructor
+	 * @param businessPosition
+	 * @param project
+	 */
+	public Stakeholder(String businessPosition, Project project) {
+		this.businessPosition = businessPosition;
+		this.project = project;
 	}
 
 	/**

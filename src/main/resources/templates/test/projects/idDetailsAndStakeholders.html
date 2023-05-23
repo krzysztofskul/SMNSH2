@@ -24,7 +24,16 @@
 					<div class="col-12">
 						<div class="row">
 							<div class="col-4 title">Imię i nazwisko</div>
-							<div class="col-8 content"><span th:text="${stakeholder.nameFirst} + '  ' + ${stakeholder.nameLast}"/></div>
+							<div class="col-8 content">
+								<span th:if="${stakeholder.nameFirst != null}">
+									<span th:text="${stakeholder.nameFirst}"/>
+								</span>
+								<span th:if="${stakeholder.nameLast != null}">
+									<span th:text="${stakeholder.nameLast}"/>
+								</span>
+								
+							
+							</div>
 						</div>
 					</div>
 					

@@ -58,7 +58,7 @@ public class Project {
 //	@CollectionTable(
 //			name = "Milestones", 
 //			joinColumns = @JoinColumn(name="project_id"))
-//	@Column(name = "milestone_id")
+	@Column(name = "milestone_name")
 	private List<String> milestones = new ArrayList<String>();
 	
 

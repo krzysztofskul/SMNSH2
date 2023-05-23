@@ -36,5 +36,11 @@ public class ProjectService {
 		Hibernate.initialize(project.getStakeholders());
 		return project;
 	}
+
+	public Project loadByIdWithMilestones(Long id) {
+		Project project = this.loadById(id);
+		Hibernate.initialize(project.getMilestones());
+		return project;
+	}
 	
 }

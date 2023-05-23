@@ -40,8 +40,8 @@ public class ProjectController {
 	
 	@GetMapping("/projects/{id}/milestones")
 	public String getProjectByIdWithMilestones(@PathVariable Long id, Model model) {
-		model.addAttribute("project", projectService.loadById(id));
-		return "/test/projects/idMilestones";
+		model.addAttribute("project", projectService.loadByIdWithMilestones(id));
+		return "/test/projects/idDetailsAndMilestones";
 	}
 	
 	@GetMapping("/projects/{id}/stakeholders")

@@ -40,7 +40,6 @@ public class User {
 	 * CONSTRUCTOR
 	 */
 	public User() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**

@@ -66,7 +66,6 @@ public class Project {
 	 * Constructor
 	 */
 	public Project() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

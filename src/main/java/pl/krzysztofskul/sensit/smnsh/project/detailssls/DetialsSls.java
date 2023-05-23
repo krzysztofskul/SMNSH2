@@ -26,7 +26,6 @@ public class DetialsSls {
 	 * Constructor
 	 */
 	public DetialsSls() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

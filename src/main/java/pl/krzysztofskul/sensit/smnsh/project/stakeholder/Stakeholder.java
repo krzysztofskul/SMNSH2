@@ -31,7 +31,6 @@ public class Stakeholder {
 	 * Constructor
 	 */
 	public Stakeholder() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

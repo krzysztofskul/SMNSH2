@@ -18,3 +18,10 @@
 	text-align: left;
 	font-style: bold;
 }
+
+.sensit-card .card-body > .row {
+	border-top: 1px solid #e6e6e6;
+	min-height: 50px;
+	margin: 5px 0px 0px;
+	padding: 2px 0px 0px;
+}

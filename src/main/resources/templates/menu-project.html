@@ -1,14 +1,18 @@
-<div th:fragment="menu-project (projectId)" class="sensit-menu border-bottom p-2">
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<div th:fragment="menu-project (projectId)" class="sensit-menu">
 		<div>
 			<ul class="nav nav-pills mb-2">
 				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a th:href="@{/smnsh/projects/{projectId}(projectId=${projectId})}">DANE PODSTAWOWE/HANDLOWE</a></li>
-				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="/#">KONFIGURACJA URZ•DZE—</a></li>				
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="/#">KONFIGURACJA URZƒÑDZE≈É</a></li>				
 				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a th:href="@{/smnsh/projects/{projectId}/milestones(projectId=${projectId})}">KAMIENIE MILOWE</a></li>
 				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a th:href="@{/smnsh/projects/{projectId}/stakeholders(projectId=${projectId})}">INTERESARIUSZE</a></li>
 				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="/#">GENEZA</a></li>
 				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="/#">RYZYKA</a></li>
 				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="/#">CELE</a></li>
-				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="/#">ZA£•CZNIKI</a></li>
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="/#">ZA≈ÅƒÑCZNIKI</a></li>
 				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="/#">KOMENTARZE</a></li>
 				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="/#">PANEL DYSKUSJI / UWAGI</a></li>
 				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="/#">EKSPORT KPDS</a></li>

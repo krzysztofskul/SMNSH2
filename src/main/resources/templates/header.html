@@ -1,18 +1,22 @@
-<div th:fragment="header" class="sensit-header border-bottom p-2">	
-		<div class="text-right">
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<div th:fragment="header" class="sensit-header">	
+		<div class="logo">
 			<h5 class="d-inline-block"><span style="color:#009898">PROJECT & HEALTHCARE</span> <span style="color:#ec6602">APP.</span></h5>
 			<img class="d-inline-block" height="30px" th:src="@{/pics/logo-smnsh.svg}"/>	
 		</div>	
-		<div>
+		<div class="menu">
 			<ul class="nav nav-pills mb-2">
 				<li class="nav-item btn btn-outline-secondary m-1"><a href="/">STRONA DOMOWA</a></li>
 				<li class="nav-item btn btn-outline-secondary m-1"><a href="/smnsh/test/initData">INICJALIZACJA DANYCH DEMONSTRACYJNYCH/TESTOWYCH</a></li>
 				<li class="nav-item btn btn-outline-secondary m-1"><a href="/smnsh/test/thymeleaf/projects">PROJEKTY (thymeleaf)</a></li>
 				<li class="nav-item btn btn-outline-secondary m-1"><a href="/smnsh/test/jsp/projects">PROJEKTY (jsp)</a></li>
-				<li class="nav-item btn btn-outline-secondary m-1"><a href="/#" disabled>URZ¥DZENIA</a></li>
-				<li class="nav-item btn btn-outline-secondary m-1"><a href="/#" disabled>KLIENCI</a></li>
-				<li class="nav-item btn btn-outline-secondary m-1"><a href="/#" disabled>PODWYKONAWCY</a></li>
-				<li class="nav-item btn btn-outline-secondary m-1"><a href="/#" disabled>U¯YTKOWNICY</a></li>
+				<li class="nav-item btn btn-outline-secondary m-1"><a href="/#">URZÄ„DZENIA</a></li>
+				<li class="nav-item btn btn-outline-secondary m-1"><a href="/#">KLIENCI</a></li>
+				<li class="nav-item btn btn-outline-secondary m-1"><a href="/#">PODWYKONAWCY</a></li>
+				<li class="nav-item btn btn-outline-secondary m-1"><a href="/#">UÅ»YTKOWNICY</a></li>
 			</ul>
 		</div>
 </div>

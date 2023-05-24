@@ -38,6 +38,9 @@ public class Project {
 	private String location;
 	private String user;
 	
+	/*
+	 * TODO change Sring device to the DevicePrototype class and relation
+	 */
 	private String device;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -54,6 +57,9 @@ public class Project {
 	
 	private String deadline;
 	
+	/*
+	 * TODO: change String collection to the milestone.class
+	 */
 	@ElementCollection
 //	@CollectionTable(
 //			name = "Milestones", 

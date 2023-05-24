@@ -22,6 +22,8 @@ import pl.krzysztofskul.sensit.smnsh.project.ProjectService;
 @RequestMapping("/smnsh/test")
 public class SmnshTestController {
 
+	private boolean isInitDataDone = false;
+	
 	private ProjectTestGenerator projectTestGenerator;
 	private ProjectService projectService;
 	private UserGenerator userGenerator;
@@ -51,36 +53,33 @@ public class SmnshTestController {
 	@GetMapping("/initData")
 	public String initDemoData() {
 		
-		System.out.println("Data initialization to databse has started...");
-		
-		/*
-		 * init. essential modality list
-		 */
-		modalityGenerator.createAndSaveToDbEssentialModalities();
-		
-		/*
-		 * init. demo portfolio devices
-		 */
-		devicePortfolioGenerator.initDevicePortfolioListDemo();
-		
-		/*
-		 * init. essential users
-		 */
-		List<User> userList = userGenerator.createAndGetEssentialUsers();
-		for (User user : userList) {
-			userService.save(user);
+		if (!isInitDataDone) {
+			System.out.println("Data initialization to databse has started...");
+			/*
+			 * init. essential modality list
+			 */
+			modalityGenerator.createAndSaveToDbEssentialModalities();
+			/*
+			 * init. demo portfolio devices
+			 */
+			devicePortfolioGenerator.initDevicePortfolioListDemo();
+			/*
+			 * init. essential users
+			 */
+			List<User> userList = userGenerator.createAndGetEssentialUsers();
+			for (User user : userList) {
+				userService.save(user);
+			}
+			/*
+			 * init. demo projects
+			 */
+			List<Project> projectList = projectTestGenerator.getDemoProjects();
+			for (Project project : projectList) {
+				projectService.save(project);
+			}
+			isInitDataDone = true;
+			System.out.println("Data initialization to databse has been finished.");
 		}
-		
-		/*
-		 * init. demo projects
-		 */
-		List<Project> projectList = projectTestGenerator.getDemoProjects();
-		for (Project project : projectList) {
-			projectService.save(project);
-		}
-		
-		System.out.println("Data initialization to databse has been finished.");
-		
 		/*
 		 * return to page
 		 */

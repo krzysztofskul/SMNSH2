@@ -47,6 +47,11 @@ public class ProjectTestGenerator {
 				Project project = new Project();
 				project.setName("Projekt demo/test " + loremIpsum.getTitle(1));
 				project.setCode("TES" + (new Random().nextInt(8999)+1000));
+				
+				project.setBackground(loremIpsum.getHtmlParagraphs(1, 2));
+				project.setGoals(loremIpsum.getWords(5, 5));
+				project.setRisks(loremIpsum.getWords(5, 10));
+				
 				project.setSalesRep(userService.loadByEmail(userSalesRep.getEmail()));
 				project.setInvestor(loremIpsum.getTitle(1) + " Med Investments sp. z o.o.");
 				project.setLocation("09-199 Warszawa, ul. Testowa 99");

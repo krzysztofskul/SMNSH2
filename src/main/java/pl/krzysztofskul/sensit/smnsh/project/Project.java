@@ -30,6 +30,16 @@ public class Project {
 	private String name;
 	private String code;
 	
+	@Column(length = 1024)
+	private String background;
+	private String goals;
+	private String risks;
+	
+	/*
+	 * TODO: create remarks/comments/chat/discussion class and functionality for project
+	 */
+	//private ...;
+	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private User salesRep;
 	private String contractNo;
@@ -56,6 +66,11 @@ public class Project {
 	private String designer;
 	
 	private String deadline;
+	
+	/*
+	 * TODO create status for project (pre-contract/realization/finished/no-bid) - StatusClass and StatusEnum
+	 */
+	//private ...
 	
 	/*
 	 * TODO: change String collection to the milestone.class
@@ -124,6 +139,48 @@ public class Project {
 		this.code = code;
 	}
 	
+	/**
+	 * @return the background
+	 */
+	public String getBackground() {
+		return background;
+	}
+
+	/**
+	 * @param background the background to set
+	 */
+	public void setBackground(String background) {
+		this.background = background;
+	}
+
+	/**
+	 * @return the goals
+	 */
+	public String getGoals() {
+		return goals;
+	}
+
+	/**
+	 * @param goals the goals to set
+	 */
+	public void setGoals(String goals) {
+		this.goals = goals;
+	}
+
+	/**
+	 * @return the risks
+	 */
+	public String getRisks() {
+		return risks;
+	}
+
+	/**
+	 * @param risks the risks to set
+	 */
+	public void setRisks(String risks) {
+		this.risks = risks;
+	}
+
 	/**
 	 * @return the salesRep
 	 */

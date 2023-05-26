@@ -1,5 +1,8 @@
 package pl.krzysztofskul.sensit.smnsh.user;
 
+/*
+ * TODO create user login and register functionality
+ */
 public enum UserAction {
         REGISTER {
             @Override

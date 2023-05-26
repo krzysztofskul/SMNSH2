@@ -8,8 +8,8 @@
 			<img class="d-inline-block" height="30px" th:src="@{/pics/logo-smnsh.svg}"/>	
 		</div>	
 		<div class="menu">
-			<ul class="nav nav-pills mb-2">
-				<li class="nav-item btn btn-outline-secondary m-1"><a href="/">STRONA DOMOWA</a></li>
+			<ul class="nav nav-pills">
+ 				<li class="nav-item btn btn-outline-secondary m-1"><a href="/">STRONA DOMOWA</a></li>
 				<li class="nav-item btn btn-outline-secondary m-1"><a href="/smnsh/test/initData">INICJALIZACJA DANYCH DEMONSTRACYJNYCH/TESTOWYCH</a></li>
 				<li class="nav-item btn btn-outline-secondary m-1"><a href="/smnsh/test/thymeleaf/projects">PROJEKTY (thymeleaf)</a></li>
 				<li class="nav-item btn btn-outline-secondary m-1"><a href="/smnsh/test/jsp/projects">PROJEKTY (jsp)</a></li>
@@ -17,6 +17,26 @@
 				<li class="nav-item btn btn-outline-secondary m-1"><a href="#">KLIENCI</a></li>
 				<li class="nav-item btn btn-outline-secondary m-1"><a href="#">PODWYKONAWCY</a></li>
 				<li class="nav-item btn btn-outline-secondary m-1"><a href="#">UŻYTKOWNICY</a></li>
+				
+				<!-- DISABLED TEST -->			
+				<li class="nav-item">
+					<a href="/" class="nav-link">TEST 1</a>
+				</li>
+				<li class="nav-item sensit-disabled">
+					<a href="/" class="nav-link disabled">TEST 2</a>
+				</li>
+				<li class="nav-item dropdown">
+				  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+				  <div class="dropdown-menu">
+				    <a class="dropdown-item" href="#">Action</a>
+				    <a class="dropdown-item" href="#">Another action</a>
+				    <a class="dropdown-item" href="#">Something else here</a>
+				    <div class="dropdown-divider"></div>
+				    <a class="dropdown-item" href="#">Separated link</a>
+				  </div>
+				</li>
+				
+				
 			</ul>
 		</div>
 </div>

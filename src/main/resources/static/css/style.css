@@ -37,3 +37,8 @@
 	min-height: 200px;
 	background-color: gray;
 }
+
+.sensit-disabled:hover {
+	cursor: not-allowed;
+	
+}

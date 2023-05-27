@@ -42,3 +42,25 @@
 	cursor: not-allowed;
 	
 }
+
+.sensit-langPl {
+    font-style: normal;
+    font-weight: bold;
+    font-size: small;
+    margin: 0;
+    padding: 0;
+}
+
+.sensit-langEn {
+    font-style: italic;
+    font-weight: normal;
+    font-size: x-small;
+    margin: 0;
+    padding: 0;
+}
+
+.-sensit-error {
+    color: red;
+    font-size: 12px;
+    font-style: italic;
+}

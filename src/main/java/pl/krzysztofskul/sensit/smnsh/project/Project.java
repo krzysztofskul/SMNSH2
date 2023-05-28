@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
+import pl.krzysztofskul.sensit.smnsh.project.status.Status;
 import pl.krzysztofskul.sensit.smnsh.user.User;
 
 @Entity
@@ -67,10 +68,7 @@ public class Project {
 	
 	private String deadline;
 	
-	/*
-	 * TODO create status for project (pre-contract/realization/finished/no-bid) - StatusClass and StatusEnum
-	 */
-	//private ...
+	private Status status;
 	
 	/*
 	 * TODO: change String collection to the milestone.class
@@ -333,6 +331,20 @@ public class Project {
 	 */
 	public void setDeadline(String deadline) {
 		this.deadline = deadline;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public Status getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status the status to set
+	 */
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	/**

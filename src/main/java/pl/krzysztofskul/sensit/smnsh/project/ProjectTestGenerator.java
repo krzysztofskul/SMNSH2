@@ -12,6 +12,7 @@ import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
+import pl.krzysztofskul.sensit.smnsh.project.status.Status;
 import pl.krzysztofskul.sensit.smnsh.user.User;
 import pl.krzysztofskul.sensit.smnsh.user.UserService;
 
@@ -82,6 +83,7 @@ public class ProjectTestGenerator {
 				project.setContractNo("U-TES-2023-" + new Random().nextInt(99));
 				project.setDevice("MAGNESO " + loremIpsum.getTitle(1));
 				project.setDeadline(LocalDate.now().plusWeeks(new Random().nextInt(12 * 4)).toString());
+				project.setStatus(Status.EXECUTION);
 				projectList.add(project);
 			}
 			

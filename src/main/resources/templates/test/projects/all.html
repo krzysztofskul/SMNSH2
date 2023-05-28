@@ -33,6 +33,10 @@
 		      <th scope="col">Handlowiec/Sales rep.</th>
 		      <th scope="col">Kierownik projektu/Project manager</th>
 		      <th scope="col">Termin realizacji/Deadline</th>
+		      <th scope="col">
+					<p class="sensit-langPl">Status</p>
+					<p class="sensit-langEn">Status</p>
+		      </th>
 		      <th scope="col">OPCJE/OPTIONS</th>
 		    </tr>
 		  </thead>
@@ -48,6 +52,10 @@
 		      <td th:text="${project.salesRep.nameFirst} + ' ' + ${project.salesRep.nameLast}"></td>
 		      <td th:text="${project.projectManager.nameFirst} + ' ' + ${project.projectManager.nameLast}"></td>
 		      <td th:text="${project.deadline}"></td>
+		      <td>
+		      	<p th:text="${project.status.namePl}" class="sensit-langPl"></p>
+		      	<p th:text="${project.status.nameEn}" class="sensit-langEn"></p>		      
+		      </td>
 		      <td>
 		      	<a th:href="@{'/smnsh/projects/'+${project.id}}" class="btn btn-outline-secondary">
 		      		SZCZEGÓŁY/DETAILS

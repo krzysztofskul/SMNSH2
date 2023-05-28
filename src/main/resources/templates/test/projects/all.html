@@ -24,20 +24,49 @@
 		<table class="table table-hover">
 		  <thead>
 		    <tr>
-		      <th scope="col" style="width:5%">ID</th>
-		      <th scope="col">Kod projektu<br><span style="font-style:italic">Project code</span></th>
-		      <th scope="col">Nazwa projektu/Project name</th>
-		      <th scope="col">Inwestor/Investor</th>
-		      <th scope="col">Nr umowy/Contract no.</th>
-		      <th scope="col">Aparat/Device</th>
-		      <th scope="col">Handlowiec/Sales rep.</th>
-		      <th scope="col">Kierownik projektu/Project manager</th>
-		      <th scope="col">Termin realizacji/Deadline</th>
+		      	<th scope="col" style="width:5%">
+		      		<p class="sensit-langPl">ID</p>
+		      		<p class="sensit-langEn"></p>
+	      		</th>
+		      <th scope="col">
+		      	<p class="sensit-langPl">Kod projektu</p>
+		      	<p class="sensit-langEn">project code</p>
+		      <th scope="col">
+		      	<p class="sensit-langPl">Nazwa projektu</p>
+		      	<p class="sensit-langEn">project name</p>
+	      		</th>
+		      <th scope="col">
+		      	<p class="sensit-langPl">Inwestor</p>
+		      	<p class="sensit-langEn">investor</p>
+		      	</th>
+		      <th scope="col">
+		      	<p class="sensit-langPl">Nr umowy</p>
+		      	<p class="sensit-langEn">contract no.</p>
+		      	</th>
+		      <th scope="col">
+		      	<p class="sensit-langPl">Aparat</p>
+		      	<p class="sensit-langEn">device
+		      	</th>
+		      <th scope="col">
+		      	<p class="sensit-langPl">Handlowiec</p>
+		      	<p class="sensit-langEn">sales rep.</p>
+		      	</th>
+		      <th scope="col">
+		      	<p class="sensit-langPl">Kierownik projektu</p>
+		      	<p class="sensit-langEn">project manager</p>
+		      	</th>
+		      <th scope="col">
+		      	<p class="sensit-langPl">Termin realizacji</p>
+		      	<p class="sensit-langEn">deadline</p>
+		      	</th>
 		      <th scope="col">
 					<p class="sensit-langPl">Status</p>
 					<p class="sensit-langEn">Status</p>
 		      </th>
-		      <th scope="col">OPCJE/OPTIONS</th>
+		      <th scope="col">
+		      	<p class="sensit-langPl">...</p>
+		      	<p class="sensit-langEn">...</p>
+		      	</th>
 		    </tr>
 		  </thead>
 		  <tbody>
@@ -58,7 +87,8 @@
 		      </td>
 		      <td>
 		      	<a th:href="@{'/smnsh/projects/'+${project.id}}" class="btn btn-outline-secondary">
-		      		SZCZEGÓŁY/DETAILS
+		      		<p class="sensit-langPl">Szczegóły</p>
+		      		<p class="sensit-langEn">details</p>
 		      	</a>
 		      </td>
 		    </tr>

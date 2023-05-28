@@ -5,17 +5,47 @@
 <div th:fragment="menu-project (projectId)" class="sensit-menu">
 		<div>
 			<ul class="nav nav-pills mb-2">
-				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a th:href="@{/smnsh/projects/{projectId}(projectId=${projectId})}">DANE PODSTAWOWE/HANDLOWE</a></li>
-				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="#">KONFIGURACJA URZĄDZEŃ</a></li>				
-				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a th:href="@{/smnsh/projects/{projectId}/milestones(projectId=${projectId})}">KAMIENIE MILOWE</a></li>
-				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a th:href="@{/smnsh/projects/{projectId}/stakeholders(projectId=${projectId})}">INTERESARIUSZE</a></li>
-				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="#">GENEZA</a></li>
-				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="#">RYZYKA</a></li>
-				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="#">CELE</a></li>
-				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="#">ZAŁĄCZNIKI</a></li>
-				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="#">KOMENTARZE</a></li>
-				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="#">PANEL DYSKUSJI / UWAGI</a></li>
-				<li class="nav-item btn btn-sm btn-outline-secondary m-1"><a href="#">EKSPORT KPDS</a></li>
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1">
+					<a th:href="@{/smnsh/projects/{projectId}(projectId=${projectId})}">
+						<p class="sensit-langPl">DANE PODSTAWOWE/HANDLOWE</p>
+						<p class="sensit-langEn">Basic/Trade data</p>
+					</a>
+				</li>
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1">
+					<a href="#">
+						<p class="sensit-langPl">KONFIGURACJA</p>
+					</a>
+				</li>				
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1">
+					<a th:href="@{/smnsh/projects/{projectId}/milestones(projectId=${projectId})}">
+						<p class="sensit-langPl">KAMIENIE MILOWE</p>
+					</a>
+				</li>
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1">
+					<a th:href="@{/smnsh/projects/{projectId}/stakeholders(projectId=${projectId})}">
+						<p class="sensit-langPl">INTERESARIUSZE</p>
+					</a>
+				</li>
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1">
+					<a href="#">
+						<p class="sensit-langPl">ZAŁĄCZNIKI</p>
+					</a>
+				</li>
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1">
+					<a href="#">
+						<p class="sensit-langPl">KOMENTARZE /PANEL DYSKUSJI / UWAGI</p>
+					</a>
+				</li>
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1">
+					<a href="#">
+						<p class="sensit-langPl">HISTORIA</p>
+					</a>
+				</li>
+				<li class="nav-item btn btn-sm btn-outline-secondary m-1">
+					<a href="#">
+						<p class="sensit-langPl">EKSPORT KPDS</p>
+					</a>
+				</li>
 			</ul>
 		</div>
 </div>

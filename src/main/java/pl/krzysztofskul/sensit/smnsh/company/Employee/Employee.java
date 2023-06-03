@@ -38,7 +38,6 @@ public class Employee {
 	 * CONSTRUCTOR
 	 */
 	public Employee() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

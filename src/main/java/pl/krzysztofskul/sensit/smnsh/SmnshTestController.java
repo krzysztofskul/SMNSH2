@@ -89,14 +89,6 @@ public class SmnshTestController {
 				userService.save(user);
 			}
 			/*
-			 * init. demo projects
-			 */
-			List<Project> projectList = projectTestGenerator.getDemoProjects();
-			for (Project project : projectList) {
-				projectService.save(project);
-			}
-			
-			/*
 			 * init demo companies
 			 */
 			List<Company> companyList = companyDemoGenerator.initDataAndReturn();
@@ -104,6 +96,15 @@ public class SmnshTestController {
 				//companyService.saveAndReturn(company);
 				companyService.save(company);
 			}
+			/*
+			 * init. demo projects
+			 */
+			List<Project> projectList = projectTestGenerator.getDemoProjects();
+			for (Project project : projectList) {
+				projectService.save(project);
+			}
+			
+
 			
 			isInitDataDone = true;
 			System.out.println("Data initialization to databse has been finished.");

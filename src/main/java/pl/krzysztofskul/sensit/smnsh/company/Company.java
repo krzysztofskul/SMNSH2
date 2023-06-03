@@ -31,8 +31,14 @@ public class Company {
 	
 	private String name;
 	
-	@OneToMany(mappedBy = "subcontractor")
-	private List<Project> projects = new ArrayList<Project>();
+	@OneToMany
+	private List<Project> projectsAsInvestor = new ArrayList<Project>();
+	
+	@OneToMany
+	private List<Project> projectsAsConsumer = new ArrayList<Project>();
+	
+	@ManyToMany
+	private List<Project> projectsAsSubcontractor = new ArrayList<Project>();
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private ContactDetails contactDetails;
@@ -104,12 +110,46 @@ public class Company {
 		this.name = name;
 	}
 
-	public List<Project> getProjects() {
-		return projects;
+	/**
+	 * @return the projectsAsInvestor
+	 */
+	public List<Project> getProjectsAsInvestor() {
+		return projectsAsInvestor;
 	}
 
-	public void setProjects(List<Project> projects) {
-		this.projects = projects;
+	/**
+	 * @param projectsAsInvestor the projectsAsInvestor to set
+	 */
+	public void setProjectsAsInvestor(List<Project> projectsAsInvestor) {
+		this.projectsAsInvestor = projectsAsInvestor;
+	}
+
+	/**
+	 * @return the projectsAsConsumer
+	 */
+	public List<Project> getProjectsAsConsumer() {
+		return projectsAsConsumer;
+	}
+
+	/**
+	 * @param projectsAsConsumer the projectsAsConsumer to set
+	 */
+	public void setProjectsAsConsumer(List<Project> projectsAsConsumer) {
+		this.projectsAsConsumer = projectsAsConsumer;
+	}
+
+	/**
+	 * @return the projectsAsSubcontractor
+	 */
+	public List<Project> getProjectsAsSubcontractor() {
+		return projectsAsSubcontractor;
+	}
+
+	/**
+	 * @param projectsAsSubcontractor the projectsAsSubcontractor to set
+	 */
+	public void setProjectsAsSubcontractor(List<Project> projectsAsSubcontractor) {
+		this.projectsAsSubcontractor = projectsAsSubcontractor;
 	}
 
 	public ContactDetails getContactDetails() {

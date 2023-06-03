@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 
+import pl.krzysztofskul.sensit.smnsh.company.CompanyService;
+import pl.krzysztofskul.sensit.smnsh.company.CompanyCategory.CompanyCategoryEnum;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.sensit.smnsh.project.status.Status;
 import pl.krzysztofskul.sensit.smnsh.user.User;
@@ -21,6 +23,7 @@ public class ProjectTestGenerator {
 
 	private ProjectRepo projectRepo;
 	private UserService userService;
+	private CompanyService companyService;
 
 	/**
 	 * CONSTRUCTOR
@@ -28,9 +31,11 @@ public class ProjectTestGenerator {
 	 * @param projectRepo
 	 * @param userService
 	 */
-	public ProjectTestGenerator(ProjectRepo projectRepo, UserService userService) {
+	public ProjectTestGenerator(ProjectRepo projectRepo, UserService userService,
+			CompanyService companyService) {
 		this.projectRepo = projectRepo;
 		this.userService = userService;
+		this.companyService = companyService;
 	}
 
 	/**
@@ -54,9 +59,7 @@ public class ProjectTestGenerator {
 				project.setRisks(loremIpsum.getWords(5, 10));
 				
 				project.setSalesRep(userService.loadByEmail(userSalesRep.getEmail()));
-				project.setInvestor(loremIpsum.getTitle(1) + " Med Investments sp. z o.o.");
-				project.setLocation("09-199 Warszawa, ul. Testowa 99");
-				project.setUser("Pracownia demonstracyjna w szpitalu klinicznym");				
+				project.setInvestor(companyService.loadRandomInvestor());
 				project.setProjectManager(userService.loadByEmail(userPM.getEmail()));				
 				List<Stakeholder> stakeholders = new ArrayList<>();
 				stakeholders.add(new Stakeholder("Dyrektor ds. technicznych", project));

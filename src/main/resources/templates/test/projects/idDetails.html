@@ -49,16 +49,30 @@
 					<div class="col-8 content"><span th:text="${project.contractNo}"/></div>
 				</div>
 				<div class="row">
-					<div class="col-4 title">Inwestor</div>
-					<div class="col-8 content"><span th:text="${project.investor}"/></div>
+					<div class="col-4 title">Inwestor (płatnik)</div>
+					<div class="col-8 content">
+						<div class="row">
+							<div class="col-12">
+								<span th:text="${project.investor.name}"/>
+							</div>							
+							<div class="col-12">
+								<span th:text="|${project.investor.contactDetails.address.country};|"/>
+								<span th:text="${project.investor.contactDetails.address.zipCode} "/>
+								<span th:text="|${project.investor.contactDetails.address.city}, |"/>
+								<span th:text="|ul. ${project.investor.contactDetails.address.streetName} |"/>
+								<span th:text="${project.investor.contactDetails.address.streetNo}"/>
+							</div>
+							
+						</div>
+					</div>
 				</div>
 				<div class="row">
-					<div class="col-4 title">Lokalizacja</div>
-					<div class="col-8 content"><span th:text="${project.location}"/></div>
+					<div class="col-4 title">Klient (odbiorca/użytkownik)</div>
+					<div class="col-8 content"><span th:text="..."/></div>
 				</div>
 				<div class="row">
 					<div class="col-4 title">Użytkownik końcowy</div>
-					<div class="col-8 content"><span th:text="${project.user}"/></div>
+					<div class="col-8 content"><span th:text="..."/></div>
 				</div>
 				<div class="row">
 					<div class="col-4 title">Termin realizacji</div>

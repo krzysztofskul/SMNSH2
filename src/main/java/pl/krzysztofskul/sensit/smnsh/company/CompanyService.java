@@ -2,6 +2,7 @@ package pl.krzysztofskul.sensit.smnsh.company;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,13 @@ public class CompanyService {
 	
 	public Company saveAndReturn(Company company) {
 		return companyRepo.save(company);
+	}
+
+	public Company loadRandomInvestor() {
+		List<Company> investorList = companyRepo.findAllByCompanyCategoryEnum(CompanyCategoryEnum.INVESTOR);
+		Company companyInvestor = investorList.get(new Random().nextInt(investorList.size()));
+		
+		return companyInvestor;
 	}
 	
 //	public List<Company> loadAllByCompanyCategoryEnum(CompanyCategoryEnum comCatEnum) {

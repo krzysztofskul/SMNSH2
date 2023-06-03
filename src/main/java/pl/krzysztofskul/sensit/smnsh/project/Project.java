@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.ElementCollection;
@@ -16,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import pl.krzysztofskul.sensit.smnsh.company.Company;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.sensit.smnsh.project.status.Status;
 import pl.krzysztofskul.sensit.smnsh.user.User;
@@ -45,9 +47,24 @@ public class Project {
 	private User salesRep;
 	private String contractNo;
 	
-	private String investor;
-	private String location;
-	private String user;
+	@ManyToOne
+	private Company investor;
+
+	/*
+	 * TODO create relation with consumer
+	 * TODO update project demo generator with consumer
+	 * TODO update front-end projects and project by id
+	 */
+	@ManyToOne
+	private Company consumer;
+	
+	/*
+	 * TODO create relation with subcontractors
+	 * update project demo generator with subcontractors
+	 * update front-end projects and project by id
+	 */
+	@ManyToMany
+	private List<Company> subcontractors = new ArrayList<Company>();
 	
 	/*
 	 * TODO change Sring device to the DevicePrototype class and relation
@@ -210,43 +227,43 @@ public class Project {
 	/**
 	 * @return the investor
 	 */
-	public String getInvestor() {
+	public Company getInvestor() {
 		return investor;
 	}
 
 	/**
 	 * @param investor the investor to set
 	 */
-	public void setInvestor(String investor) {
+	public void setInvestor(Company investor) {
 		this.investor = investor;
 	}
 
 	/**
-	 * @return the location
+	 * @return the consumer
 	 */
-	public String getLocation() {
-		return location;
+	public Company getConsumer() {
+		return consumer;
 	}
 
 	/**
-	 * @param location the location to set
+	 * @param consumer the consumer to set
 	 */
-	public void setLocation(String location) {
-		this.location = location;
+	public void setConsumer(Company consumer) {
+		this.consumer = consumer;
+	}
+	
+	/**
+	 * @return the subcontractor
+	 */
+	public List<Company> getSubcontractors() {
+		return subcontractors;
 	}
 
 	/**
-	 * @return the user
+	 * @param sucontractors the subcontractors to set
 	 */
-	public String getUser() {
-		return user;
-	}
-
-	/**
-	 * @param user the user to set
-	 */
-	public void setUser(String user) {
-		this.user = user;
+	public void setSubcontractors(List<Company> subcontractors) {
+		this.subcontractors = subcontractors;
 	}
 
 	/**

@@ -1,5 +1,6 @@
 package pl.krzysztofskul.sensit.smnsh.project;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import pl.krzysztofskul.sensit.smnsh.company.Company;
+import pl.krzysztofskul.sensit.smnsh.project.remark.Remark;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.sensit.smnsh.project.status.Status;
 import pl.krzysztofskul.sensit.smnsh.user.User;
@@ -38,10 +40,7 @@ public class Project {
 	private String goals;
 	private String risks;
 	
-	/*
-	 * TODO: create remarks/comments/chat/discussion class and functionality for project
-	 */
-	//private ...;
+	private LocalDateTime dateTimeOfCreation = LocalDateTime.now();
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private User salesRep;
@@ -51,12 +50,12 @@ public class Project {
 	private Company investor;
 
 	/*
-	 * TODO create relation with consumer
-	 * TODO update project demo generator with consumer
+	 * TODO create relation with customer
+	 * TODO update project demo generator with customer
 	 * TODO update front-end projects and project by id
 	 */
 	@ManyToOne
-	private Company consumer;
+	private Company customer;
 	
 	/*
 	 * TODO create relation with subcontractors
@@ -86,6 +85,9 @@ public class Project {
 	private String deadline;
 	
 	private Status status;
+	
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+	private List<Remark> remarks = new ArrayList<Remark>();
 	
 	/*
 	 * TODO: change String collection to the milestone.class
@@ -197,6 +199,20 @@ public class Project {
 	}
 
 	/**
+	 * @return the dateTimeOfCreation
+	 */
+	public LocalDateTime getDateTimeOfCreation() {
+		return dateTimeOfCreation;
+	}
+
+	/**
+	 * @param dateTimeOfCreation the dateTimeOfCreation to set
+	 */
+	public void setDateTimeOfCreation(LocalDateTime dateTimeOfCreation) {
+		this.dateTimeOfCreation = dateTimeOfCreation;
+	}
+
+	/**
 	 * @return the salesRep
 	 */
 	public User getSalesRep() {
@@ -237,21 +253,21 @@ public class Project {
 	public void setInvestor(Company investor) {
 		this.investor = investor;
 	}
-
-	/**
-	 * @return the consumer
-	 */
-	public Company getConsumer() {
-		return consumer;
-	}
-
-	/**
-	 * @param consumer the consumer to set
-	 */
-	public void setConsumer(Company consumer) {
-		this.consumer = consumer;
-	}
 	
+	/**
+	 * @return the customer
+	 */
+	public Company getCustomer() {
+		return customer;
+	}
+
+	/**
+	 * @param customer the customer to set
+	 */
+	public void setCustomer(Company customer) {
+		this.customer = customer;
+	}
+
 	/**
 	 * @return the subcontractor
 	 */
@@ -365,6 +381,20 @@ public class Project {
 	}
 
 	/**
+	 * @return the remarks
+	 */
+	public List<Remark> getRemarks() {
+		return remarks;
+	}
+
+	/**
+	 * @param remarks the remarks to set
+	 */
+	public void setRemarks(List<Remark> remarks) {
+		this.remarks = remarks;
+	}
+
+	/**
 	 * @return the milestones
 	 */
 	public List<String> getMilestones() {
@@ -378,5 +408,11 @@ public class Project {
 		this.milestones = milestones;
 	}
 
-
+	/**
+	 * Method adds remark to the list of remarks connected with project
+	 */
+	public void addRemark(Remark remark) {
+		this.remarks.add(remark);
+		remark.setProject(this);
+	}
 }

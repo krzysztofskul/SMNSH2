@@ -42,5 +42,11 @@ public class ProjectService {
 		Hibernate.initialize(project.getMilestones());
 		return project;
 	}
+
+	public Project loadByIdWithRemarks(Long id) {
+		Project project = this.loadById(id);
+		Hibernate.initialize(project.getRemarks());
+		return project;
+	}
 	
 }

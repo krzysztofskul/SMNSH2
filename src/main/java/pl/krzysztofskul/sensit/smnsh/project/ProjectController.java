@@ -50,4 +50,10 @@ public class ProjectController {
 		return "/test/projects/idDetailsAndStakeholders";
 	}
 	
+	@GetMapping("/projects/{id}/remarks")
+	public String getProjectByIdWithRemarks(@PathVariable Long id, Model model) {
+		model.addAttribute("project", projectService.loadByIdWithRemarks(id));
+		return "/test/projects/idDetailsAndRemarks";
+	}
+	
 }

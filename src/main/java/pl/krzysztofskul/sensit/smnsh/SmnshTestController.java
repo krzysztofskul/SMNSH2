@@ -99,7 +99,7 @@ public class SmnshTestController {
 			/*
 			 * init. demo projects
 			 */
-			List<Project> projectList = projectTestGenerator.getDemoProjects();
+			List<Project> projectList = projectTestGenerator.initDataAndReturn();
 			for (Project project : projectList) {
 				projectService.save(project);
 			}

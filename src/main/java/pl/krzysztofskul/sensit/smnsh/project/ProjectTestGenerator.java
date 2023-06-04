@@ -1,6 +1,7 @@
 package pl.krzysztofskul.sensit.smnsh.project;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -13,13 +14,15 @@ import com.thedeanda.lorem.LoremIpsum;
 
 import pl.krzysztofskul.sensit.smnsh.company.CompanyService;
 import pl.krzysztofskul.sensit.smnsh.company.CompanyCategory.CompanyCategoryEnum;
+import pl.krzysztofskul.sensit.smnsh.init.InitDataGenerator;
+import pl.krzysztofskul.sensit.smnsh.project.remark.Remark;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.sensit.smnsh.project.status.Status;
 import pl.krzysztofskul.sensit.smnsh.user.User;
 import pl.krzysztofskul.sensit.smnsh.user.UserService;
 
 @Service
-public class ProjectTestGenerator {
+public class ProjectTestGenerator implements InitDataGenerator<Project> {
 
 	private ProjectRepo projectRepo;
 	private UserService userService;
@@ -42,7 +45,8 @@ public class ProjectTestGenerator {
 	 * Creates and return demo projects
 	 * @return project list
 	 */
-	public List<Project> getDemoProjects() {
+	@Override
+	public List<Project> initDataAndReturn() {
 		List<Project> projectList = new ArrayList<Project>();
 		
 		LoremIpsum loremIpsum = LoremIpsum.getInstance();
@@ -58,9 +62,12 @@ public class ProjectTestGenerator {
 				project.setGoals(loremIpsum.getWords(5, 5));
 				project.setRisks(loremIpsum.getWords(5, 10));
 				
+				project.setDateTimeOfCreation(LocalDateTime.now().minusMinutes(new Random().nextInt(60*24*7*4)));
+				
 				project.setSalesRep(userService.loadByEmail(userSalesRep.getEmail()));
 				project.setInvestor(companyService.loadRandomInvestor());
 				project.setProjectManager(userService.loadByEmail(userPM.getEmail()));				
+				
 				List<Stakeholder> stakeholders = new ArrayList<>();
 				stakeholders.add(new Stakeholder("Dyrektor ds. technicznych", project));
 				stakeholders.add(new Stakeholder("Dyrektor ds. administracyjnych", project));
@@ -69,6 +76,7 @@ public class ProjectTestGenerator {
 				stakeholders.add(new Stakeholder("Sekretariat", project));
 				project.setStakeholders(stakeholders);
 				project.setDesigner("Krzysztof K.");
+				
 				List<String> milestones = new ArrayList<String>();
 				milestones.add("Podpisanie Umowy");
 				milestones.add("Zlecenie wykonania koncepcji");
@@ -83,10 +91,15 @@ public class ProjectTestGenerator {
 				milestones.add("Szkolenia");
 				milestones.add("Odbiór");
 				project.setMilestones(milestones);
+				
 				project.setContractNo("U-TES-2023-" + new Random().nextInt(99));
 				project.setDevice("MAGNESO " + loremIpsum.getTitle(1));
 				project.setDeadline(LocalDate.now().plusWeeks(new Random().nextInt(12 * 4)).toString());
 				project.setStatus(Status.EXECUTION);
+				
+				project.addRemark(new Remark(project.getSalesRep(), project.getDateTimeOfCreation().plusSeconds(new Random().nextInt(60*60*24*7)), LoremIpsum.getInstance().getParagraphs(1, 1)));
+				project.addRemark(new Remark(project.getProjectManager(), project.getDateTimeOfCreation().plusSeconds(new Random().nextInt(60*60*24*7)), LoremIpsum.getInstance().getWords(5, 10)));
+				
 				projectList.add(project);
 			}
 			
@@ -95,5 +108,6 @@ public class ProjectTestGenerator {
 		
 		return projectList;
 	}
+
 	
 }

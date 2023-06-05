@@ -16,7 +16,12 @@
 	<div class="container">
 		
 		<div class="card sensit-card">
-			<div class="card-header"></div>
+			<div class="card-header">
+				<div class="col-12 text-center">
+					<p class="sensit-langPl">SZCZEGÓŁY PROJEKTU</p>
+					<p class="sensit-langEn">PROJECT DETAILS</p>
+				</div>
+			</div>
 			<div class="card-body">
 				<div class="row">	
 					<div class="col-4 title">Nazwa projektu</div>
@@ -83,7 +88,16 @@
 					<div class="col-8 content"><span th:text="${project.status.namePl}"/></div>
 				</div>
 			</div>
-			<div class="card-footer"></div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-12 text-right">
+						<button class="btn btn-outline-primary text-center disabled">
+							<p class="sensit-langPl">EDYTUJ</p>
+							<p class="sensit-langEn">EDIT</p>
+						</button>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	</div>

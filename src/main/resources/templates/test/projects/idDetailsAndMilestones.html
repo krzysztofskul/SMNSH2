@@ -16,7 +16,12 @@
 	<div class="container">
 		
 		<div class="card sensit-card">
-			<div class="card-header"></div>
+			<div class="card-header">
+				<div class="col-12 text-center">
+					<p class="sensit-langPl">KAMIENIE MILOWE</p>
+					<p class="sensit-langEn">MILESTONES</p>
+				</div>
+			</div>
 			<div class="card-body">
 				<div class="row" th:each="milestone: ${project.milestones}">
 				
@@ -35,7 +40,16 @@
 				
 				</div>
 			</div>
-			<div class="card-footer"></div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-12 text-right">
+						<button class="btn btn-outline-success text-center disabled">
+							<p class="sensit-langPl">DODAJ</p>
+							<p class="sensit-langEn">ADD</p>
+						</button>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	</div>

@@ -14,7 +14,11 @@ public class SensitController {
 
 	@GetMapping({"/home", "/"})
 	public String home() {
-		return "redirect:/smnsh/test/thymeleaf/projects";
+		return "redirect:/smnsh/home";
 	}
-
+	
+	@GetMapping({"/smnsh/home"})
+	public String smnshHome() {
+		return "/test/home";
+	}
 }

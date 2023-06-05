@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.sensit-card {
+	margin: 10px;
+}
+
+.sensit-card .card-header {
+	min-height: 75px;
+}
+
+.sensit-card .card-body .title {
+	text-align: right;
+	font-style: italic;
+	color: #808080;
+}
+
+.sensit-card .card-body .content {
+	text-align: left;
+	font-style: bold;
+}
+
+.sensit-card .card-body > .row {
+	border-top: 1px solid #e6e6e6;
+	min-height: 50px;
+	margin: 5px 0px 0px;
+	padding: 2px 0px 0px;
+}

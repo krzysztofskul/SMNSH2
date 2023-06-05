@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xlmns:th="https://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>SMNSH</title>
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- CSS -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+	<div th:replace="./header" :: header class="sensit-header"></div>
+	<div th:replace="./menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
+
+	<div class="container">
+		
+		<div class="card sensit-card">
+			<div class="card-header">
+				<div class="col-12 text-center">
+					<p class="sensit-langPl">SZCZEGÓŁY PROJEKTU</p>
+					<p class="sensit-langEn">PROJECT DETAILS</p>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="row">	
+					<div class="col-4 title">Nazwa projektu</div>
+					<div class="col-8 content"><span th:text="${project.name}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Kod projektu</div>
+					<div class="col-8 content"><span th:text="${project.code}"/></div>
+				</div>
+
+				<div class="row">
+					<div class="col-4 title">Geneza projektu</div>
+					<div class="col-8 content"><span th:text="${project.background}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Cele projetu</div>
+					<div class="col-8 content"><span th:text="${project.goals}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Ryzyka projektu</div>
+					<div class="col-8 content"><span th:text="${project.risks}"/></div>
+				</div>
+
+				<div class="row">
+					<div class="col-4 title">Aparat</div>
+					<div class="col-8 content"><span th:text="${project.device}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Nr umowy</div>
+					<div class="col-8 content"><span th:text="${project.contractNo}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Inwestor (płatnik)</div>
+					<div class="col-8 content">
+						<div class="row">
+							<div class="col-12">
+								<span th:text="${project.investor.name}"/>
+							</div>							
+							<div class="col-12">
+								<span th:text="|${project.investor.contactDetails.address.country};|"/>
+								<span th:text="${project.investor.contactDetails.address.zipCode} "/>
+								<span th:text="|${project.investor.contactDetails.address.city}, |"/>
+								<span th:text="|ul. ${project.investor.contactDetails.address.streetName} |"/>
+								<span th:text="${project.investor.contactDetails.address.streetNo}"/>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Klient (odbiorca/użytkownik)</div>
+					<div class="col-8 content"><span th:text="..."/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Użytkownik końcowy</div>
+					<div class="col-8 content"><span th:text="..."/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Termin realizacji</div>
+					<div class="col-8 content"><span th:text="${project.deadline}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Status</div>
+					<div class="col-8 content"><span th:text="${project.status.namePl}"/></div>
+				</div>
+			</div>
+			<div class="card-footer">
+				<div class="row">
+					<div class="col-12 text-right">
+						<button class="btn btn-outline-primary text-center disabled">
+							<p class="sensit-langPl">EDYTUJ</p>
+							<p class="sensit-langEn">EDIT</p>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div th:replace="./footer" :: footer class="sensit-footer"></div>
+
+</body>
+</html>

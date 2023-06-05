@@ -1,0 +1,65 @@
+@charset "UTF-8";
+
+@import url(./style-cards.css);
+
+.sensit-test {
+	background-color: yellow;
+}
+
+.sensit-header {
+	min-height: 125px;
+	background-color: #f2f2f2;
+	border-bottom: 1px solid gray;
+	padding: 1px;
+	position: relative;
+}
+
+.sensit-header .logo {
+	text-align: right;
+}
+
+.sensit-header .menu {
+	position: absolute;
+	bottom: 0;
+}
+
+.sensit-menu {
+	background-color: #f2f2f2;
+}
+
+.sensit-footer {
+	font-size: 16px;
+	height: 75px;
+	background-color: #f2f2f2;	
+}
+
+.sensit-Hmin250px {
+	min-height: 200px;
+	background-color: gray;
+}
+
+.sensit-disabled:hover {
+	cursor: not-allowed;
+}
+
+.sensit-langPl {
+    font-style: normal;
+    font-weight: bold;
+    font-size: small;
+    margin: 0;
+    padding: 0;
+}
+
+.sensit-langEn {
+    font-style: italic;
+    font-weight: normal;
+    font-size: x-small;
+    margin: 0;
+    padding: 0;
+}
+
+.-sensit-error {
+    color: red;
+    font-size: 12px;
+    font-style: italic;
+}

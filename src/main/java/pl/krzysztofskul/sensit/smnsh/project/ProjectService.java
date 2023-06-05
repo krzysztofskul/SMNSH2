@@ -2,6 +2,7 @@ package pl.krzysztofskul.sensit.smnsh.project;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,28 @@ public class ProjectService {
 
 	public List<Project> loadAll() {
 		return projectRepo.findAll();
+	}
+
+	public Project loadById(Long id) {
+		return projectRepo.findById(id).get();
+	}
+
+	public Project loadByIdWithStakeholders(Long id) {
+		Project project = this.loadById(id);
+		Hibernate.initialize(project.getStakeholders());
+		return project;
+	}
+
+	public Project loadByIdWithMilestones(Long id) {
+		Project project = this.loadById(id);
+		Hibernate.initialize(project.getMilestones());
+		return project;
+	}
+
+	public Project loadByIdWithRemarks(Long id) {
+		Project project = this.loadById(id);
+		Hibernate.initialize(project.getRemarks());
+		return project;
 	}
 	
 }

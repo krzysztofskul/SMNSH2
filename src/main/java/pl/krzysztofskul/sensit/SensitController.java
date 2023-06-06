@@ -28,5 +28,10 @@ public class SensitController {
 	public String smnshTest() {
 		System.out.println("Test controller /test");
 		return "test sensit";
-	}	
+	}
+	
+	@GetMapping("/test2")
+	public String smnshTest2() {
+		return "test";
+	}
 }

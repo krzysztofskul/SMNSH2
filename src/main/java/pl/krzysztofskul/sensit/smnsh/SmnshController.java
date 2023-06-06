@@ -24,7 +24,7 @@ import pl.krzysztofskul.sensit.smnsh.project.ProjectService;
 
 @Controller
 @RequestMapping("/smnsh/test")
-public class SmnshTestController {
+public class SmnshController {
 
 	private boolean isInitDataDone = false;
 	
@@ -51,7 +51,7 @@ public class SmnshTestController {
 	 * @param companyService
 	 */
 	@Autowired
-	public SmnshTestController(ProjectTestGenerator projectTestGenerator,
+	public SmnshController(ProjectTestGenerator projectTestGenerator,
 			ProjectService projectService, UserGenerator userGenerator, UserService userService,
 			ModalityGenerator modalityGenerator, DevicePortfolioGenerator devicePortfolioGenerator,
 			CompanyDemoGenerator companyDemoGenerator, CompanyService companyService) {
@@ -119,7 +119,7 @@ public class SmnshTestController {
 	@GetMapping("/thymeleaf/projects")
 	public String homeThymeleaf(Model model) {
 		model.addAttribute("projectList", projectService.loadAll());
-		return "/test/projects/all";
+		return "smnsh/projects/all";
 	}
 	
 	/*

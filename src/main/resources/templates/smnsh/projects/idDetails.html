@@ -10,8 +10,8 @@
 </head>
 <body>
 
-	<div th:replace="./header" :: header class="sensit-header"></div>
-	<div th:replace="./menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
+	<div th:replace="./smnsh/header" :: header class="sensit-header"></div>
+	<div th:replace="./smnsh/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
 
 	<div class="container">
 		
@@ -102,7 +102,7 @@
 
 	</div>
 
-	<div th:replace="./footer" :: footer class="sensit-footer"></div>
+	<div th:replace="./smnsh/footer" :: footer class="sensit-footer"></div>
 
 </body>
 </html>

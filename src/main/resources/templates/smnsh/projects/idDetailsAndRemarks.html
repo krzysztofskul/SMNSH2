@@ -10,51 +10,53 @@
 </head>
 <body>
 
-	<div th:replace="./header" :: header class="sensit-header"></div>
-	<div th:replace="./menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
+	<div th:replace="./smnsh/header" :: header class="sensit-header"></div>
+	<div th:replace="./smnsh/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
 
 	<div class="container">
 		
 		<div class="card sensit-card">
 			<div class="card-header">
 				<div class="col-12 text-center">
-					<p class="sensit-langPl">WYKAZ INTERESARIUSZY PROJEKTU</p>
-					<p class="sensit-langEn">STAKEHOLDERS</p>
+					<p class="sensit-langPl">UWAGI DO PROJEKTU</p>
+					<p class="sensit-langEn">PROJECT REMARKS</p>
 				</div>
 			</div>
 			<div class="card-body">
 			
-				<div class="row" th:each="stakeholder: ${project.stakeholders}">
+				<div class="row" th:each="remark : ${project.remarks}">
 					
 					<div class="col-12">
 						<div class="row">
-							<div class="col-4 title">Imię i nazwisko</div>
+							<div class="col-4 title">Data dodania:</div>
+							<div class="col-8 content"><span th:text="|${remark.dateTimeOfCreation.toLocalDate} ${remark.dateTimeOfCreation.toLocalTime}|"/></div>
+						</div>
+					</div>
+					
+					<div class="col-12">
+						<div class="row">
+							<div class="col-4 title">
+								Autor:
+							</div>
 							<div class="col-8 content">
-								<span th:if="${stakeholder.nameFirst != null}">
-									<span th:text="${stakeholder.nameFirst}"/>
+								<span th:if="${remark.author.nameFirst != null}">
+									<span th:text="${remark.author.nameFirst}"/>
 								</span>
-								<span th:if="${stakeholder.nameLast != null}">
-									<span th:text="${stakeholder.nameLast}"/>
+								<span th:if="${remark.author.nameLast != null}">
+									<span th:text="${remark.author.nameLast}"/>
 								</span>
-								
-							
 							</div>
 						</div>
 					</div>
 					
 					<div class="col-12">
 						<div class="row">
-							<div class="col-4 title">Stanowisko</div>
-							<div class="col-8 content"><span th:text="${stakeholder.businessPosition}"/></div>
+							<div class="col-4 title">Treść:</div>
+							<div class="col-8 content"><span th:text="${remark.text}"/></div>
 						</div>
 					</div>
 					
-					<div class="col-12">
-						<div class="row">
-							<div class="col-4 title">Dane kontaktowe</div>
-							<div class="col-8 content"><span th:text="${stakeholder.contactDetails}"/></div>
-						</div>
-					</div>
+					
 					
 				</div>
 			</div>
@@ -72,7 +74,7 @@
 
 	</div>
 
-	<div th:replace="./footer" :: footer class="sensit-footer"></div>
+	<div th:replace="./smnsh/footer" :: footer class="sensit-footer"></div>
 
 </body>
 </html>

@@ -20,18 +20,7 @@ public class SensitController {
 	@GetMapping({"/smnsh/home"})
 	public String smnshHome() {
 		System.out.println("Test controller /smnsh/home -> /test/home");
-		return "test/home";
+		return "smnsh/home";
 	}
-	
-	@GetMapping("/test")
-	@ResponseBody
-	public String smnshTest() {
-		System.out.println("Test controller /test");
-		return "test sensit";
-	}
-	
-	@GetMapping("/test2")
-	public String smnshTest2() {
-		return "test";
-	}
+
 }

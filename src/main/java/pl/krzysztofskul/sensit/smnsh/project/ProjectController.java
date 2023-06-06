@@ -29,31 +29,31 @@ public class ProjectController {
 
 	@GetMapping("/projects")
 	public String getTestProjects() {		
-		return "test/projects/all";
+		return "smnsh/projects/all";
 	}
 	
 	@GetMapping("/projects/{id}")
 	public String getProjectById(@PathVariable Long id, Model model) {
 		model.addAttribute("project", projectService.loadById(id));
-		return "/test/projects/idDetails";
+		return "smnsh/projects/idDetails";
 	}
 	
 	@GetMapping("/projects/{id}/milestones")
 	public String getProjectByIdWithMilestones(@PathVariable Long id, Model model) {
 		model.addAttribute("project", projectService.loadByIdWithMilestones(id));
-		return "/test/projects/idDetailsAndMilestones";
+		return "smnsh/projects/idDetailsAndMilestones";
 	}
 	
 	@GetMapping("/projects/{id}/stakeholders")
 	public String getProjectByIdWithStakeholders(@PathVariable Long id, Model model) {
 		model.addAttribute("project", projectService.loadByIdWithStakeholders(id));
-		return "/test/projects/idDetailsAndStakeholders";
+		return "smnsh/projects/idDetailsAndStakeholders";
 	}
 	
 	@GetMapping("/projects/{id}/remarks")
 	public String getProjectByIdWithRemarks(@PathVariable Long id, Model model) {
 		model.addAttribute("project", projectService.loadByIdWithRemarks(id));
-		return "/test/projects/idDetailsAndRemarks";
+		return "smnsh/projects/idDetailsAndRemarks";
 	}
 	
 }

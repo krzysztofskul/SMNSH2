@@ -20,7 +20,7 @@ public class SensitController {
 	@GetMapping({"/smnsh/home"})
 	public String smnshHome() {
 		System.out.println("Test controller /smnsh/home -> /test/home");
-		return "/test/home";
+		return "test/home";
 	}
 	
 	@GetMapping("/test")

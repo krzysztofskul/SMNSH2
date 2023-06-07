@@ -69,11 +69,11 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				project.setProjectManager(userService.loadByEmail(userPM.getEmail()));				
 				
 				List<Stakeholder> stakeholders = new ArrayList<>();
-				stakeholders.add(new Stakeholder("Dyrektor ds. technicznych", project));
-				stakeholders.add(new Stakeholder("Dyrektor ds. administracyjnych", project));
-				stakeholders.add(new Stakeholder("Ordynator oddziału", project));
-				stakeholders.add(new Stakeholder("Pielęgniarka oddziałowa", project));
-				stakeholders.add(new Stakeholder("Sekretariat", project));
+				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Dyrektor ds. technicznych", "dyrekcja@example.com", project));
+				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Dyrektor ds. administracyjnych", "administracja@example.com", project));
+				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Ordynator oddziału", "tel. +099 99 00 99", project));
+				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Pielęgniarka oddziałowa", "email: oddzialowa@example.com", project));
+				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Sekretariat", "sekretariat@example.com", project));
 				project.setStakeholders(stakeholders);
 				project.setDesigner("Krzysztof K.");
 				

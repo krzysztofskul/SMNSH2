@@ -19,7 +19,11 @@ public class ProjectService {
 		this.projectRepo = projectRepo;
 	}
 
-	public Project save(Project project) {
+	public void save(Project project) {
+		projectRepo.save(project);
+	}
+	
+	public Project saveAndReturn(Project project) {
 		return projectRepo.save(project);
 	}
 
@@ -48,5 +52,7 @@ public class ProjectService {
 		Hibernate.initialize(project.getRemarks());
 		return project;
 	}
+
+
 	
 }

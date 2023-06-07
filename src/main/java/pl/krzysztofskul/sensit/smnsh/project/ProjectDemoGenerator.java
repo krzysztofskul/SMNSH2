@@ -22,7 +22,7 @@ import pl.krzysztofskul.sensit.smnsh.user.User;
 import pl.krzysztofskul.sensit.smnsh.user.UserService;
 
 @Service
-public class ProjectTestGenerator implements InitDataGenerator<Project> {
+public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 
 	private ProjectRepo projectRepo;
 	private UserService userService;
@@ -34,7 +34,7 @@ public class ProjectTestGenerator implements InitDataGenerator<Project> {
 	 * @param projectRepo
 	 * @param userService
 	 */
-	public ProjectTestGenerator(ProjectRepo projectRepo, UserService userService,
+	public ProjectDemoGenerator(ProjectRepo projectRepo, UserService userService,
 			CompanyService companyService) {
 		this.projectRepo = projectRepo;
 		this.userService = userService;
@@ -55,7 +55,7 @@ public class ProjectTestGenerator implements InitDataGenerator<Project> {
 						
 			for (User userPM : userService.loadAllProjectManagers()) {
 				Project project = new Project();
-				project.setName("Projekt demo/test " + loremIpsum.getTitle(1));
+				project.setName("Demo " + loremIpsum.getTitle(1));
 				project.setCode("TES" + (new Random().nextInt(8999)+1000));
 				
 				project.setBackground(loremIpsum.getParagraphs(1, 2));

@@ -23,7 +23,7 @@ import pl.krzysztofskul.sensit.smnsh.user.UserService;
 import pl.krzysztofskul.sensit.smnsh.project.ProjectService;
 
 @Controller
-@RequestMapping("/smnsh/test")
+@RequestMapping("/smnsh")
 public class SmnshController {
 
 	private boolean isInitDataDone = false;

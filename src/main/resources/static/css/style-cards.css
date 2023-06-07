@@ -12,6 +12,7 @@
 	text-align: right;
 	font-style: italic;
 	color: #808080;
+
 }
 
 .sensit-card .card-body .content {
@@ -22,6 +23,6 @@
 .sensit-card .card-body > .row {
 	border-top: 1px solid #e6e6e6;
 	min-height: 50px;
-	margin: 5px 0px 0px;
-	padding: 2px 0px 0px;
+	margin: 10px 0px 0px;
+	padding: 5px 0px 0px;
 }

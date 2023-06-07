@@ -25,17 +25,51 @@
 			<div class="card-body">
 				<div class="row" th:each="milestone: ${project.milestones}">
 				
-					<div class="col-12">
+					<div class="col-10">
 						<div class="row">
-							<div class="col-4 title">Nazwa</div>
-							<div class="col-8 content"><span th:text="${milestone}"/></div>
+							<div class="col-2 title">
+								<p class="sensit-langPl font-weight-normal">NAZWA</p>
+								<p class="sensit-langEn font-weight-normal">name</p>
+							</div>
+							<div class="col-10 content"><span class="font-weight-bold" th:text="${milestone}"/></div>
+						</div>
+						<div class="row">
+							<div class="col-2 title">
+								<p class="sensit-langPl font-weight-normal">TERMIN REALIZACJI</p>
+								<p class="sensit-langEn font-weight-normal">deadline</p>
+							</div>
+							<div class="col-2 content"><span class="font-weight-bold" th:text="0000-00-00"/>
+							</div>
+
+							<div class="col-2 title">
+								<p class="sensit-langPl font-weight-normal">Status</p>
+								<p class="sensit-langEn font-weight-normal">Status</p>
+							</div>
+							<div class="col-6 content">
+								<button class="btn btn-sm btn-outline-success sensit-btn-height">
+									<p class="sensit-langPl">OCZEKUJE</p>	
+									<p class="sensit-langEn">waiting</p>
+								</button>
+								<button class="btn btn-sm btn-outline-secondary sensit-btn-height">
+									<p class="sensit-langPl">W TOKU</p>	
+									<p class="sensit-langEn">in progress</p>
+								</button>
+								<button class="btn btn-sm btn-outline-secondary sensit-btn-height">
+									<p class="sensit-langPl">ANULOWANY</p>	
+									<p class="sensit-langEn">canceled</p>
+								</button>
+								<button class="btn btn-sm btn-outline-secondary sensit-btn-height">
+									<p class="sensit-langPl">ZAKOŃCZONY</p>	
+									<p class="sensit-langEn">completed</p>
+								</button>
+							</div>
 						</div>
 					</div>
-					<div class="col-12">
-						<div class="row">
-							<div class="col-4 title">Status</div>
-							<div class="col-8 content">...</div>
-						</div>
+					<div class="col-2 text-right">
+						<button class="btn btn-sm btn-outline-danger sensit-btn-height disabled">
+							<p class="sensit-langPl">USUŃ</p>	
+							<p class="sensit-langEn">del</p>
+						</button>
 					</div>
 				
 				</div>

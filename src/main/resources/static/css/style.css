@@ -34,7 +34,7 @@
 }
 
 .sensit-Hmin250px {
-	min-height: 200px;
+	min-height: 250px;
 	background-color: gray;
 }
 
@@ -56,6 +56,11 @@
     font-size: x-small;
     margin: 0;
     padding: 0;
+}
+
+.sensit-btn-height {
+	height: 37px;
+	padding-top: 0;
 }
 
 .-sensit-error {

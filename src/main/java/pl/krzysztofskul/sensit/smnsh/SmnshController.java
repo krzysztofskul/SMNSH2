@@ -112,7 +112,7 @@ public class SmnshController {
 		/*
 		 * return to page
 		 */
-		return "redirect:/smnsh/test/thymeleaf/projects";
+		return "redirect:/smnsh/thymeleaf/projects";
 	}
 	
 	

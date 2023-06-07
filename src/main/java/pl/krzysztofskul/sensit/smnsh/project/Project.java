@@ -75,7 +75,7 @@ public class Project {
 	
     @OneToMany(
     		mappedBy = "project",
-    		cascade = CascadeType.PERSIST
+    		cascade = {CascadeType.PERSIST, CascadeType.MERGE}
     		)
 	private List<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
 	
@@ -414,5 +414,11 @@ public class Project {
 	public void addRemark(Remark remark) {
 		this.remarks.add(remark);
 		remark.setProject(this);
+	}
+
+	public void addStakeholder(Stakeholder newStakeholder) {
+		this.stakeholders.add(newStakeholder);
+		newStakeholder.setProject(this);
+		
 	}
 }

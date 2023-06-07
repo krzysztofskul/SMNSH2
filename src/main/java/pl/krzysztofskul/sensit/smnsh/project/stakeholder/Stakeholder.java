@@ -32,6 +32,22 @@ public class Stakeholder {
 	 */
 	public Stakeholder() {
 	}
+	
+	/**
+	 * @param nameFirst
+	 * @param nameLast
+	 * @param businessPosition
+	 * @param contactDetails
+	 * @param project
+	 */
+	public Stakeholder(String nameFirst, String nameLast, String businessPosition, String contactDetails,
+			Project project) {
+		this.nameFirst = nameFirst;
+		this.nameLast = nameLast;
+		this.businessPosition = businessPosition;
+		this.contactDetails = contactDetails;
+		this.project = project;
+	}
 
 	/**
 	 * Constructor
@@ -39,6 +55,14 @@ public class Stakeholder {
 	 */
 	public Stakeholder(String businessPosition) {
 		this.businessPosition = businessPosition;
+	}
+	
+	/**
+	 * Constructor
+	 * @param project
+	 */
+	public Stakeholder(Project project) {
+		this.project = project;
 	}
 
 	/**

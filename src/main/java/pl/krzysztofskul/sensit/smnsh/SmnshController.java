@@ -13,7 +13,7 @@ import pl.krzysztofskul.sensit.smnsh.company.Company;
 import pl.krzysztofskul.sensit.smnsh.company.CompanyDemoGenerator;
 import pl.krzysztofskul.sensit.smnsh.company.CompanyService;
 import pl.krzysztofskul.sensit.smnsh.project.Project;
-import pl.krzysztofskul.sensit.smnsh.project.ProjectTestGenerator;
+import pl.krzysztofskul.sensit.smnsh.project.ProjectDemoGenerator;
 import pl.krzysztofskul.sensit.smnsh.project.device.DevicePortfolio;
 import pl.krzysztofskul.sensit.smnsh.project.device.modality.DevicePortfolioGenerator;
 import pl.krzysztofskul.sensit.smnsh.project.device.modality.ModalityGenerator;
@@ -23,12 +23,12 @@ import pl.krzysztofskul.sensit.smnsh.user.UserService;
 import pl.krzysztofskul.sensit.smnsh.project.ProjectService;
 
 @Controller
-@RequestMapping("/smnsh/test")
+@RequestMapping("/smnsh")
 public class SmnshController {
 
 	private boolean isInitDataDone = false;
 	
-	private ProjectTestGenerator projectTestGenerator;
+	private ProjectDemoGenerator projectDemoGenerator;
 	private ProjectService projectService;
 	private UserGenerator userGenerator;
 	private UserService userService;
@@ -41,7 +41,7 @@ public class SmnshController {
 	 * CONSTRUCTOR
 	 * 
 	 * @param isInitDataDone
-	 * @param projectTestGenerator
+	 * @param projectDemoGenerator
 	 * @param projectService
 	 * @param userGenerator
 	 * @param userService
@@ -51,11 +51,11 @@ public class SmnshController {
 	 * @param companyService
 	 */
 	@Autowired
-	public SmnshController(ProjectTestGenerator projectTestGenerator,
+	public SmnshController(ProjectDemoGenerator projectDemoGenerator,
 			ProjectService projectService, UserGenerator userGenerator, UserService userService,
 			ModalityGenerator modalityGenerator, DevicePortfolioGenerator devicePortfolioGenerator,
 			CompanyDemoGenerator companyDemoGenerator, CompanyService companyService) {
-		this.projectTestGenerator = projectTestGenerator;
+		this.projectDemoGenerator = projectDemoGenerator;
 		this.projectService = projectService;
 		this.userGenerator = userGenerator;
 		this.userService = userService;
@@ -99,7 +99,7 @@ public class SmnshController {
 			/*
 			 * init. demo projects
 			 */
-			List<Project> projectList = projectTestGenerator.initDataAndReturn();
+			List<Project> projectList = projectDemoGenerator.initDataAndReturn();
 			for (Project project : projectList) {
 				projectService.save(project);
 			}
@@ -112,7 +112,7 @@ public class SmnshController {
 		/*
 		 * return to page
 		 */
-		return "redirect:/smnsh/test/thymeleaf/projects";
+		return "redirect:/smnsh/thymeleaf/projects";
 	}
 	
 	

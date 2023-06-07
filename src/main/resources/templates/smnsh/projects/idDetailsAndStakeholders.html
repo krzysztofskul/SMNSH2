@@ -11,7 +11,7 @@
 <body>
 
 	<div th:replace="./smnsh/header" :: header class="sensit-header"></div>
-	<div th:replace="./smnsh/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
+	<div th:replace="./smnsh/projects/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
 
 	<div class="container">
 		
@@ -26,7 +26,7 @@
 			
 				<div class="row" th:each="stakeholder: ${project.stakeholders}">
 					
-					<div class="col-12">
+					<div class="col-8">
 						<div class="row">
 							<div class="col-4 title">Imię i nazwisko</div>
 							<div class="col-8 content">
@@ -40,20 +40,26 @@
 							
 							</div>
 						</div>
-					</div>
 					
-					<div class="col-12">
 						<div class="row">
 							<div class="col-4 title">Stanowisko</div>
 							<div class="col-8 content"><span th:text="${stakeholder.businessPosition}"/></div>
 						</div>
-					</div>
 					
-					<div class="col-12">
 						<div class="row">
 							<div class="col-4 title">Dane kontaktowe</div>
 							<div class="col-8 content"><span th:text="${stakeholder.contactDetails}"/></div>
 						</div>
+					</div>
+					<div class="col-4 text-right">
+						<button class="btn btn-sm btn-outline-primary disabled">
+							<p class="sensit-langPl">EDYTUJ</p>	
+							<p class="sensit-langEn">edit</p>	
+						</button>
+						<button class="btn btn-sm btn-outline-danger disabled">
+							<p class="sensit-langPl">USUŃ</p>	
+							<p class="sensit-langEn">del</p>
+						</button>
 					</div>
 					
 				</div>
@@ -61,10 +67,10 @@
 			<div class="card-footer">
 				<div class="row">
 					<div class="col-12 text-right">
-						<button class="btn btn-outline-success text-center disabled">
+						<a href="#" th:href="@{/smnsh/projects/{id}/stakeholders/add(id=${project.id})}" class="btn btn-outline-success text-center">
 							<p class="sensit-langPl">DODAJ</p>
 							<p class="sensit-langEn">ADD</p>
-						</button>
+						</a>
 					</div>
 				</div>
 			</div>

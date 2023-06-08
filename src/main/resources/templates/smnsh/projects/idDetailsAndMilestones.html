@@ -18,34 +18,27 @@
 		<div class="card sensit-card">
 			<div class="card-header">
 				<div class="col-12 text-center">
-					<p class="sensit-langPl">KAMIENIE MILOWE</p>
-					<p class="sensit-langEn">MILESTONES</p>
+					<p class="sensit-langPl">KAMIENIE MILOWE PROJEKTU</p>
+					<p class="sensit-langEn">PROJECT MILESTONES</p>
 				</div>
 			</div>
 			<div class="card-body">
 				<div class="row" th:each="milestone: ${project.milestones}">
 				
-					<div class="col-10">
+					<div class="col-12">
 						<div class="row">
 							<div class="col-2 title">
 								<p class="sensit-langPl font-weight-normal">NAZWA</p>
 								<p class="sensit-langEn font-weight-normal">name</p>
 							</div>
-							<div class="col-10 content"><span class="font-weight-bold" th:text="${milestone}"/></div>
-						</div>
-						<div class="row">
-							<div class="col-2 title">
-								<p class="sensit-langPl font-weight-normal">TERMIN REALIZACJI</p>
-								<p class="sensit-langEn font-weight-normal">deadline</p>
+							<div class="col-3 content">
+								<span class="font-weight-bold" th:text="${milestone}"/>
 							</div>
-							<div class="col-2 content"><span class="font-weight-bold" th:text="0000-00-00"/>
-							</div>
-
-							<div class="col-2 title">
+							<div class="col-1 title">
 								<p class="sensit-langPl font-weight-normal">Status</p>
 								<p class="sensit-langEn font-weight-normal">Status</p>
 							</div>
-							<div class="col-6 content">
+							<div class="col-5 content">
 								<button class="btn btn-sm btn-outline-success sensit-btn-height">
 									<p class="sensit-langPl">OCZEKUJE</p>	
 									<p class="sensit-langEn">waiting</p>
@@ -63,14 +56,25 @@
 									<p class="sensit-langEn">completed</p>
 								</button>
 							</div>
+							<div class="col-1 text-right">
+								<button class="btn btn-sm btn-outline-danger sensit-btn-height disabled">
+									<p class="sensit-langPl">USUŃ</p>	
+									<p class="sensit-langEn">del</p>
+								</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-2 title">
+								<p class="sensit-langPl font-weight-normal">TERMIN REALIZACJI</p>
+								<p class="sensit-langEn font-weight-normal">deadline</p>
+							</div>
+							<div class="col-10 content"><span class="font-weight-bold" th:text="0000-00-00"/>
+							</div>
+
+							
 						</div>
 					</div>
-					<div class="col-2 text-right">
-						<button class="btn btn-sm btn-outline-danger sensit-btn-height disabled">
-							<p class="sensit-langPl">USUŃ</p>	
-							<p class="sensit-langEn">del</p>
-						</button>
-					</div>
+
 				
 				</div>
 			</div>

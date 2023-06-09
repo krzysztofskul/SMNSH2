@@ -9,12 +9,12 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 
 import pl.krzysztofskul.sensit.smnsh.company.CompanyService;
-import pl.krzysztofskul.sensit.smnsh.company.CompanyCategory.CompanyCategoryEnum;
 import pl.krzysztofskul.sensit.smnsh.init.InitDataGenerator;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplate;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplateGenerator;
 import pl.krzysztofskul.sensit.smnsh.project.remark.Remark;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.sensit.smnsh.project.status.Status;
@@ -27,19 +27,26 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 	private ProjectRepo projectRepo;
 	private UserService userService;
 	private CompanyService companyService;
+	private MilestoneTemplateGenerator milestoneTemplateGenerator;
 
+	
+	
 	/**
 	 * CONSTRUCTOR
-	 * 
 	 * @param projectRepo
 	 * @param userService
+	 * @param companyService
+	 * @param milestoneTemplateGenerator
 	 */
-	public ProjectDemoGenerator(ProjectRepo projectRepo, UserService userService,
-			CompanyService companyService) {
+	public ProjectDemoGenerator(ProjectRepo projectRepo, UserService userService, CompanyService companyService,
+			MilestoneTemplateGenerator milestoneTemplateGenerator) {
 		this.projectRepo = projectRepo;
 		this.userService = userService;
 		this.companyService = companyService;
+		this.milestoneTemplateGenerator = milestoneTemplateGenerator;
 	}
+
+
 
 	/**
 	 * Creates and return demo projects
@@ -77,20 +84,31 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				project.setStakeholders(stakeholders);
 				project.setDesigner("Krzysztof K.");
 				
-				List<String> milestones = new ArrayList<String>();
-				milestones.add("Podpisanie Umowy");
-				milestones.add("Zlecenie wykonania koncepcji");
-				milestones.add("Akceptacja koncepcji");
-				milestones.add("Checklista");
-				milestones.add("Zlecenie wykonania wytycznych");
-				milestones.add("Przekazanie wytycznych");
-				milestones.add("Rozpoczęcie adaptacji pomiesczeń");
-				milestones.add("Zakończenie adaptacji pomiesczeń");
-				milestones.add("Dostawa");
-				milestones.add("Instalacja");
-				milestones.add("Szkolenia");
-				milestones.add("Odbiór");
-				project.setMilestones(milestones);
+				/*
+				 * add milestones <String>
+				 */
+//				List<String> milestones = new ArrayList<String>();
+//				milestones.add("Podpisanie Umowy");
+//				milestones.add("Zlecenie wykonania koncepcji");
+//				milestones.add("Akceptacja koncepcji");
+//				milestones.add("Checklista");
+//				milestones.add("Zlecenie wykonania wytycznych");
+//				milestones.add("Przekazanie wytycznych");
+//				milestones.add("Rozpoczęcie adaptacji pomiesczeń");
+//				milestones.add("Zakończenie adaptacji pomiesczeń");
+//				milestones.add("Dostawa");
+//				milestones.add("Instalacja");
+//				milestones.add("Szkolenia");
+//				milestones.add("Odbiór");
+				
+				/*
+				 * add milestones <MilestoneInstance> from template
+				 */
+				List<MilestoneTemplate> milestoneTemplateList = milestoneTemplateGenerator.initDataAndReturn();
+				for (MilestoneTemplate milestoneTemplate : milestoneTemplateList) {
+					project.addMilestoneFromTemplate(milestoneTemplate);
+				}
+				
 				
 				project.setContractNo("U-TES-2023-" + new Random().nextInt(99));
 				project.setDevice("MAGNESO " + loremIpsum.getTitle(1));

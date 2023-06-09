@@ -19,6 +19,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import pl.krzysztofskul.sensit.smnsh.company.Company;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.Milestone;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneInstance;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplate;
 import pl.krzysztofskul.sensit.smnsh.project.remark.Remark;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.sensit.smnsh.project.status.Status;
@@ -92,13 +95,14 @@ public class Project {
 	/*
 	 * TODO: change String collection to the milestone.class
 	 */
-	@ElementCollection
+//	@ElementCollection
 //	@CollectionTable(
 //			name = "Milestones", 
 //			joinColumns = @JoinColumn(name="project_id"))
-	@Column(name = "milestone_name")
-	private List<String> milestones = new ArrayList<String>();
-	
+//	@Column(name = "milestone_name")
+//	private List<String> milestones = new ArrayList<String>();
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+	private List<MilestoneInstance> milestones = new ArrayList<MilestoneInstance>();
 
 	/**
 	 * Constructor
@@ -394,17 +398,45 @@ public class Project {
 		this.remarks = remarks;
 	}
 
+//	/**
+//	 * @return the milestones
+//	 */
+//	public List<String> getMilestones() {
+//		return milestones;
+//	}
+//
+//	/**
+//	 * @param milestones the milestones to set
+//	 */
+//	public void setMilestones(List<String> milestones) {
+//		this.milestones = milestones;
+//	}
+	
+//	/**
+//	 * @return the milestones
+//	 */
+//	public List<Milestone> getMilestones() {
+//		return milestones;
+//	}
+//
+//	/**
+//	 * @param milestones the milestones to set
+//	 */
+//	public void setMilestones(List<Milestone> milestones) {
+//		this.milestones = milestones;
+//	}
+
 	/**
 	 * @return the milestones
 	 */
-	public List<String> getMilestones() {
+	public List<MilestoneInstance> getMilestones() {
 		return milestones;
 	}
 
 	/**
 	 * @param milestones the milestones to set
 	 */
-	public void setMilestones(List<String> milestones) {
+	public void setMilestones(List<MilestoneInstance> milestones) {
 		this.milestones = milestones;
 	}
 
@@ -416,9 +448,22 @@ public class Project {
 		remark.setProject(this);
 	}
 
+	/**
+	 * Adds stakeholder to the project list of stakeholders
+	 * @param newStakeholder
+	 */
 	public void addStakeholder(Stakeholder newStakeholder) {
 		this.stakeholders.add(newStakeholder);
 		newStakeholder.setProject(this);
 		
+	}
+
+	/**
+	 * 
+	 */
+	public void addMilestoneFromTemplate(MilestoneTemplate milestoneTemplate) {
+		MilestoneInstance milestoneInstance = new MilestoneInstance(milestoneTemplate);
+		this.milestones.add(milestoneInstance);
+		milestoneInstance.setProject(this);
 	}
 }

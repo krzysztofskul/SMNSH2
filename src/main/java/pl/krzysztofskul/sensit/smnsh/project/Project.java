@@ -1,5 +1,6 @@
 package pl.krzysztofskul.sensit.smnsh.project;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import javax.persistence.Table;
 import pl.krzysztofskul.sensit.smnsh.company.Company;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.Milestone;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneInstance;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneStatusEnum;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplate;
 import pl.krzysztofskul.sensit.smnsh.project.remark.Remark;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
@@ -92,15 +94,6 @@ public class Project {
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private List<Remark> remarks = new ArrayList<Remark>();
 	
-	/*
-	 * TODO: change String collection to the milestone.class
-	 */
-//	@ElementCollection
-//	@CollectionTable(
-//			name = "Milestones", 
-//			joinColumns = @JoinColumn(name="project_id"))
-//	@Column(name = "milestone_name")
-//	private List<String> milestones = new ArrayList<String>();
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private List<MilestoneInstance> milestones = new ArrayList<MilestoneInstance>();
 
@@ -398,34 +391,6 @@ public class Project {
 		this.remarks = remarks;
 	}
 
-//	/**
-//	 * @return the milestones
-//	 */
-//	public List<String> getMilestones() {
-//		return milestones;
-//	}
-//
-//	/**
-//	 * @param milestones the milestones to set
-//	 */
-//	public void setMilestones(List<String> milestones) {
-//		this.milestones = milestones;
-//	}
-	
-//	/**
-//	 * @return the milestones
-//	 */
-//	public List<Milestone> getMilestones() {
-//		return milestones;
-//	}
-//
-//	/**
-//	 * @param milestones the milestones to set
-//	 */
-//	public void setMilestones(List<Milestone> milestones) {
-//		this.milestones = milestones;
-//	}
-
 	/**
 	 * @return the milestones
 	 */
@@ -465,5 +430,12 @@ public class Project {
 		MilestoneInstance milestoneInstance = new MilestoneInstance(milestoneTemplate);
 		this.milestones.add(milestoneInstance);
 		milestoneInstance.setProject(this);
+	}
+
+	public void addMilestoneFromTemplate(MilestoneTemplate milestoneTemplate, LocalDate deadline, MilestoneStatusEnum status) {
+		MilestoneInstance milestoneInstance = new MilestoneInstance(milestoneTemplate, deadline, status);
+		this.milestones.add(milestoneInstance);
+		milestoneInstance.setProject(this);
+		
 	}
 }

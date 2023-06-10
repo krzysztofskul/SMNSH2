@@ -40,19 +40,19 @@
 								<p class="sensit-langEn font-weight-normal">Status</p>
 							</div>
 							<div class="col-5 content">
-								<button class="btn btn-sm btn-outline-success sensit-btn-height">
+								<button class="btn btn-sm sensit-btn-height" th:classappend="${milestone.status.name == 'WAITING' ? 'btn-outline-success' : 'btn-outline-secondary'}">
 									<p class="sensit-langPl">OCZEKUJE</p>	
 									<p class="sensit-langEn">waiting</p>
 								</button>
-								<button class="btn btn-sm btn-outline-secondary sensit-btn-height">
+								<button th:class="'btn btn-sm ' + ${milestone.status.name == 'IN_PROGRESS' ? 'btn-outline-success' : 'btn-outline-secondary'} + ' sensit-btn-height'">
 									<p class="sensit-langPl">W TOKU</p>	
 									<p class="sensit-langEn">in progress</p>
 								</button>
-								<button class="btn btn-sm btn-outline-secondary sensit-btn-height">
+								<button th:class="'btn btn-sm ' + ${milestone.status.name == 'CANCELED' ? 'btn-outline-success' : 'btn-outline-secondary'} + ' sensit-btn-height'">
 									<p class="sensit-langPl">ANULOWANY</p>	
 									<p class="sensit-langEn">canceled</p>
 								</button>
-								<button class="btn btn-sm btn-outline-secondary sensit-btn-height">
+								<button th:class="'btn btn-sm ' + ${milestone.status.name == 'FINISHED' ? 'btn-outline-success' : 'btn-outline-secondary'} + ' sensit-btn-height'">
 									<p class="sensit-langPl">ZAKOŃCZONY</p>	
 									<p class="sensit-langEn">completed</p>
 								</button>
@@ -69,7 +69,7 @@
 								<p class="sensit-langPl font-weight-normal">TERMIN REALIZACJI</p>
 								<p class="sensit-langEn font-weight-normal">deadline</p>
 							</div>
-							<div class="col-10 content"><span class="font-weight-bold" th:text="0000-00-00"/>
+							<div class="col-10 content"><span class="font-weight-bold" th:text="${milestone.deadline}"/>
 							</div>
 
 							

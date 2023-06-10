@@ -27,4 +27,8 @@ public class MilestoneService {
 		milestoneInstnceRepo.save(milestoneInstance);
 	}
 	
+	public MilestoneInstance loadById(Long milestoneId) {
+		return milestoneInstnceRepo.findById(milestoneId).get();
+	}
+	
 }

@@ -111,7 +111,7 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				for (MilestoneTemplate milestoneTemplate : milestoneTemplateList) {
 					switch (milestoneTemplate.getNameEn()) {
 					case "Signing a contract": {
-						project.addMilestoneFromTemplate(milestoneTemplate, project.getDateTimeOfCreation().toLocalDate(), MilestoneStatusEnum.FINISHED);
+						project.addMilestoneFromTemplate(milestoneTemplate, project.getDateTimeOfCreation().toLocalDate(), MilestoneStatusEnum.COMPLETED);
 						break;
 					}
 					case "Receipt": {

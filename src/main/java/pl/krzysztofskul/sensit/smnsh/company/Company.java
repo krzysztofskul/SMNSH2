@@ -61,6 +61,8 @@ public class Company {
 	)
 	private List<Employee> employeeList = new ArrayList<Employee>();
 	
+	private LabelEnum labelEnum;
+	
 	/**
 	 * CONSTRUCTORS
 	 */
@@ -188,6 +190,20 @@ public class Company {
 
 	public void setEmployeeList(List<Employee> employeeList) {
 		this.employeeList = employeeList;
+	}
+
+	/**
+	 * @return the labelEnum
+	 */
+	public LabelEnum getLabelEnum() {
+		return labelEnum;
+	}
+
+	/**
+	 * @param labelEnum the labelEnum to set
+	 */
+	public void setLabelEnum(LabelEnum labelEnum) {
+		this.labelEnum = labelEnum;
 	}
 	
 	/**

@@ -65,24 +65,40 @@ public class CompanyDemoGenerator implements InitDataGenerator<Company> {
 					break;
 					}
 				case SUBCONTRACTOR_ROOM_ADAPTATION: {
-					companyName = companyName + "Bud S.C.";
+					companyName = companyName + " BUD S.C.";
 					break;
 					}
 				default:
 					break;
 				}
 
-				companyDemoList.add(
-							
-							new Company(
-										Long.valueOf("0"),
-										companyName,
-										companyCatEnum,
-										new ArrayList<Employee>(),
-										contactDetailsDemoGenerator.getDemoContactDetails()
-									)
-						
-						);
+				Company company = new Company(
+						Long.valueOf("0"),
+						companyName,
+						companyCatEnum,
+						new ArrayList<Employee>(),
+						contactDetailsDemoGenerator.getDemoContactDetails()
+					);
+				
+				Random random = new Random();
+				switch (random.nextInt(LabelEnum.values().length)) {
+					case 0:
+						company.setLabelEnum(LabelEnum.GREEN);
+						break;
+					case 1:
+						company.setLabelEnum(LabelEnum.YELLOW);
+						break;
+					case 2:
+						company.setLabelEnum(LabelEnum.RED);
+						break;
+					case 3:
+						company.setLabelEnum(LabelEnum.BLACK);
+						break;
+					default:
+						company.setLabelEnum(LabelEnum.GRAY);
+						break;
+				}
+				companyDemoList.add(company);
 			}
 		}
 		return companyDemoList;

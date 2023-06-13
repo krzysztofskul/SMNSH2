@@ -5,9 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/smnsh")
 public class MilestoneController {
 
 	private MilestoneService milestoneService;
@@ -26,7 +28,7 @@ public class MilestoneController {
 
 
 
-	@GetMapping("/smnsh/projects/{id}/milestones/{milestoneId}/set-status")
+	@GetMapping("/projects/{id}/milestones/{milestoneId}/set-status")
 	public String setMilestoneStatus(
 				@PathVariable(name="id") Long projectId,
 				@PathVariable Long milestoneId,

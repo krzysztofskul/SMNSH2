@@ -39,6 +39,11 @@ public class CompanyService {
 		
 		return companyInvestor;
 	}
+
+	public List<Company> loadAllSubcontrsctorsForRoomAdaptation() {
+		return companyRepo.findAllByCompanyCategoryEnum(CompanyCategoryEnum.SUBCONTRACTOR_ROOM_ADAPTATION);
+		
+	}
 	
 //	public List<Company> loadAllByCompanyCategoryEnum(CompanyCategoryEnum comCatEnum) {
 //		List<Company> allCompanies = companyRepo.findAll();

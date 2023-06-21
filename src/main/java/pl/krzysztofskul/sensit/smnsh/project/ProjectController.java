@@ -85,4 +85,9 @@ public class ProjectController {
 		return "smnsh/projects/idDetailsAndRemarks";
 	}
 	
+	@GetMapping("/projects/{id}/attachments")
+	public String getProjectByIdWithAttachments() {
+		return "smnsh/projects/idDetailsAndAttachments";
+	}
+	
 }

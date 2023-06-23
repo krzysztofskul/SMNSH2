@@ -104,7 +104,7 @@ public class ProjectController {
 			@PathVariable Long id,
 			Model model
 			) {
-		model.addAttribute("project", projectService.loadById(id));
+		model.addAttribute("project", projectService.loadByIdWithAttachments(id));
 		return "smnsh/projects/idDetailsAndAttachments";
 	}
 	
@@ -116,6 +116,10 @@ public class ProjectController {
 				RedirectAttributes redirectAttributes
 			) throws IOException {
 
+		if (StringUtils.cleanPath(multipartFile.getOriginalFilename()) == null || StringUtils.cleanPath(multipartFile.getOriginalFilename()).length() == 0) {
+			return "redirect:/smnsh/projects/"+projectId+"/attachments";
+		}
+		
 		Attachment attachment = new Attachment();
 		switch (attachmentCategory) {
 		case "contract":

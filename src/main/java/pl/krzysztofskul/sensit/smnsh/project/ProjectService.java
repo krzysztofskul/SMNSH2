@@ -53,6 +53,12 @@ public class ProjectService {
 		return project;
 	}
 
+	public Project loadByIdWithAttachments(Long id) {
+		Project project = this.loadById(id);
+		Hibernate.initialize(project.getAttachments());
+		return project;
+	}
+
 
 	
 }

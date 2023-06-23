@@ -31,8 +31,16 @@
 						<p class="sensit-langEn">CONTRACTS</p>
 					</div>
 					<div class="card-body">
-						<div class="sensit-attachment-thumbnail"></div>
-						<div class="sensit-attachment-thumbnail"></div>
+						<section th:if="${project.attachments} ?: '!UNKNOWN'">
+							<div th:each="attachment : ${project.attachments}"  th:class="sensit-attachment-thumbnail">
+								<i class="material-icons">attachment</i>
+								<!-- <p th:text="${attachment.file.fileName}"/> -->
+								<!-- <a href="#">
+									<p class="sensit-langPl">POBIERZ</p>
+									<p class="sensit-langEn">download</p>
+								</a> -->
+							</div>
+						</section>
 					</div>
 					<div class="card-footer">
 						<!--  

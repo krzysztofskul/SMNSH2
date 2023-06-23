@@ -20,6 +20,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import pl.krzysztofskul.sensit.smnsh.company.Company;
+import pl.krzysztofskul.sensit.smnsh.project.attachment.Attachment;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.Milestone;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneInstance;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneStatusEnum;
@@ -97,6 +98,9 @@ public class Project {
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private List<MilestoneInstance> milestones = new ArrayList<MilestoneInstance>();
 
+	@OneToMany(mappedBy ="project", cascade = CascadeType.ALL)
+	private List<Attachment> attachments = new ArrayList<Attachment>();
+	
 	/**
 	 * Constructor
 	 */
@@ -406,6 +410,20 @@ public class Project {
 	}
 
 	/**
+	 * @return the attachments
+	 */
+	public List<Attachment> getAttachments() {
+		return attachments;
+	}
+
+	/**
+	 * @param attachments the attachments to set
+	 */
+	public void setAttachments(List<Attachment> attachments) {
+		this.attachments = attachments;
+	}
+
+	/**
 	 * Method adds remark to the list of remarks connected with project
 	 */
 	public void addRemark(Remark remark) {
@@ -436,6 +454,10 @@ public class Project {
 		MilestoneInstance milestoneInstance = new MilestoneInstance(milestoneTemplate, deadline, status);
 		this.milestones.add(milestoneInstance);
 		milestoneInstance.setProject(this);
-		
+	}
+	
+	public void addAttachment(Attachment attachment) {
+		this.attachments.add(attachment);
+		attachment.setProject(this);
 	}
 }

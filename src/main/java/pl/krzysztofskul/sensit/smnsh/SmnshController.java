@@ -21,6 +21,9 @@ import pl.krzysztofskul.sensit.smnsh.user.User;
 import pl.krzysztofskul.sensit.smnsh.user.UserGenerator;
 import pl.krzysztofskul.sensit.smnsh.user.UserService;
 import pl.krzysztofskul.sensit.smnsh.project.ProjectService;
+import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategory;
+import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategoryDefaultGenerator;
+import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategoryService;
 
 @Controller
 @RequestMapping("/smnsh")
@@ -36,25 +39,20 @@ public class SmnshController {
 	private DevicePortfolioGenerator devicePortfolioGenerator;
 	private CompanyDemoGenerator companyDemoGenerator;
 	private CompanyService companyService;
+	private AttachmentCategoryDefaultGenerator attachmentCategoryDefaultGenerator;
+	private AttachmentCategoryService attachmentCategoryService;
 
 	/**
 	 * CONSTRUCTOR
 	 * 
-	 * @param isInitDataDone
-	 * @param projectDemoGenerator
-	 * @param projectService
-	 * @param userGenerator
-	 * @param userService
-	 * @param modalityGenerator
-	 * @param devicePortfolioGenerator
-	 * @param companyDemoGenerator
-	 * @param companyService
 	 */
 	@Autowired
 	public SmnshController(ProjectDemoGenerator projectDemoGenerator,
 			ProjectService projectService, UserGenerator userGenerator, UserService userService,
 			ModalityGenerator modalityGenerator, DevicePortfolioGenerator devicePortfolioGenerator,
-			CompanyDemoGenerator companyDemoGenerator, CompanyService companyService) {
+			CompanyDemoGenerator companyDemoGenerator, CompanyService companyService,
+			AttachmentCategoryDefaultGenerator attachmentCategoryDefaultGenerator,
+			AttachmentCategoryService attachmentCategoryService) {
 		this.projectDemoGenerator = projectDemoGenerator;
 		this.projectService = projectService;
 		this.userGenerator = userGenerator;
@@ -63,6 +61,8 @@ public class SmnshController {
 		this.devicePortfolioGenerator = devicePortfolioGenerator;
 		this.companyDemoGenerator = companyDemoGenerator;
 		this.companyService = companyService;
+		this.attachmentCategoryDefaultGenerator = attachmentCategoryDefaultGenerator;
+		this.attachmentCategoryService = attachmentCategoryService;
 	}
 
 
@@ -72,6 +72,13 @@ public class SmnshController {
 		if (!isInitDataDone) {
 			
 			System.out.println("Data initialization to databse has started...");
+			
+			/*
+			 * init. attachemnt categories
+			 */
+			for (AttachmentCategory attCat: attachmentCategoryDefaultGenerator.initDataAndReturn()) {
+				attachmentCategoryService.save(attCat);
+			}
 			
 			/*
 			 * init. essential modality list

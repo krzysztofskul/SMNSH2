@@ -4,6 +4,8 @@
 
 .sensit-test {
 	background-color: yellow;
+	border: 1px solid #009898;
+	color: #ec6602;
 }
 
 .sensit-header {
@@ -61,6 +63,14 @@
 .sensit-btn-height {
 	height: 37px;
 	padding-top: 0;
+}
+
+.sensit-attachment-thumbnail {
+	display: inline-block;
+	width: 75px;
+	height: 75px;
+	border: 1px solid #009898;
+	color: #ec6602;
 }
 
 .-sensit-error {

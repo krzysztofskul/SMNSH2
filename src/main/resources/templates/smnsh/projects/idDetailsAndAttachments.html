@@ -30,9 +30,19 @@
 						<p class="sensit-langPl">UMOWY</p>
 						<p class="sensit-langEn">CONTRACTS</p>
 					</div>
-					<div class="card-body"></div>
+					<div class="card-body">
+						<div class="sensit-attachment-thumbnail"></div>
+						<div class="sensit-attachment-thumbnail"></div>
+					</div>
 					<div class="card-footer">
+						<!--  
 						<button class="btn btn-sm btn-outline-success disabled">+</button>
+						 -->
+						<form method="POST" enctype="multipart/form-data" th:action="@{/smnsh/projects/{id}/attachments?category=contract(id=${project.id})}">
+							<input type="file" name="multipartFile"/>
+							<input type="submit" value="+" class="btn btn-sm btn-outline-success"/>
+						</form>
+
 					</div>
 				</div>
 			</div>
@@ -44,7 +54,14 @@
 					</div>
 					<div class="card-body"></div>
 					<div class="card-footer">
+						
 						<button class="btn btn-sm btn-outline-success disabled">+</button>
+						<!--  
+						<form method="POST" enctype="multipart/form-data" th:action="@{/smnsh/projects/{id}/attachments?category=offer(id=${project.id})}">
+							<input type="file" name="file"/>
+							<input type="submit" value="+" class="btn btn-sm btn-outline-success"/>
+						</form>
+						 -->
 					</div>
 				</div>
 			</div>

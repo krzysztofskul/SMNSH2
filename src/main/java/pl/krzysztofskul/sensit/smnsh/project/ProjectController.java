@@ -128,6 +128,18 @@ public class ProjectController {
 		case "offer":
 			attachment.setAttachmentCategory(attachmentCategoryService.loadByCode("DOC-OFFER"));
 			break;
+		case "project":
+			attachment.setAttachmentCategory(attachmentCategoryService.loadByCode("PROJECT"));
+			break;
+		case "order":
+			attachment.setAttachmentCategory(attachmentCategoryService.loadByCode("DOC-ORDER"));
+			break;
+		case "invoice":
+			attachment.setAttachmentCategory(attachmentCategoryService.loadByCode("DOC-INVOICE"));
+			break;
+		case "protocol":
+			attachment.setAttachmentCategory(attachmentCategoryService.loadByCode("DOC-PROTOCOL-ACCEPT"));
+			break;
 
 		default:
 			attachment.setAttachmentCategory(attachmentCategoryService.loadByCode("DOC-GENERAL"));

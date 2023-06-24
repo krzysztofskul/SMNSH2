@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xlmns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>SMNSH</title>
@@ -14,8 +16,6 @@
 	<!-- CSS -->
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
 	
-	<!-- JS -->
-	<script th:src="@{/js/companies/allSubcontractors.js}"></script> 
 </head>
 <body>
 
@@ -31,24 +31,96 @@
 						<p class="sensit-langEn">CONTRACTS</p>
 					</div>
 					<div class="card-body">
-						<section th:if="${project.attachments} ?: '!UNKNOWN'">
-							<div th:each="attachment : ${project.attachments}"  th:class="sensit-attachment-thumbnail">
-								<a th:href="@{/smnsh/files/download/{id}(id=${attachment.file.id})}">
-									<i class="material-icons">attachment</i>
+						<div th:if="${project.attachments} ?: '!UNKNOWN'">
+							<div th:each="attachment : ${project.attachments}" th:if="${attachment.attachmentCategory.attCategoryCode == 'DOC-CONTRACT'}" class="position-relative sensit-attachment-thumbnail">
+								<i class="border material-icons border fs-1 border">attachment</i>
+								<i class="material-icons fs-4 position-absolute top-0 end-0 text-secondary">info</i>
+								<a class="position-absolute end-0 bottom-0" th:href="@{/smnsh/files/download/{id}(id=${attachment.file.id})}">
+									<i class="material-icons">download</i>
 								</a>
-								<!-- <p th:text="${attachment.file.fileName}"/> -->
-								<!-- <a href="#">
-									<p class="sensit-langPl">POBIERZ</p>
-									<p class="sensit-langEn">download</p>
-								</a> -->
 							</div>
-						</section>
+						</div>
 					</div>
 					<div class="card-footer">
-						<!--  
-						<button class="btn btn-sm btn-outline-success disabled">+</button>
-						 -->
 						<form method="POST" enctype="multipart/form-data" th:action="@{/smnsh/projects/{id}/attachments?category=contract(id=${project.id})}">
+							<input type="file" name="multipartFile"/>
+							<input type="submit" value="+" class="btn btn-sm btn-outline-success"/>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card sensit-card">
+					<div class="card-header">
+						<p class="sensit-langPl">OFERTY</p>
+						<p class="sensit-langEn">OFFERS</p>
+					</div>
+					<div class="card-body">
+						<div th:if="${project.attachments} ?: '!UNKNOWN'">
+							<div th:each="attachment : ${project.attachments}" th:if="${attachment.attachmentCategory.attCategoryCode == 'DOC-OFFER'}" class="position-relative sensit-attachment-thumbnail">
+								<i class="border material-icons border fs-1 border">attachment</i>
+								<i class="material-icons fs-4 position-absolute top-0 end-0 text-secondary">info</i>
+								<a class="position-absolute end-0 bottom-0" th:href="@{/smnsh/files/download/{id}(id=${attachment.file.id})}">
+									<i class="material-icons">download</i>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer">
+						<form method="POST" enctype="multipart/form-data" th:action="@{/smnsh/projects/{id}/attachments?category=offer(id=${project.id})}">
+							<input type="file" name="multipartFile"/>
+							<input type="submit" value="+" class="btn btn-sm btn-outline-success"/>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card sensit-card">
+					<div class="card-header">
+						<p class="sensit-langPl">PROJEKTY</p>
+						<p class="sensit-langEn">PROJECTS</p>
+					</div>
+					<div class="card-body">
+						<div th:if="${project.attachments} ?: '!UNKNOWN'">
+							<div th:each="attachment : ${project.attachments}" th:if="${attachment.attachmentCategory.attCategoryCode == 'PROJECT'}" class="position-relative sensit-attachment-thumbnail">
+								<i class="border material-icons border fs-1 border">attachment</i>
+								<i class="material-icons fs-4 position-absolute top-0 end-0 text-secondary">info</i>
+								<a class="position-absolute end-0 bottom-0" th:href="@{/smnsh/files/download/{id}(id=${attachment.file.id})}">
+									<i class="material-icons">download</i>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer">
+						<form method="POST" enctype="multipart/form-data" th:action="@{/smnsh/projects/{id}/attachments?category=project(id=${project.id})}">
+							<input type="file" name="multipartFile"/>
+							<input type="submit" value="+" class="btn btn-sm btn-outline-success"/>
+						</form>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row cards-in-columns">
+			<div class="col">
+				<div class="card sensit-card">
+					<div class="card-header">
+						<p class="sensit-langPl">ZAMÓWIENIA</p>
+						<p class="sensit-langEn">ORDERS</p>
+					</div>
+					<div class="card-body">
+						<div th:if="${project.attachments} ?: '!UNKNOWN'">
+							<div th:each="attachment : ${project.attachments}" th:if="${attachment.attachmentCategory.attCategoryCode == 'DOC-ORDER'}" class="position-relative sensit-attachment-thumbnail">
+								<i class="border material-icons border fs-1 border">attachment</i>
+								<i class="material-icons fs-4 position-absolute top-0 end-0 text-secondary">info</i>
+								<a class="position-absolute end-0 bottom-0" th:href="@{/smnsh/files/download/{id}(id=${attachment.file.id})}">
+									<i class="material-icons">download</i>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer">
+						<form method="POST" enctype="multipart/form-data" th:action="@{/smnsh/projects/{id}/attachments?category=order(id=${project.id})}">
 							<input type="file" name="multipartFile"/>
 							<input type="submit" value="+" class="btn btn-sm btn-outline-success"/>
 						</form>
@@ -59,69 +131,52 @@
 			<div class="col">
 				<div class="card sensit-card">
 					<div class="card-header">
-						<p class="sensit-langPl">OFERTY</p>
-						<p class="sensit-langEn">OFFERS</p>
+						<p class="sensit-langPl">FAKTURY</p>
+						<p class="sensit-langEn">INVOICES</p>
 					</div>
-					<div class="card-body"></div>
+					<div class="card-body">
+						<div th:if="${project.attachments} ?: '!UNKNOWN'">
+							<div th:each="attachment : ${project.attachments}" th:if="${attachment.attachmentCategory.attCategoryCode == 'DOC-INVOICE'}" class="position-relative sensit-attachment-thumbnail">
+								<i class="border material-icons border fs-1 border">attachment</i>
+								<i class="material-icons fs-4 position-absolute top-0 end-0 text-secondary">info</i>
+								<a class="position-absolute end-0 bottom-0" th:href="@{/smnsh/files/download/{id}(id=${attachment.file.id})}">
+									<i class="material-icons">download</i>
+								</a>
+							</div>
+						</div>
+					</div>
 					<div class="card-footer">
-						
-						<button class="btn btn-sm btn-outline-success disabled">+</button>
-						<!--  
-						<form method="POST" enctype="multipart/form-data" th:action="@{/smnsh/projects/{id}/attachments?category=offer(id=${project.id})}">
-							<input type="file" name="file"/>
+						<form method="POST" enctype="multipart/form-data" th:action="@{/smnsh/projects/{id}/attachments?category=invoice(id=${project.id})}">
+							<input type="file" name="multipartFile"/>
 							<input type="submit" value="+" class="btn btn-sm btn-outline-success"/>
 						</form>
-						 -->
+
 					</div>
 				</div>
 			</div>
 			<div class="col">
 				<div class="card sensit-card">
 					<div class="card-header">
-						<p class="sensit-langPl">PROJEKTY</p>
-						<p class="sensit-langEn">PROJECTS</p>
+						<p class="sensit-langPl">PROTKOŁY ODBIORU</p>
+						<p class="sensit-langEn">ACCPETANCE PROTOCOLS</p>
 					</div>
-					<div class="card-body"></div>
+					<div class="card-body">
+						<div th:if="${project.attachments} ?: '!UNKNOWN'">
+							<div th:each="attachment : ${project.attachments}" th:if="${attachment.attachmentCategory.attCategoryCode == 'DOC-PROTOCOL-ACCEPT'}" class="position-relative sensit-attachment-thumbnail">
+								<i class="border material-icons border fs-1 border">attachment</i>
+								<i class="material-icons fs-4 position-absolute top-0 end-0 text-secondary">info</i>
+								<a class="position-absolute end-0 bottom-0" th:href="@{/smnsh/files/download/{id}(id=${attachment.file.id})}">
+									<i class="material-icons">download</i>
+								</a>
+							</div>
+						</div>
+					</div>
 					<div class="card-footer">
-						<button class="btn btn-sm btn-outline-success disabled">+</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row cards-in-columns">
-			<div class="col">
-				<div class="card sensit-card">
-					<div class="card-header">
-						<p class="sensit-langPl">KONCEPCJE</p>
-						<p class="sensit-langEn">PRELIMINARY DESIGNS</p>
-					</div>
-					<div class="card-body"></div>
-					<div class="card-footer">
-						<button class="btn btn-sm btn-outline-success disabled">+</button>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card sensit-card">
-					<div class="card-header">
-						<p class="sensit-langPl">WYTYCZNE</p>
-						<p class="sensit-langEn">FINAL PLANS</p>
-					</div>
-					<div class="card-body"></div>
-					<div class="card-footer">
-						<button class="btn btn-sm btn-outline-success disabled">+</button>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card sensit-card">
-					<div class="card-header">
-						<p class="sensit-langPl">PROTKOŁY</p>
-						<p class="sensit-langEn">PROTOCOLS</p>
-					</div>
-					<div class="card-body"></div>
-					<div class="card-footer">
-						<button class="btn btn-sm btn-outline-success disabled">+</button>
+						<form method="POST" enctype="multipart/form-data" th:action="@{/smnsh/projects/{id}/attachments?category=protocol(id=${project.id})}">
+							<input type="file" name="multipartFile"/>
+							<input type="submit" value="+" class="btn btn-sm btn-outline-success"/>
+						</form>
+
 					</div>
 				</div>
 			</div>

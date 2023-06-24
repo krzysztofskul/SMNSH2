@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
@@ -68,6 +69,11 @@ public class FileStorageService implements FileStorageServiceInterface {
 		return null;
 	}
 
+	public File loadById(Long id) {
+		return fileStorageRepo.findById(id).get();
+	}
+	
+	
 	@Override
 	public Resource loadAsResource(String filename) {
 		// TODO Auto-generated method stub

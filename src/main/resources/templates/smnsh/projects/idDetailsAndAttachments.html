@@ -33,7 +33,9 @@
 					<div class="card-body">
 						<section th:if="${project.attachments} ?: '!UNKNOWN'">
 							<div th:each="attachment : ${project.attachments}"  th:class="sensit-attachment-thumbnail">
-								<i class="material-icons">attachment</i>
+								<a th:href="@{/smnsh/files/download/{id}(id=${attachment.file.id})}">
+									<i class="material-icons">attachment</i>
+								</a>
 								<!-- <p th:text="${attachment.file.fileName}"/> -->
 								<!-- <a href="#">
 									<p class="sensit-langPl">POBIERZ</p>

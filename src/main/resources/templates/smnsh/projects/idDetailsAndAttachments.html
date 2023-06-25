@@ -16,10 +16,14 @@
 	<!-- CSS -->
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
 	
+	<!-- JS -->
+	 <script th:src="@{/js/projects/idDetailsAndAttachments.js}"></script> 
+	
 </head>
 <body>
 
 	<div th:replace="./smnsh/header" :: header class="sensit-header"></div>
+	<div th:replace="./smnsh/projects/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
 	
 	<div class="container-fluid" style="min-height:250px">
 	
@@ -34,7 +38,11 @@
 						<div th:if="${project.attachments} ?: '!UNKNOWN'">
 							<div th:each="attachment : ${project.attachments}" th:if="${attachment.attachmentCategory.attCategoryCode == 'DOC-CONTRACT'}" class="position-relative sensit-attachment-thumbnail">
 								<i class="border material-icons border fs-1 border">attachment</i>
-								<i class="material-icons fs-4 position-absolute top-0 end-0 text-secondary">info</i>
+								<div class="sensit-tooltip position-absolute top-0 end-0">
+									<i class="material-icons fs-4 text-secondary">info</i>
+									<span class="sensit-tooltip-text" th:text="${attachment.file.fileName}"></span>
+								</div>
+
 								<a class="position-absolute end-0 bottom-0" th:href="@{/smnsh/files/download/{id}(id=${attachment.file.id})}">
 									<i class="material-icons">download</i>
 								</a>

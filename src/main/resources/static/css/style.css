@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 @import url(./style-cards.css);
+@import url(./tooltip.css);
 
 .sensit-test {
 	background-color: yellow;

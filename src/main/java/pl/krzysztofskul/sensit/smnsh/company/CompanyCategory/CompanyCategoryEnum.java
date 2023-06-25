@@ -2,10 +2,10 @@ package pl.krzysztofskul.sensit.smnsh.company.CompanyCategory;
 
 public enum CompanyCategoryEnum {
 
-	INVESTOR("Investor", "Inwestor (płatnik)"), 
-	CUSTOMER("Customer", "Klient (odbiorca/użytkownik)"), 
-	SUBCONTRACTOR("Subocntractor", "Podwykonawca"),
-	SUBCONTRACTOR_GENERAL("General subcontractr", "Generalny wykonwaca"),
+	INVESTOR("Investor", "Klinet/Inwestor (płatnik)"), 
+	CUSTOMER("Customer", "Klient/Konsument (odbiorca/użytkownik)"),  
+	SUBCONTRACTOR("Subcontractor", "Podwykonawca"),
+	SUBCONTRACTOR_GENERAL("General subcontractor", "Generalny wykonwaca"),
 	SUBCONTRACTOR_ROOM_ADAPTATION("Subcontractor of room adaptations", "Wykonawca adaptacji pomieszczeń"),
 	SUPPLIER("Supplier", "Dostawca");
 

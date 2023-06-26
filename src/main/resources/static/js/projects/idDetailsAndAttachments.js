@@ -4,6 +4,7 @@
 
 $(document).ready(function() {
 	
-	// alert("test"); //ok
+	//alert("test attachemnt page"); //ok
+
 	
 });

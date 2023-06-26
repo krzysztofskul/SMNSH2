@@ -27,6 +27,13 @@ public class DeviceInstance {
 	private Project project;
 
 	
+	
+	/**
+	 * CONSTRUCTOR
+	 */
+	public DeviceInstance() {
+	}
+
 	/**
 	 * CONSTRUCTOR
 	 * @param devicePortfolio

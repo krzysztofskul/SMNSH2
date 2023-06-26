@@ -7,8 +7,14 @@
 	<title>SMNSH</title>
 	<!-- BOOTSTRAP -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 	<!-- CSS -->
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
+	<!-- JS -->
+	<script th:src="@{/js/projects/idDetails.js}"></script> 
 </head>
 <body>
 
@@ -25,6 +31,10 @@
 				</div>
 			</div>
 			<div class="card-body">
+				<div class="row d-none">	
+					<div class="col-4 title">Id projektu</div>
+					<div class="col-8 content"><span id="projectId" th:text="${project.id}"/></div>
+				</div>
 				<div class="row">	
 					<div class="col-4 title">Nazwa projektu</div>
 					<div class="col-8 content"><span th:text="${project.name}"/></div>
@@ -90,37 +100,49 @@
 					<div class="col-8 content">
 						<!-- <span th:text="${project.status.namePl}"/> -->
 						<button 
-							class="btn btn-sm btn-outline-dark sensit-btn-height" 
+							id="btn-undefined"
+							class="btn btn-sm sensit-btn-height btn-status"
+							th:classappend="${project.status.nameEn == 'UNDEFINED' ? 'btn-outline-success' : 'btn-outline-dark'}"
 							>
 							<p class="sensit-langPl">BRAK DANYCH</p>	
 							<p class="sensit-langEn">undefined</p>
 						</button>
 						<button 
-							class="btn btn-sm btn-outline-dark sensit-btn-height" 
+							id="btn-precontract"
+							class="btn btn-sm sensit-btn-height btn-status"
+							th:classappend="${project.status.nameEn == 'PRE-CONTRACT' ? 'btn-outline-success' : 'btn-outline-dark'}"
 							>
 							<p class="sensit-langPl">AKWIZYCJA</p>	
 							<p class="sensit-langEn">pre-contract</p>
 						</button>
 						<button 
-							class="btn btn-sm btn-outline-dark sensit-btn-height" 
-							>
+							id="btn-contract"
+							class="btn btn-sm sensit-btn-height btn-status"
+							th:classappend="${project.status.nameEn == 'CONTRACT' ? 'btn-outline-success' : 'btn-outline-dark'}"
+							> 
 							<p class="sensit-langPl">UMOWA</p>	
 							<p class="sensit-langEn">contract</p>
 						</button>
 						<button
-							class="btn btn-sm btn-outline-dark sensit-btn-height" 
-							>
+							id="btn-execution"
+							class="btn btn-sm sensit-btn-height btn-status"
+							th:classappend="${project.status.nameEn == 'EXECUTION' ? 'btn-outline-success' : 'btn-outline-dark'}"
+							> 
 							<p class="sensit-langPl">REALIZACJA</p>	
 							<p class="sensit-langEn">execution</p>
 						</button>
 						<button 
-							class="btn btn-sm btn-outline-dark sensit-btn-height" 
+							id="btn-nobid"
+							class="btn btn-sm sensit-btn-height btn-status"
+							th:classappend="${project.status.nameEn == 'NO-BID' ? 'btn-outline-success' : 'btn-outline-dark'}"
 							>
 							<p class="sensit-langPl">ANULOWANY</p>	
 							<p class="sensit-langEn">no-bid</p>
 						</button>
 						<button 
-							class="btn btn-sm btn-outline-dark sensit-btn-height" 
+							id="btn-completed"
+							class="btn btn-sm sensit-btn-height btn-status"
+							th:classappend="${project.status.nameEn == 'COMPLETED' ? 'btn-outline-success' : 'btn-outline-dark'}"
 							>
 							<p class="sensit-langPl">ZAKOŃCZONY</p>	
 							<p class="sensit-langEn">completed</p>

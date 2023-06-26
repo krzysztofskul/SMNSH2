@@ -1,5 +1,6 @@
 package pl.krzysztofskul.sensit.smnsh.project;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ import pl.krzysztofskul.sensit.smnsh.user.User;
 
 @Entity
 @Table(name = "projects")
-public class Project {
+public class Project /*TODO 2023-06-26 1555 implement serializable? also for related classes?*/ {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,7 +84,7 @@ public class Project {
 	@ManyToOne
 	private DevicePortfolio devicePortfolio;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Installation installation;
 	
 	/*
@@ -504,9 +505,29 @@ public class Project {
 	 */
 	public void changeStatusTo(Status status) {
 		switch (status) {
+			case UNDEFINED: {
+				this.setStatus(status);
+				break;
+			}
+			case PRECONTRACT: {
+				this.setStatus(status);
+				break;
+			}
+			case CONTRACT: {
+				this.setStatus(status);
+				break;
+			}
 			case EXECUTION: {
 				this.setStatus(status);
 				this.installation = new Installation(this, new DeviceInstance(this.devicePortfolio, this));
+				break;
+			}
+			case NOBID: {
+				this.setStatus(status);
+				break;
+			}
+			case COMPLETED: {
+				this.setStatus(status);
 				break;
 			}
 			default:

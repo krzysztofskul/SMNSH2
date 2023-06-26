@@ -6,6 +6,8 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pl.krzysztofskul.sensit.smnsh.project.status.Status;
+
 @Service
 public class ProjectService {
 
@@ -59,6 +61,10 @@ public class ProjectService {
 		return project;
 	}
 
-
+	public Project setStatus(Long projectId, Status status) {
+		Project project = this.loadById(projectId);
+		project.changeStatusTo(status);
+		return project;
+	}
 	
 }

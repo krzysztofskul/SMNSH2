@@ -2,6 +2,7 @@ package pl.krzysztofskul.sensit.smnsh.project.device.modality;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,12 +41,20 @@ public class DevicePortfolioGenerator {
 		if (devicePortfolioListDemo.size() == 0) {
 			for (Modality modality : modalityService.loadAll()) {
 				for (int i = 0; i < 3; i++) {
-					devicePortfolioService.saveAndReturn(new DevicePortfolio(modality.getName(), LoremIpsum.getInstance().getTitle(1)));
+					DevicePortfolio dp = new DevicePortfolio(modality.getNameTrade(), LoremIpsum.getInstance().getTitle(1));
+					devicePortfolioListDemo.add(dp);
+					devicePortfolioService.saveAndReturn(dp);
 				}
 			}
 		}
 		
 		return devicePortfolioListDemo;
+	}
+
+
+
+	public DevicePortfolio getRandomDevicePortfolio() {	
+		return devicePortfolioListDemo.get(new Random().nextInt(devicePortfolioListDemo.size()));
 	}
 	
 }

@@ -15,6 +15,7 @@ import com.thedeanda.lorem.LoremIpsum;
 
 import pl.krzysztofskul.sensit.smnsh.company.CompanyService;
 import pl.krzysztofskul.sensit.smnsh.init.InitDataGenerator;
+import pl.krzysztofskul.sensit.smnsh.project.device.modality.DevicePortfolioGenerator;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneStatusEnum;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplate;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplateGenerator;
@@ -31,25 +32,21 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 	private UserService userService;
 	private CompanyService companyService;
 	private MilestoneTemplateGenerator milestoneTemplateGenerator;
+	private DevicePortfolioGenerator devicePortfolioGenerator;
 
-	
 	
 	/**
 	 * CONSTRUCTOR
-	 * @param projectRepo
-	 * @param userService
-	 * @param companyService
-	 * @param milestoneTemplateGenerator
 	 */
+	@Autowired
 	public ProjectDemoGenerator(ProjectRepo projectRepo, UserService userService, CompanyService companyService,
-			MilestoneTemplateGenerator milestoneTemplateGenerator) {
+			MilestoneTemplateGenerator milestoneTemplateGenerator, DevicePortfolioGenerator devicePortfolioGenerator) {
 		this.projectRepo = projectRepo;
 		this.userService = userService;
 		this.companyService = companyService;
 		this.milestoneTemplateGenerator = milestoneTemplateGenerator;
+		this.devicePortfolioGenerator = devicePortfolioGenerator;
 	}
-
-
 
 	/**
 	 * Creates and return demo projects
@@ -128,7 +125,7 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				
 				
 				project.setContractNo("U-TES-2023-" + new Random().nextInt(99));
-				project.setDevice("MAGNESO " + loremIpsum.getTitle(1));
+				project.setDevicePortfolio(devicePortfolioGenerator.getRandomDevicePortfolio());
 
 				project.setStatus(Status.EXECUTION);
 				

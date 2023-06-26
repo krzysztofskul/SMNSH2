@@ -22,7 +22,6 @@ public class MilestoneTemplate extends Milestone {
 	 * 
 	 */
 	public MilestoneTemplate() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -32,7 +31,6 @@ public class MilestoneTemplate extends Milestone {
 	 */
 	public MilestoneTemplate(String namePl, String nameEn, String description) {
 		super(namePl, nameEn, description);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**

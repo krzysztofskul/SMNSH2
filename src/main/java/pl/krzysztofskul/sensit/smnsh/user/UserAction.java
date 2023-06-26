@@ -1,7 +1,7 @@
 package pl.krzysztofskul.sensit.smnsh.user;
 
 /*
- * TODO create user login and register functionality
+ * TODO 2023-06-24 create user login and register functionality
  */
 public enum UserAction {
         REGISTER {

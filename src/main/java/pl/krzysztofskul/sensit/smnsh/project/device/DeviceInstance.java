@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import pl.krzysztofskul.sensit.smnsh.project.Project;
 
@@ -22,7 +23,7 @@ public class DeviceInstance {
 
 	private String dateOfDelivery;
 	
-	@ManyToOne
+	@OneToOne
 	private Project project;
 
 	

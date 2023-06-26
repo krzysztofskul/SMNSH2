@@ -23,7 +23,6 @@ public class File {
 	 * CONSTRUCTOR
 	 */
 	public File() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

@@ -3,13 +3,19 @@ package pl.krzysztofskul.sensit.smnsh.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import pl.krzysztofskul.sensit.smnsh.project.Project;
+import pl.krzysztofskul.sensit.smnsh.project.installation.Installation;
 
 @Entity
 public class User {
@@ -27,6 +33,13 @@ public class User {
 
     @OneToMany(mappedBy = "projectManager")
     private List<Project> projectListAsProjectManager = new ArrayList<Project>();
+    
+    /**
+     * The list of project installations where user is set as additional project manager
+     */
+    @ManyToMany
+    @JoinTable(name = "projectmanagers_installations", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "inastallation_id")})
+    private List<Installation> projectManagersAdd= new ArrayList<Installation>();
     
     private UserBusinessPosition businessPosition;
 
@@ -130,6 +143,20 @@ public class User {
 	 */
 	public void setProjectListAsProjectManager(List<Project> projectListAsProjectManager) {
 		this.projectListAsProjectManager = projectListAsProjectManager;
+	}
+
+	/**
+	 * @return the projectManagersAdd
+	 */
+	public List<Installation> getProjectManagersAdd() {
+		return projectManagersAdd;
+	}
+
+	/**
+	 * @param projectManagersAdd the projectManagersAdd to set
+	 */
+	public void setProjectManagersAdd(List<Installation> projectManagersAdd) {
+		this.projectManagersAdd = projectManagersAdd;
 	}
 
 	/**

@@ -65,7 +65,6 @@ public class FileStorageService implements FileStorageServiceInterface {
 
 	@Override
 	public Path load(String filename) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -76,7 +75,6 @@ public class FileStorageService implements FileStorageServiceInterface {
 	
 	@Override
 	public Resource loadAsResource(String filename) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

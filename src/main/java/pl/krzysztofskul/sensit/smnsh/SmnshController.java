@@ -130,7 +130,7 @@ public class SmnshController {
 	}
 	
 	/*
-	 * TODO: create MVC/JSP functionality
+	 * TODO 2023-06-15 create MVC/JSP functionality
 	 */
 	@GetMapping("/jsp/projects")
 	public ModelAndView homeJsp(Model model) {

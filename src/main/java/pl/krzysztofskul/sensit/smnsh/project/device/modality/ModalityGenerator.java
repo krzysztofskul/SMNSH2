@@ -27,7 +27,7 @@ public class ModalityGenerator {
 		modalityRepo.save(new Modality("US", "Ultrasound", "SONO"));
 		modalityRepo.save(new Modality("RO", "Radiation Oncology", "RADONCO"));
 		modalityRepo.save(new Modality("LD", "Laboratory Diagnostic", "LABO"));
-		modalityRepo.save(new Modality("SY", "Imaging Software", "SOFTEO IMA."));
+		modalityRepo.save(new Modality("SY", "Imaging Software", "SOIGO"));
 		modalityRepo.save(new Modality("SU", "Surgical Solutions", "SURGEO"));
 		
 	}

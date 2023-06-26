@@ -11,7 +11,9 @@ import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,6 +23,10 @@ import javax.persistence.Table;
 
 import pl.krzysztofskul.sensit.smnsh.company.Company;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.Attachment;
+import pl.krzysztofskul.sensit.smnsh.project.device.Device;
+import pl.krzysztofskul.sensit.smnsh.project.device.DeviceInstance;
+import pl.krzysztofskul.sensit.smnsh.project.device.DevicePortfolio;
+import pl.krzysztofskul.sensit.smnsh.project.installation.Installation;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.Milestone;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneInstance;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneStatusEnum;
@@ -56,15 +62,15 @@ public class Project {
 	private Company investor;
 
 	/*
-	 * TODO create relation with customer
-	 * TODO update project demo generator with customer
-	 * TODO update front-end projects and project by id
+	 * TODO 2023-06-19 create relation with customer
+	 * update project demo generator with customer
+	 * update front-end projects and project by id
 	 */
 	@ManyToOne
 	private Company customer;
 	
 	/*
-	 * TODO create relation with subcontractors
+	 * TODO 2023-06-19 create relation with subcontractors
 	 * update project demo generator with subcontractors
 	 * update front-end projects and project by id
 	 */
@@ -72,10 +78,17 @@ public class Project {
 	private List<Company> subcontractors = new ArrayList<Company>();
 	
 	/*
-	 * TODO change Sring device to the DevicePrototype class and relation
+	 * TODO 2023-06-25 Update front-end because of changes in device parameter from the String device to the Device devicePortfolio
 	 */
-	private String device;
+	@ManyToOne
+	private DevicePortfolio devicePortfolio;
 	
+	@OneToOne
+	private Installation installation;
+	
+	/*
+	 * TODO 2023-06-25 move/ed to the installation class
+	 */
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private User projectManager;
 	
@@ -284,17 +297,31 @@ public class Project {
 	}
 
 	/**
-	 * @return the device
+	 * @return the devicePortfolio
 	 */
-	public String getDevice() {
-		return device;
+	public DevicePortfolio getDevicePortfolio() {
+		return devicePortfolio;
 	}
 
 	/**
-	 * @param device the device to set
+	 * @param devicePortfolio the devicePortfolio to set
 	 */
-	public void setDevice(String device) {
-		this.device = device;
+	public void setDevicePortfolio(DevicePortfolio devicePortfolio) {
+		this.devicePortfolio = devicePortfolio;
+	}
+
+	/**
+	 * @return the installation
+	 */
+	public Installation getInstallation() {
+		return installation;
+	}
+
+	/**
+	 * @param installation the installation to set
+	 */
+	public void setInstallation(Installation installation) {
+		this.installation = installation;
 	}
 
 	/**
@@ -442,7 +469,8 @@ public class Project {
 	}
 
 	/**
-	 * 
+	 * Methods which allows to add to the project a new milestone from template
+	 * @param MilestoneTemplate milestoneTemplate
 	 */
 	public void addMilestoneFromTemplate(MilestoneTemplate milestoneTemplate) {
 		MilestoneInstance milestoneInstance = new MilestoneInstance(milestoneTemplate);
@@ -450,14 +478,39 @@ public class Project {
 		milestoneInstance.setProject(this);
 	}
 
+	
+	/** Methods which allows to add to the project new milestone from template, with specified deadline and status
+	 * @param milestoneTemplate
+	 * @param deadline
+	 * @param status
+	 */
 	public void addMilestoneFromTemplate(MilestoneTemplate milestoneTemplate, LocalDate deadline, MilestoneStatusEnum status) {
 		MilestoneInstance milestoneInstance = new MilestoneInstance(milestoneTemplate, deadline, status);
 		this.milestones.add(milestoneInstance);
 		milestoneInstance.setProject(this);
 	}
 	
+	/** Methods which allows to add new attachment to the project
+	 * @param attachment
+	 */
 	public void addAttachment(Attachment attachment) {
 		this.attachments.add(attachment);
 		attachment.setProject(this);
+	}
+
+	/**
+	 * Methods which allows to change the status of the project. It also create a installation instance related with the project.
+	 * @param status
+	 */
+	public void changeStatusTo(Status status) {
+		switch (status) {
+			case EXECUTION: {
+				this.setStatus(status);
+				this.installation = new Installation(this, new DeviceInstance(this.devicePortfolio, this));
+				break;
+			}
+			default:
+				break;
+			}
 	}
 }

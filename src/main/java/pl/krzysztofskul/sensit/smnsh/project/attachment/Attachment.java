@@ -35,7 +35,6 @@ public class Attachment {
 	 * CONSTRUCTOR
 	 */
 	public Attachment() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

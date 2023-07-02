@@ -4,9 +4,9 @@
 </head>
 
 <div th:fragment="header" class="sensit-header">	
-		<div class="logo">
+		<div class="logo border">
 			<h5 class="d-inline-block"><span style="color:#009898">PROJECT & HEALTHCARE</span> <span style="color:#ec6602">APP.</span></h5>
 			<img class="d-inline-block" height="30px" th:src="@{/pics/logo-smnsh.svg}"/>	
 		</div>
-			<div th:replace="./smnsh/menu-main" :: menu-main></div>
+		<div th:replace="./smnsh/menu-main" :: menu-main></div>
 </div>

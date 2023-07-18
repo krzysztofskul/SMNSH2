@@ -74,3 +74,16 @@
     font-size: 12px;
     font-style: italic;
 }
+
+.width25 {
+	width: 25%;
+}
+.width50 {
+	width: 50%;
+}
+.width75 {
+	width: 75%;
+}
+.width100 {
+	width: 100%
+}

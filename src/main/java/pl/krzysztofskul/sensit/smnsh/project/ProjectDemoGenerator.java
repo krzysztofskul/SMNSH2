@@ -4,8 +4,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.datetime.DateFormatter;
@@ -75,12 +80,14 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				project.setInvestor(companyService.loadRandomInvestor());
 				project.setProjectManager(userService.loadByEmail(userPM.getEmail()));				
 				
-				List<Stakeholder> stakeholders = new ArrayList<>();
-				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Dyrektor ds. technicznych", "dyrekcja@example.com", project));
-				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Dyrektor ds. administracyjnych", "administracja@example.com", project));
-				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Ordynator oddziału", "tel. +099 99 00 99", project));
-				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Pielęgniarka oddziałowa", "email: oddzialowa@example.com", project));
-				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Sekretariat", "sekretariat@example.com", project));
+//				List<Stakeholder> stakeholders = new ArrayList<>();
+//				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Dyrektor ds. technicznych", "dyrekcja@example.com", project));
+//				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Dyrektor ds. administracyjnych", "administracja@example.com", project));
+//				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Ordynator oddziału", "tel. +099 99 00 99", project));
+//				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Pielęgniarka oddziałowa", "email: oddzialowa@example.com", project));
+//				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Sekretariat", "sekretariat@example.com", project));
+				List<Stakeholder> stakeholders = generateAndReturnDemoStakeholders(project);
+				
 				project.setStakeholders(stakeholders);
 				project.setDesigner("Krzysztof K.");
 				project.setDeadline(LocalDate.now().plusWeeks(new Random().nextInt(12 * 4)).toString());				
@@ -139,6 +146,52 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 		}
 		
 		return projectList;
+	}
+
+	private List<Stakeholder> generateAndReturnDemoStakeholders(Project project) {
+		List<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
+		Set<String> businessPostionSet = new HashSet<String>(Arrays.asList("Prezes zarządu", "Sekretarka zarządu", "Dyrektor techniczny", "Technik radiolog", "Lekarz radiolog"));
+		for (String businessPosition : businessPostionSet) {
+			Stakeholder newStakeholder = new Stakeholder();
+			LoremIpsum loremIpsum = LoremIpsum.getInstance();
+			newStakeholder.setProject(project);
+			newStakeholder.setBusinessPosition(businessPosition);
+			newStakeholder.setNameFirst(loremIpsum.getFirstName());
+			newStakeholder.setNameLast(loremIpsum.getLastName());
+			if (businessPosition.contains("zarządu")) {
+				newStakeholder.setCompany(project.getInvestor());
+			} else {
+				newStakeholder.setCompany(project.getCustomer());
+				
+			}
+			newStakeholder.setDescription(loremIpsum.getWords(5, 10));
+			newStakeholder.setPhoneNumber(loremIpsum.getPhone());
+			newStakeholder.setEmail(loremIpsum.getEmail());
+			stakeholders.add(newStakeholder);
+
+		}
+
+
+		return stakeholders;
+	}
+
+	private Map<String, String> getDemoPhoneNumbersForStakeholder() {
+		Map<String, String> demoPhoneNumbers = new HashMap<String, String>();
+		demoPhoneNumbers.put("Tel. komórkowy służbowy", LoremIpsum.getInstance().getPhone());
+		demoPhoneNumbers.put("Tel. stacjonarny służbowy", LoremIpsum.getInstance().getPhone());
+		if (new Random().nextBoolean()) {
+			demoPhoneNumbers.put("Tel. komórkowy prywatny", LoremIpsum.getInstance().getPhone());
+		}
+		return demoPhoneNumbers;
+	}
+	
+	private Map<String, String> getDemoEmailsForStakeholder() {
+		Map<String, String> demoEmails = new HashMap<String, String>();
+		demoEmails.put("Email służbowy", LoremIpsum.getInstance().getEmail());
+		if (new Random().nextBoolean()) {
+			demoEmails.put("Emails prywatny", LoremIpsum.getInstance().getEmail());
+		}
+		return demoEmails;
 	}
 
 	

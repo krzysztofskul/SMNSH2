@@ -1,13 +1,22 @@
 package pl.krzysztofskul.sensit.smnsh.project.stakeholder;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
+import pl.krzysztofskul.sensit.smnsh.company.Company;
 import pl.krzysztofskul.sensit.smnsh.project.Project;
 
 @Entity
@@ -20,9 +29,31 @@ public class Stakeholder {
 	
 	private String nameFirst;
 	private String nameLast;
-	private String company;
+	@ManyToOne
+	private Company company;
 	private String businessPosition;
-	private String contactDetails;
+	
+	private String phoneNumber;
+	
+	private String email;
+	
+	/*
+	 * TODO phone numbers and emails as a map with titles
+	 * 
+	@ElementCollection
+	@CollectionTable(name = "stakeholder_emails_mapping", joinColumns = @JoinColumn(name = "stakeholder_id", referencedColumnName = "id"))
+	@MapKeyColumn(name = "email_name")
+	@Column(name = "email")
+	private Map<String, String> emails = new HashMap<String, String>();
+
+	@ElementCollection
+	@CollectionTable(name = "stakeholder_phoneNumbers_mapping", joinColumns = @JoinColumn(name = "stakeholder_id", referencedColumnName = "id"))
+	@MapKeyColumn(name = "phoneNumber_name")
+	@Column(name = "phoneNumber")
+	private Map<String, String> phoneNumbers = new HashMap<String, String>();
+	*/
+	
+	private String description;
 	
 	@ManyToOne
 	private Project project;
@@ -45,7 +76,6 @@ public class Stakeholder {
 		this.nameFirst = nameFirst;
 		this.nameLast = nameLast;
 		this.businessPosition = businessPosition;
-		this.contactDetails = contactDetails;
 		this.project = project;
 	}
 
@@ -120,14 +150,14 @@ public class Stakeholder {
 	/**
 	 * @return the company
 	 */
-	public String getCompany() {
+	public Company getCompany() {
 		return company;
 	}
 
 	/**
 	 * @param company the company to set
 	 */
-	public void setCompany(String company) {
+	public void setCompany(Company company) {
 		this.company = company;
 	}
 
@@ -146,17 +176,64 @@ public class Stakeholder {
 	}
 
 	/**
-	 * @return the contactDetails
+	 * @return the phoneNumber
 	 */
-	public String getContactDetails() {
-		return contactDetails;
+	public String getPhoneNumber() {
+		return phoneNumber;
 	}
 
 	/**
-	 * @param contactDetails the contactDetails to set
+	 * @param phoneNumber the phoneNumber to set
 	 */
-	public void setContactDetails(String contactDetails) {
-		this.contactDetails = contactDetails;
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
+	}
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	/*
+
+	public Map<String, String> getEmails() {
+		return emails;
+	}
+
+	public void setEmails(Map<String, String> emails) {
+		this.emails = emails;
+	}
+
+	public Map<String, String> getPhoneNumbers() {
+		return phoneNumbers;
+	}
+
+	public void setPhoneNumbers(Map<String, String> phoneNumbers) {
+		this.phoneNumbers = phoneNumbers;
+	}
+	*/
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	/**

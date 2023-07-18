@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xlmns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>SMNSH</title>
@@ -25,10 +27,9 @@
 				</div>
 				<div class="card-body">
 					<div class="row">
-
 							<div class="col-12">
-								<div class="row">
-									<div class="col-4 title">Stakeholder id</div>
+								<div class="row input-group mb-1">
+									<div class="col-4 title" hidden="true">Stakeholder id</div>
 									<div class="col-8 content">
 										<input type="text" th:field="${newStakeholder.id}" th:value="0" hidden="true"/>
 									</div>
@@ -36,32 +37,71 @@
 							</div>
 
 							<div class="col-12">
-								<div class="row">
+								<div class="row input-group mb-1">
 									<div class="col-4 title">Imię i nazwisko</div>
 									<div class="col-8 content">
-										<input type="text" th:field="${newStakeholder.nameFirst}" placeholder="Imię / First name"/>
-										<input type="text" th:field="${newStakeholder.nameLast}" placeholder="Nazwisko / Last name"/>
+										<input type="text" class="width25" th:field="${newStakeholder.nameFirst}" placeholder="Imię / First name"/>
+										<input type="text" class="width50" th:field="${newStakeholder.nameLast}" placeholder="Nazwisko / Last name"/>
 									</div>
 								</div>
 							</div>
 							
 							<div class="col-12">
-								<div class="row">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">Firma</div>
+									<div class="col-8 content">
+										<select th:field="${newStakeholder.company}" class="width75">
+											<option th:value="${newStakeholder.company.id}" th:text="${newStakeholder.company.name}"></option>
+											<option th:each="company : ${companies}" th:value=${company.id} th:text="${company.name}" ></option> 
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
 									<div class="col-4 title">Stanowisko</div>
 									<div class="col-8 content">
-										<input type="text" th:field="${newStakeholder.businessPosition}"/>
+										<input type="text" th:field="${newStakeholder.businessPosition}" class="width75"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">Opis</div>
+									<div class="col-8 content">
+										<textarea th:field="${newStakeholder.description}" class="width75"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">Nr. tel.</div>
+									<div class="col-8 content">
+										<input th:field="${newStakeholder.phoneNumber}" class="width75"></input>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">Email</div>
+									<div class="col-8 content">
+										<input th:field="${newStakeholder.email}" class="width75"></input>
 									</div>
 								</div>
 							</div>
 							
-							<div class="col-12">
-								<div class="row">
-									<div class="col-4 title">Dane kontaktowe</div>
+							<!-- TODO phoneNumbers as hashmap mapping-->
+							<!-- <div class="col-12">
+								<div class="row" th:each="phoneNumberMap : ${newStakeholder.getPhoneNumbers()}">
+									<div class="col-4 title">
+										<label th:for="*{phoneNumbers['__ ${phoneNumberMap.key}__']}" th:text="${phoneNumberMap.key}"></label>
+									</div>
 									<div class="col-8 content">
-										<input type="text" th:field="${newStakeholder.contactDetails}"/>
+										<input type="text" th:fied="*{phoneNumbers['__${phoneNumberMap.value}__']}"/>
 									</div>
 								</div>
-							</div>
+							</div> -->
+
 	
 					</div>
 				</div>

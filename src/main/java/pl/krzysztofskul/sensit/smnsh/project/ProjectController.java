@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 
+import pl.krzysztofskul.sensit.smnsh.company.CompanyService;
 import pl.krzysztofskul.sensit.smnsh.filestorage.File;
 import pl.krzysztofskul.sensit.smnsh.filestorage.FileStorageService;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.Attachment;
@@ -32,6 +33,7 @@ public class ProjectController {
 
 	private ProjectService projectService;
 	private AttachmentCategoryService attachmentCategoryService;
+	private CompanyService companyService;
 	
 	/**
 	 * CONSTRUCTOR
@@ -39,9 +41,12 @@ public class ProjectController {
 	@Autowired
 	public ProjectController(
 			ProjectService projectService,
-			AttachmentCategoryService attachmentCategoryService) {
+			AttachmentCategoryService attachmentCategoryService,
+			CompanyService companyService
+			) {
 		this.projectService = projectService;
 		this.attachmentCategoryService = attachmentCategoryService;
+		this.companyService = companyService;
 	}
 
 	@GetMapping("/projects")
@@ -73,8 +78,11 @@ public class ProjectController {
 				Model model
 			) {
 		Stakeholder newStakeholder = new Stakeholder(projectService.loadById(id));
-		model.addAttribute("project", projectService.loadByIdWithStakeholders(id));
+		Project project = projectService.loadByIdWithStakeholders(id);
+		newStakeholder.setCompany(project.getInvestor());
+		model.addAttribute("project", project);
 		model.addAttribute("newStakeholder", newStakeholder);
+		model.addAttribute("companies", companyService.loadAllSubcontrsctorsForRoomAdaptation());
 		return "smnsh/projects/forms/addStakeholderForm";
 	}
 	

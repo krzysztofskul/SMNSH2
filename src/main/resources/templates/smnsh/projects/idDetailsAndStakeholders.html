@@ -42,14 +42,36 @@
 						</div>
 					
 						<div class="row">
+							<div class="col-4 title">Firma</div>
+							<div class="col-8 content font-weight-bold"><span th:text="${stakeholder.company == null} ? '-' : ${stakeholder.company.name} "/></div>
+						</div>
+						<div class="row">
 							<div class="col-4 title">Stanowisko</div>
 							<div class="col-8 content font-weight-bold"><span th:text="${stakeholder.businessPosition}"/></div>
 						</div>
-					
 						<div class="row">
-							<div class="col-4 title">Dane kontaktowe</div>
-							<div class="col-8 content"><span th:text="${stakeholder.contactDetails}"/></div>
+							<div class="col-4 title">Opis</div>
+							<div class="col-8 content"><span th:text="${stakeholder.description}"/></div>
 						</div>
+						<div class="row">
+							<div class="col-4 title">Nr tel.</div>
+							<div class="col-8 content"><span th:text="${stakeholder.phoneNumber}"/></div>
+						</div>
+						<div class="row">
+							<div class="col-4 title">Email</div>
+							<div class="col-8 content"><span th:text="${stakeholder.email}"/></div>
+						</div>
+						<!--  TODO -->
+						<!--  
+						<div class="row" th:each="email : ${stakeholder.emails}">
+							<div class="col-4 title"><span th:text="${email.key}"/></div>
+							<div class="col-8 content"><span th:text="${email.value}"/></div>
+						</div>
+						<div class="row" th:each="phoneNumber : ${stakeholder.phoneNumbers}">
+							<div class="col-4 title"><span th:text="${phoneNumber.key}"/></div>
+							<div class="col-8 content"><span th:text="${phoneNumber.value}"/></div>
+						</div>
+						-->
 					</div>
 					<div class="col-4 text-right">
 						<button class="btn btn-sm btn-outline-primary sensit-btn-height disabled">

@@ -26,6 +26,8 @@ import pl.krzysztofskul.sensit.smnsh.project.attachment.Attachment;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategory;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategoryService;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
+import pl.krzysztofskul.sensit.smnsh.user.User;
+import pl.krzysztofskul.sensit.smnsh.user.UserService;
 
 @Controller
 @RequestMapping("/smnsh")
@@ -34,6 +36,7 @@ public class ProjectController {
 	private ProjectService projectService;
 	private AttachmentCategoryService attachmentCategoryService;
 	private CompanyService companyService;
+	private UserService userService;
 	
 	/**
 	 * CONSTRUCTOR
@@ -42,11 +45,13 @@ public class ProjectController {
 	public ProjectController(
 			ProjectService projectService,
 			AttachmentCategoryService attachmentCategoryService,
-			CompanyService companyService
+			CompanyService companyService,
+			UserService userService
 			) {
 		this.projectService = projectService;
 		this.attachmentCategoryService = attachmentCategoryService;
 		this.companyService = companyService;
+		this.userService = userService;
 	}
 
 	@GetMapping("/projects")
@@ -168,4 +173,32 @@ public class ProjectController {
 		return "redirect:/smnsh/projects/"+projectId+"/attachments";
 	}
 	
+	@GetMapping("/projects/user/springsecurityname/{userNameBySpringSecurity}")
+	public String getProjectsByUserName(
+				@PathVariable String userNameBySpringSecurity
+//				,
+//				Model model
+			) {
+//		List<Project> projects;
+//		String userNameFirst = userNameBySpringSecurity.split("\\s+")[0];
+//		String userNameLast = userNameBySpringSecurity.split("\\s+")[1];
+		String userNameFirst = userNameBySpringSecurity.split("_")[0];
+		String userNameLast = userNameBySpringSecurity.split("_")[1];
+		User user = userService.loadByUserNames(userNameFirst, userNameLast);
+		String userId = user.getId().toString();
+//		projects = projectService.loadProjectsByUserId(user.getId());
+//		model.addAttribute("projectList", projects);
+//		return "smnsh/projects/all";
+		return "redirect:/smnsh/projects/user/"+userId;
+	}
+	
+	@GetMapping("/projects/user/{userId}")
+	public String getProjectsByUserId(
+				@PathVariable(name = "userId") String userId,
+				Model model
+			) {
+		List<Project> projects = projectService.loadProjectsByUserId(Long.parseLong(userId) );
+		model.addAttribute("projectList", projects);
+		return "smnsh/projects/all";
+	}
 }

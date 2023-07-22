@@ -71,10 +71,15 @@
 		    <h3 class="d-inline-block avatar-name" sec:authorize="isAuthenticated()">
 				<span sec:authentication="name"></span>
 			</h3>
+			<a class="btn btn-sm d-inline-block text-primary border" th:href="@{/smnsh/projects/user/springsecurityname/{userNameBySpringSecurity}(userNameBySpringSecurity=${#authentication.name})}" sec:authorize="isAuthenticated()">
+				<p class="sensit-langPl">MOJE PROJEKTY</p>
+				<p class="sensit-langEn">MY PROJECTS</p>
+			</a>
 			<a class="btn btn-sm d-inline-block text-danger border-top" href="/logout" sec:authorize="isAuthenticated()">
 				<p class="sensit-langPl">WYLOUGUJ</p>
 				<p class="sensit-langEn">LOGOUT</p>
 			</a>
+			
 		
 	</div>
 	

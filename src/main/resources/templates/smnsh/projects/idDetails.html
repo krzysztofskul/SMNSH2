@@ -35,6 +35,21 @@
 					<div class="col-4 title">Id projektu</div>
 					<div class="col-8 content"><span id="projectId" th:text="${project.id}"/></div>
 				</div>
+				<div class="row">
+					<div class="col-2 title">SLS prowadzący:</div>
+					<div class="col-4 content"><span th:text="|${project.salesRep.nameFirst} ${project.salesRep.nameLast}|"/></div>
+					<div class="col-6">
+						<div class="row">
+							<div class="col-4 title">PM prowadzący:</div>
+							<div class="col-8 content"><span th:text="|${project.projectManager.nameFirst} ${project.projectManager.nameLast}"/></div>
+						</div>
+						<div class="row">
+							<div class="col-4 title">PM zastępujący:</div>
+							<div class="col-8 content "><button class="btn btn-outline-success" style="height: 1.5em; padding: 0; width: 4em;">+</button></div>
+						</div>
+					</div>
+				</div>
+				<hr>
 				<div class="row">	
 					<div class="col-4 title">Nazwa projektu</div>
 					<div class="col-8 content"><span th:text="${project.name}"/></div>
@@ -42,28 +57,6 @@
 				<div class="row">
 					<div class="col-4 title">Kod projektu</div>
 					<div class="col-8 content"><span th:text="${project.code}"/></div>
-				</div>
-
-				<div class="row">
-					<div class="col-4 title">Geneza projektu</div>
-					<div class="col-8 content"><span th:text="${project.background}"/></div>
-				</div>
-				<div class="row">
-					<div class="col-4 title">Cele projetu</div>
-					<div class="col-8 content"><span th:text="${project.goals}"/></div>
-				</div>
-				<div class="row">
-					<div class="col-4 title">Ryzyka projektu</div>
-					<div class="col-8 content"><span th:text="${project.risks}"/></div>
-				</div>
-
-				<div class="row">
-					<div class="col-4 title">Aparat oferowany</div>
-					<div class="col-8 content"><span th:text="${project.devicePortfolio.modality} + ' ' + ${project.devicePortfolio.modelName}"/></div>
-				</div>
-				<div class="row">
-					<div class="col-4 title">Nr umowy</div>
-					<div class="col-8 content"><span th:text="${project.contractNo}"/></div>
 				</div>
 				<div class="row">
 					<div class="col-4 title">Klinet/Inwestor (płatnik)</div>
@@ -88,9 +81,37 @@
 					<div class="col-8 content"><span th:text="..."/></div>
 				</div>
 				<div class="row">
+					<div class="col-4 title">Nr umowy</div>
+					<div class="col-8 content"><span th:text="${project.contractNo}"/></div>
+				</div>
+				<br><hr>
+				<div class="row">
+					<div class="col-4 title">Aparat oferowany</div>
+					<div class="col-8 content"><span th:text="${project.devicePortfolio.modality} + ' ' + ${project.devicePortfolio.modelName}"/></div>
+				</div>
+
+				<div class="row">
 					<div class="col-4 title">Miejsce instalacji</div>
 					<div class="col-8 content"><span th:text="..."/></div>
 				</div>
+				<div class="row">
+					<div class="col-4 title">Wykonawca adaptacji pomieszczeń</div>
+					<div class="col-8 content"><span th:text="..."/></div>
+				</div>
+				<br><hr>
+				<div class="row">
+					<div class="col-4 title">Geneza projektu</div>
+					<div class="col-8 content"><span th:text="${project.background}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Cele projetu</div>
+					<div class="col-8 content"><span th:text="${project.goals}"/></div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Ryzyka projektu</div>
+					<div class="col-8 content"><span th:text="${project.risks}"/></div>
+				</div>
+				<br><hr>
 				<div class="row">
 					<div class="col-4 title">Termin realizacji</div>
 					<div class="col-8 content"><span th:text="${project.deadline}"/></div>

@@ -90,7 +90,7 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				
 				project.setStakeholders(stakeholders);
 				project.setDesigner("Krzysztof K.");
-				project.setDeadline(LocalDate.now().plusWeeks(new Random().nextInt(12 * 4)).toString());				
+				project.setDeadline(LocalDate.now().plusWeeks(new Random().nextInt(12 * 4)));				
 				/*
 				 * add milestones <String>
 				 */
@@ -119,13 +119,13 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 						break;
 					}
 					case "Receipt": {
-						project.addMilestoneFromTemplate(milestoneTemplate, LocalDate.parse(project.getDeadline()), MilestoneStatusEnum.WAITING);
+						project.addMilestoneFromTemplate(milestoneTemplate, project.getDeadline(), MilestoneStatusEnum.WAITING);
 						break;
 					}
 					
 
 					default:
-						project.addMilestoneFromTemplate(milestoneTemplate, LocalDate.parse(project.getDeadline()).minusDays(7), MilestoneStatusEnum.IN_PROGRESS);
+						project.addMilestoneFromTemplate(milestoneTemplate, project.getDeadline().minusDays(7), MilestoneStatusEnum.IN_PROGRESS);
 					}
 					
 				}

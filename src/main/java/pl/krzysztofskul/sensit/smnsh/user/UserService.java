@@ -66,5 +66,12 @@ public class UserService {
 		User user = userRepo.findByNameFirstAndNameLast(userNameFirst, userNameLast);
 		return userRepo.findByNameFirstAndNameLast(userNameFirst, userNameLast);
 	}
+
+	public User loadByUserSpringSecurityName(String userSpringSecurityName) {
+		String nameFirst = userSpringSecurityName.split("_")[0];
+		String nameLast = userSpringSecurityName.split("_")[1];
+		User user = this.loadByUserNames(nameFirst, nameLast);
+		return user;
+	}
     
 }

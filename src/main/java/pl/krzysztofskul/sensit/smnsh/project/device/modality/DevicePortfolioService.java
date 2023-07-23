@@ -1,5 +1,7 @@
 package pl.krzysztofskul.sensit.smnsh.project.device.modality;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,10 @@ public class DevicePortfolioService {
 
 	public DevicePortfolio saveAndReturn(DevicePortfolio devicePortfolio) {
 		return devicePortfolioRepo.save(devicePortfolio);
+	}
+
+	public List<DevicePortfolio> loadAll() {
+		return devicePortfolioRepo.findAll();
 	}
 	
 }

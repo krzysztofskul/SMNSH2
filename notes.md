@@ -5,6 +5,11 @@ This version has been created to prepare demo functions for a meeting arranged f
 
 ** TODO/DONE **
 
-* NEW PROJECT FUNCTIONALITY
+* NEW PROJECT FUNCTIONALITY  
+ ** ~~html/thymeleaf from~~  
+ ** ~~controller/service updates~~  
+ ** add the back to page functionality after the new project had been created by project manager
 * SORT PROJECTS BY FUNCTIONALITY
-* NOTES FUNCTIONALITY
+* NOTES FUNCTIONALITY  
+---  
+* ADD CONSUMER AND INSTALLATION PLACE FOR DEMO PROJECTS

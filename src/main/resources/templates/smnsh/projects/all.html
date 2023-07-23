@@ -25,6 +25,11 @@
 		<!-- TODO 2023-06-17 sort columns -->
 		<table class="table table-hover">
 		  <thead>
+		  	<tr>
+		  		<th scope="col">
+		  			<a class="btn btn-sm btn-outline-success" th:href="@{/smnsh/projects/new?userNameBySpringSecurity={userNameBySpringSecurity}(userNameBySpringSecurity=${#authentication.name})}">+</a>
+		  		</th>
+		  	</tr>
 		    <tr>
 		      	<th scope="col" style="width:5%">
 		      		<p class="sensit-langPl">ID</p>

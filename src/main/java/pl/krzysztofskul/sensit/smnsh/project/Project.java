@@ -43,7 +43,7 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id = Long.valueOf(0);
 	
 	private String name;
 	private String code;
@@ -55,7 +55,7 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 	
 	private LocalDateTime dateTimeOfCreation = LocalDateTime.now();
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	private User salesRep;
 	private String contractNo;
 	
@@ -90,7 +90,7 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 	/*
 	 * TODO 2023-06-25 move/ed to the installation class
 	 */
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	private User projectManager;
 	
     @OneToMany(
@@ -102,9 +102,9 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 	private String subcontractor;
 	private String designer;
 	
-	private String deadline;
+	private LocalDate deadline = LocalDate.now().plusMonths(3);
 	
-	private Status status;
+	private Status status = Status.UNDEFINED;
 	
 	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
 	private List<Remark> remarks = new ArrayList<Remark>();
@@ -337,6 +337,8 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 	 */
 	public void setProjectManager(User projectManager) {
 		this.projectManager = projectManager;
+		List<Project> projectsAsPM = projectManager.getProjectListAsProjectManager();
+		projectsAsPM.add(this);
 	}
 
 	/**
@@ -380,18 +382,18 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 	public void setDesigner(String designer) {
 		this.designer = designer;
 	}
-	
+
 	/**
 	 * @return the deadline
 	 */
-	public String getDeadline() {
+	public LocalDate getDeadline() {
 		return deadline;
 	}
 
 	/**
 	 * @param deadline the deadline to set
 	 */
-	public void setDeadline(String deadline) {
+	public void setDeadline(LocalDate deadline) {
 		this.deadline = deadline;
 	}
 

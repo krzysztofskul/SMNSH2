@@ -24,9 +24,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nameFirst;
+    private String nameFirst = "";
 
-    private String nameLast;
+    private String nameLast = "";
 
     @OneToMany(mappedBy = "salesRep")
     private List<Project> projectListAsSalesRep = new ArrayList<Project>();
@@ -215,6 +215,4 @@ public class User {
 		this.password = password;
 	}
 
-    
-    
 }

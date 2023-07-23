@@ -1,13 +1,17 @@
 package pl.krzysztofskul.sensit.smnsh.project;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +29,11 @@ import pl.krzysztofskul.sensit.smnsh.filestorage.FileStorageService;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.Attachment;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategory;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategoryService;
+import pl.krzysztofskul.sensit.smnsh.project.device.DevicePortfolio;
+import pl.krzysztofskul.sensit.smnsh.project.device.modality.DevicePortfolioService;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.sensit.smnsh.user.User;
+import pl.krzysztofskul.sensit.smnsh.user.UserBusinessPosition;
 import pl.krzysztofskul.sensit.smnsh.user.UserService;
 
 @Controller
@@ -37,6 +44,7 @@ public class ProjectController {
 	private AttachmentCategoryService attachmentCategoryService;
 	private CompanyService companyService;
 	private UserService userService;
+	private DevicePortfolioService devicePortfolioService;
 	
 	/**
 	 * CONSTRUCTOR
@@ -46,17 +54,52 @@ public class ProjectController {
 			ProjectService projectService,
 			AttachmentCategoryService attachmentCategoryService,
 			CompanyService companyService,
-			UserService userService
+			UserService userService,
+			DevicePortfolioService devicePortfolioService
 			) {
 		this.projectService = projectService;
 		this.attachmentCategoryService = attachmentCategoryService;
 		this.companyService = companyService;
 		this.userService = userService;
+		this.devicePortfolioService = devicePortfolioService;
 	}
-
+	
 	@GetMapping("/projects")
 	public String getTestProjects() {		
 		return "smnsh/projects/all";
+	}
+	
+	@GetMapping("/projects/new")
+	public String getNewProject(
+				Model model,
+				@RequestParam(required = false) Long userId,
+				@RequestParam(required = false) String userNameBySpringSecurity
+			) {
+		Project project = new Project();
+		project.setDateTimeOfCreation(LocalDateTime.now());
+		project.setDeadline(project.getDateTimeOfCreation().plusMonths(3).toLocalDate());
+		if (userNameBySpringSecurity != null) {
+			User user = userService.loadByUserSpringSecurityName(userNameBySpringSecurity);
+			if (user.getBusinessPosition() == UserBusinessPosition.PROJECT_MANAGER) {
+				project.setProjectManager(user);
+			}
+		}
+		
+		model.addAttribute("project", project);
+		model.addAttribute("investorList", companyService.loadAllInvestors());
+		model.addAttribute("devicePortfolioListAll", devicePortfolioService.loadAll());
+		model.addAttribute("salesRepListAll", userService.loadAllSalesReps());
+		return "smnsh/projects/idDetails";
+	}
+	
+	@PostMapping("/projects/new")
+	public String postProjectsNew(
+				@RequestParam(required = false) String backToPage,
+				@ModelAttribute Project project,
+				HttpSession httpSession
+			) {
+		projectService.save(project);
+		return "redirect:/smnsh/thymeleaf/projects";
 	}
 	
 	@GetMapping("/projects/{id}")
@@ -176,19 +219,11 @@ public class ProjectController {
 	@GetMapping("/projects/user/springsecurityname/{userNameBySpringSecurity}")
 	public String getProjectsByUserName(
 				@PathVariable String userNameBySpringSecurity
-//				,
-//				Model model
 			) {
-//		List<Project> projects;
-//		String userNameFirst = userNameBySpringSecurity.split("\\s+")[0];
-//		String userNameLast = userNameBySpringSecurity.split("\\s+")[1];
 		String userNameFirst = userNameBySpringSecurity.split("_")[0];
 		String userNameLast = userNameBySpringSecurity.split("_")[1];
 		User user = userService.loadByUserNames(userNameFirst, userNameLast);
 		String userId = user.getId().toString();
-//		projects = projectService.loadProjectsByUserId(user.getId());
-//		model.addAttribute("projectList", projects);
-//		return "smnsh/projects/all";
 		return "redirect:/smnsh/projects/user/"+userId;
 	}
 	

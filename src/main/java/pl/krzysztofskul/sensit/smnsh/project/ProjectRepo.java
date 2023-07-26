@@ -12,5 +12,6 @@ public interface ProjectRepo extends JpaRepository<Project, Long>{
 
 	List<Project> findAllByProjectManager(User user);
 	List<Project> findAllBySalesRep(User user);
+	List<Project> findAllByProjectManagerAdd(User user);
 
 }

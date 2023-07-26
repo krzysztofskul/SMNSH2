@@ -90,10 +90,16 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 	private Installation installation;
 	
 	/*
-	 * TODO 2023-06-25 move/ed to the installation class
+	 * TODO (?) move to the installation class
 	 */
 	@ManyToOne
 	private User projectManager;
+
+	/*
+	 * TODO (?) move to the installation class
+	 */
+	@ManyToOne
+	private User projectManagerAdd;
 	
     @OneToMany(
     		mappedBy = "project",
@@ -356,6 +362,22 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 		this.projectManager = projectManager;
 		List<Project> projectsAsPM = projectManager.getProjectListAsProjectManager();
 		projectsAsPM.add(this);
+	}
+
+	/**
+	 * @return the projectManagerAdd
+	 */
+	public User getProjectManagerAdd() {
+		return projectManagerAdd;
+	}
+
+	/**
+	 * @param projectManagerAdd the projectManagerAdd to set
+	 */
+	public void setProjectManagerAdd(User projectManagerAdd) {
+		this.projectManagerAdd = projectManagerAdd;
+		List<Project> projectsAsPmAdd = projectManager.getProjectListAsProjectManagerAdd();
+		projectsAsPmAdd.add(this);
 	}
 
 	/**

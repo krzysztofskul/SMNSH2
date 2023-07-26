@@ -34,7 +34,11 @@ public class User {
     @OneToMany(mappedBy = "projectManager")
     private List<Project> projectListAsProjectManager = new ArrayList<Project>();
     
+    @OneToMany(mappedBy = "projectManagerAdd")
+    private List<Project> projectListAsProjectManagerAdd = new ArrayList<Project>();
+    
     /**
+     * TODO
      * The list of project installations where user is set as additional project manager
      */
     @ManyToMany
@@ -143,6 +147,20 @@ public class User {
 	 */
 	public void setProjectListAsProjectManager(List<Project> projectListAsProjectManager) {
 		this.projectListAsProjectManager = projectListAsProjectManager;
+	}
+
+	/**
+	 * @return the projectListAsProjectManagerAdd
+	 */
+	public List<Project> getProjectListAsProjectManagerAdd() {
+		return projectListAsProjectManagerAdd;
+	}
+
+	/**
+	 * @param projectListAsProjectManagerAdd the projectListAsProjectManagerAdd to set
+	 */
+	public void setProjectListAsProjectManagerAdd(List<Project> projectListAsProjectManagerAdd) {
+		this.projectListAsProjectManagerAdd = projectListAsProjectManagerAdd;
 	}
 
 	/**

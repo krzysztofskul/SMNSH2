@@ -79,8 +79,9 @@ public class ProjectService {
 		User user = userService.loadById(userId);
 		List<Project> projectList = new ArrayList<Project>();
 		for (Project project : projectRepo.findAllByProjectManager(user)) {
-			projectList.add(project);	
+			projectList.add(project);
 		}
+		projectList.addAll(projectRepo.findAllByProjectManagerAdd(user));
 		for (Project project : projectRepo.findAllBySalesRep(user)) {
 			projectList.add(project);	
 		}

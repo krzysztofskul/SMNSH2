@@ -77,7 +77,28 @@
 						</div>
 						<div class="row">
 							<div class="col-4 title">PM zastępujący:</div>
+							<!-- 
 							<div class="col-8 content"><a th:href="@{#}" th:if="${project.id} != 0" class="btn btn-outline-success" style="height: 1.5em; padding: 0; width: 4em;">+</a></div>
+							 -->
+							 <div class="col-8 content">
+								<div th:if="${project.id} != 0 AND ${edit} != true">
+									<div th:if="${project?.projectManagerAdd} == null">
+										<p class='sensit-langPl'>BRAK</p><p class='sensit-langEn'>none</p>
+									</div>
+									<p th:if="${project?.projectManagerAdd} != null" th:text="|${project?.projectManagerAdd?.nameFirst} ${project?.projectManagerAdd?.nameLast}"></p>
+								</div>
+								
+								<select 
+									th:if="${project.id} == 0 OR ${edit} == true" th:field="*{projectManagerAdd}"									
+								>
+									<option value="">-</option>
+									<option 
+										th:each="projectManagerAdd : ${projectManagerListAll}" 
+										th:value="${projectManagerAdd?.id}" 
+										th:text="|${projectManagerAdd?.nameFirst} ${projectManagerAdd?.nameLast}|" 
+										th:selected="${projectManagerAdd.id == project?.projectManagerAdd?.id ? true : false}"/>
+								</select>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -169,7 +190,8 @@
 				<div class="row">
 					<div class="col-4 title">Szczegóły dot. miejsca instalacji (budynek, piętro, pomieszczenia)</div>
 					<div class="col-8 content">
-						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.installationPlaceDetails}"/>
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.installationPlaceDetails}"></span>
+						<input th:if="${project.id} == 0 OR ${edit} == true" type="text" th:field="*{installationPlaceDetails}" class="width100"/>
 					</div>
 				</div>
 				<div class="row">

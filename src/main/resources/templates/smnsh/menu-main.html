@@ -1,9 +1,13 @@
+<html xmlns:th="https://www.thymeleaf.org" 
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity">
 <head>
 	<meta charset="UTF-8">
 </head>
 
 <div th:fragment="menu-main" class="sensit-menu">
-		<div class="menu">
+	<div class="row">
+	<div class="col-10">
+	
 			<ul class="nav nav-pills">
  				<li class="nav-item m-1">
  					<a class="nav-link" href="/">
@@ -42,7 +46,7 @@
 					</a>
 				</li>
 				<li class="nav-item m-1">
-					<a class="nav-link disabled" href="#">
+					<a class="nav-link" href="/smnsh/companies/subcontractors-room-adaptation">
  						<p class="sensit-langPl">PODWYKONAWCY</p>
  						<p class="sensit-langEn">SUBCONTRACTORS</p>
 					</a>
@@ -52,48 +56,32 @@
  						<p class="sensit-langPl">UŻYTKOWNICY</p>
  						<p class="sensit-langEn">USERS</p>
 					</a>
-				</li>
-				
-				<!-- DISABLED TEST -->			
-				<li class="nav-item m-1">
-					<a href="#" class="nav-link disabled">
-						<p class="sensit-langPl">ZAREJESTRUJ</p>
-						<p class="sensit-langEn">REGISTER</p>
-					</a>
-				</li>
-				<li class="nav-item m-1 dropdown">
-				  	<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						<p class="sensit-langPl">ZALOGUJ</p>
-						<p class="sensit-langEn">LOGIN</p>
-			  		</a>
-				  <div class="dropdown-menu">
-				    <a class="dropdown-item" href="#">Piotr W.</a>
-				    <a class="dropdown-item" href="#">Ewa W.M.</a>
-				    <a class="dropdown-item" href="#">Sebastian K.</a>
-				    <a class="dropdown-item" href="#">Magdalena S.</a>
-				    <a class="dropdown-item" href="#">Marika J.B.</a>
-				    <a class="dropdown-item" href="#">Emila B.</a>
-				    <a class="dropdown-item" href="#">Wojciech P.</a>
-				    <a class="dropdown-item" href="#">Krzysztof S.</a>
-				    <a class="dropdown-item" href="#">Henryk S.</a>
-				    <a class="dropdown-item" href="#">Sebastian R.</a>
-				    <a class="dropdown-item" href="#">Piotr S.</a>
-				    <a class="dropdown-item" href="#">Arkadiusz O.</a>
-				    <a class="dropdown-item" href="#">Kamil S.</a>
-				    <a class="dropdown-item" href="#">Mateusz C.</a>
-				    <a class="dropdown-item" href="#">Jarosław N.</a>
-				    <a class="dropdown-item" href="#">Sebastian S.</a>
-				    <div class="dropdown-divider"></div>
-				    <a class="dropdown-item" href="#">Maciej D.</a>
-				    <a class="dropdown-item" href="#">Karol D.</a>
-				    <a class="dropdown-item" href="#">Krzysztof K.</a>
-   				    <div class="dropdown-divider"></div>
-				    <a class="dropdown-item" href="#">Wojciech G.</a>
-				    <a class="dropdown-item" href="#">Ryszard G.</a>
-				  </div>
-				</li>
-				
-				
+				</li>			
 			</ul>
+
 		</div>
+	
+	<div class="col-2 text-right pr-5">
+		
+			<div class="d-inline-block mr-2 pr-2 border-right" sec:authorize="isAuthenticated()">
+				<span class="material-icons">
+					account_circle
+				</span>
+			</div>
+		    <h3 class="d-inline-block avatar-name" sec:authorize="isAuthenticated()">
+				<span sec:authentication="name"></span>
+			</h3>
+			<a class="btn btn-sm d-inline-block text-primary border" th:href="@{/smnsh/projects/user/springsecurityname/{userNameBySpringSecurity}(userNameBySpringSecurity=${#authentication.name})}" sec:authorize="isAuthenticated()">
+				<p class="sensit-langPl">MOJE PROJEKTY</p>
+				<p class="sensit-langEn">MY PROJECTS</p>
+			</a>
+			<a class="btn btn-sm d-inline-block text-danger border-top" href="/logout" sec:authorize="isAuthenticated()">
+				<p class="sensit-langPl">WYLOUGUJ</p>
+				<p class="sensit-langEn">LOGOUT</p>
+			</a>
+			
+		
+	</div>
+	
+	</div>
 </div>

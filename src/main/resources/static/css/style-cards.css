@@ -8,20 +8,44 @@
 	min-height: 75px;
 }
 
+.sensit-card .card-body {
+	padding-bottom: 25px;
+
+}
+
 .sensit-card .card-body .title {
 	text-align: right;
 	font-style: italic;
 	color: #808080;
+
 }
 
 .sensit-card .card-body .content {
 	text-align: left;
-	font-style: bold;
+	font-weight: bold;
 }
 
 .sensit-card .card-body > .row {
 	border-top: 1px solid #e6e6e6;
 	min-height: 50px;
-	margin: 5px 0px 0px;
-	padding: 2px 0px 0px;
+	margin: 10px 0px 0px;
+	padding: 5px 0px 0px;
 }
+
+/*CARDS IN COLUMNS*/
+
+.row.cards-in-columns {
+	text-align: center;
+}
+
+.row.cards-in-columns .col {
+	text-align: left;
+	min-width: 500px; 
+	min-height: 250px;
+}
+
+.row.cards-in-columns .col .card-footer .btn-outline-success {
+	float: right;
+}
+
+/* END CARDS IN COLUMNS*/

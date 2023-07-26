@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html xlmns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>SMNSH</title>
 	<!-- BOOTSTRAP -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 	<!-- CSS -->
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
+	<!-- JS -->
+	<script th:src="@{/js/projects/idDetails.js}"></script> 
 </head>
 <body>
 
@@ -15,91 +23,315 @@
 
 	<div class="container">
 		
+		<form action="#" th:action="@{/smnsh/projects/save}" th:object="${project}" method="post">
+		
 		<div class="card sensit-card">
-			<div class="card-header">
-				<div class="col-12 text-center">
+			<div class="card-header" th:switch="${project.id}">
+				<div class="col-12 text-center" th:case="0" >
+					<p class="sensit-langPl">NOWY PROJEKT</p>
+					<p class="sensit-langEn">NEW PROJECT</p>
+				</div>
+				<div class="col-12 text-center" th:case="*" >
 					<p class="sensit-langPl">SZCZEGÓŁY PROJEKTU</p>
 					<p class="sensit-langEn">PROJECT DETAILS</p>
 				</div>
 			</div>
 			<div class="card-body">
 				<div class="row">	
+					<div class="col-4 title">Id projektu</div>
+					<div class="col-8 content">
+						<span id="projectId" th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project.id}"></span>
+						<input type="text" th:if="${project.id} == 0 OR ${edit} == true" th:field="${project.id}" th:value="${project.id}"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-2 title">SLS prowadzący:</div>
+					<div class="col-4 content">
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="|${project?.salesRep?.nameFirst} ${project?.salesRep?.nameLast}|"></span>
+						<select th:if="${project.id} == 0 OR ${edit} == true"  th:field="*{salesRep}">
+							<option th:each="salesRep : ${salesRepListAll}" th:value="${salesRep.id}" th:text="|${salesRep.nameFirst} ${salesRep.nameLast}|"/>
+						</select>
+					</div>
+					<div class="col-6">
+						<div class="row">
+							<div class="col-4 title">PM prowadzący:</div>
+							<div class="col-8 content">
+								<div th:if="${project.id} != 0 AND ${edit} != true">
+									<div th:if="${project?.projectManager} == null">
+										<p class='sensit-langPl'>BRAK</p><p class='sensit-langEn'>none</p>
+									</div>
+									<p th:if="${project?.projectManager} != null" th:text="|${project?.projectManager?.nameFirst} ${project?.projectManager?.nameLast}"></p>
+								</div>
+								
+								<select 
+									th:if="${project.id} == 0 OR ${edit} == true" th:field="*{projectManager}"									
+								>
+									<option value="">-</option>
+									<option 
+										th:each="projectManager : ${projectManagerListAll}" 
+										th:value="${projectManager?.id}" 
+										th:text="|${projectManager?.nameFirst} ${projectManager?.nameLast}|" 
+										th:selected="${projectManager.id == project?.projectManager?.id ? true : false}"/>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-4 title">PM zastępujący:</div>
+							<!-- 
+							<div class="col-8 content"><a th:href="@{#}" th:if="${project.id} != 0" class="btn btn-outline-success" style="height: 1.5em; padding: 0; width: 4em;">+</a></div>
+							 -->
+							 <div class="col-8 content">
+								<div th:if="${project.id} != 0 AND ${edit} != true">
+									<div th:if="${project?.projectManagerAdd} == null">
+										<p class='sensit-langPl'>BRAK</p><p class='sensit-langEn'>none</p>
+									</div>
+									<p th:if="${project?.projectManagerAdd} != null" th:text="|${project?.projectManagerAdd?.nameFirst} ${project?.projectManagerAdd?.nameLast}"></p>
+								</div>
+								
+								<select 
+									th:if="${project.id} == 0 OR ${edit} == true" th:field="*{projectManagerAdd}"									
+								>
+									<option value="">-</option>
+									<option 
+										th:each="projectManagerAdd : ${projectManagerListAll}" 
+										th:value="${projectManagerAdd?.id}" 
+										th:text="|${projectManagerAdd?.nameFirst} ${projectManagerAdd?.nameLast}|" 
+										th:selected="${projectManagerAdd.id == project?.projectManagerAdd?.id ? true : false}"/>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="row">	
 					<div class="col-4 title">Nazwa projektu</div>
-					<div class="col-8 content"><span th:text="${project.name}"/></div>
+					<div class="col-8 content">
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.name}"/>
+						<input  class="width100" type="text" th:if="${project.id} == 0 OR ${edit} == true"  th:field="${project.name}"/>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-4 title">Kod projektu</div>
-					<div class="col-8 content"><span th:text="${project.code}"/></div>
-				</div>
-
-				<div class="row">
-					<div class="col-4 title">Geneza projektu</div>
-					<div class="col-8 content"><span th:text="${project.background}"/></div>
-				</div>
-				<div class="row">
-					<div class="col-4 title">Cele projetu</div>
-					<div class="col-8 content"><span th:text="${project.goals}"/></div>
-				</div>
-				<div class="row">
-					<div class="col-4 title">Ryzyka projektu</div>
-					<div class="col-8 content"><span th:text="${project.risks}"/></div>
-				</div>
-
-				<div class="row">
-					<div class="col-4 title">Aparat</div>
-					<div class="col-8 content"><span th:text="${project.device}"/></div>
-				</div>
-				<div class="row">
-					<div class="col-4 title">Nr umowy</div>
-					<div class="col-8 content"><span th:text="${project.contractNo}"/></div>
-				</div>
-				<div class="row">
-					<div class="col-4 title">Inwestor (płatnik)</div>
 					<div class="col-8 content">
-						<div class="row">
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.code}"/>
+						<input  class="width100" type="text" th:if="${project.id} == 0 OR ${edit} == true"  th:field="${project.code}"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Klinet/Inwestor (płatnik)</div>
+					<div class="col-8 content ">
+						<div class="row" th:if="${project.id} != 0 AND ${edit} != true">
 							<div class="col-12">
-								<span th:text="${project.investor.name}"/>
+								<span th:text="${project?.investor?.name}"/>
 							</div>							
-							<div class="col-12">
-								<span th:text="|${project.investor.contactDetails.address.country};|"/>
-								<span th:text="${project.investor.contactDetails.address.zipCode} "/>
-								<span th:text="|${project.investor.contactDetails.address.city}, |"/>
-								<span th:text="|ul. ${project.investor.contactDetails.address.streetName} |"/>
-								<span th:text="${project.investor.contactDetails.address.streetNo}"/>
+							<div class="col-12 font-italic">
+								<p class="m-0 p-0 font-weight-normal"> <span th:text="|${project?.investor?.contactDetails?.address?.country}|"></span>
+									<span>, </span>
+									<span th:text="${project?.investor?.contactDetails?.address?.zipCode} "></span>
+									<span th:text="|${project?.investor?.contactDetails?.address?.city}|"></span>
+								</p>
+								<p class="m-0 p-0 font-weight-normal"> 
+									<span th:text="${project?.investor?.contactDetails?.address?.streetName} |"></span>
+									<span th:text="${project?.investor?.contactDetails?.address?.streetNo}"></span>
+								</p>
 							</div>
-							
+						</div>
+						<div class="row" th:if="${project.id} == 0 OR ${edit} == true">
+							<select th:field="*{investor}" class="width100">
+								<option th:each="investor : ${investorList}" th:value="${investor.id}" th:text="${investor.name}"/>
+							</select>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-4 title">Klient (odbiorca/użytkownik)</div>
-					<div class="col-8 content"><span th:text="..."/></div>
+					<div class="col-4 title">Klient/Konsument (odbiorca/użytkownik)</div>
+					<div class="col-8 content">
+						<div class="row" th:if="${project.id} != 0 AND ${edit} != true">
+							<div class="col-12">
+								<span th:text="${project?.customer?.name}"/>
+							</div>							
+							<div class="col-12 font-italic">
+								<p class="m-0 p-0 font-weight-normal"> <span th:text="|${project?.customer?.contactDetails?.address?.country}|"></span>
+									<span>, </span>
+									<span th:text="${project?.customer?.contactDetails?.address?.zipCode} "></span>
+									<span th:text="|${project?.customer?.contactDetails?.address?.city}|"></span>
+								</p>
+								<p class="m-0 p-0 font-weight-normal"> 
+									<span th:text="${project?.customer?.contactDetails?.address?.streetName} |"></span>
+									<span th:text="${project?.customer?.contactDetails?.address?.streetNo}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row" th:if="${project.id} == 0 OR ${edit} == true">
+							<select th:field="*{customer}" class="width100">
+								<option th:each="customer : ${customerList}" th:value="${customer.id}" th:text="${customer.name}"/>
+							</select>
+						</div>
+					</div>
 				</div>
 				<div class="row">
-					<div class="col-4 title">Użytkownik końcowy</div>
-					<div class="col-8 content"><span th:text="..."/></div>
+					<div class="col-4 title">Nr umowy</div>
+					<div class="col-8 content">
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.contractNo}"/>
+						<input th:if="${project.id} == 0 OR ${edit} == true"  type="text" th:field="${project.contractNo}" class="width100"/>
+					</div>
 				</div>
+				<br><hr>
+				<div class="row">
+					<div class="col-4 title">Aparat oferowany</div>
+					<div class="col-8 content">
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.devicePortfolio?.modality} + ' ' + ${project.devicePortfolio?.modelName}"/>
+						<select th:if="${project.id} == 0 OR ${edit} == true" th:field="*{devicePortfolio}">
+							<option th:each="devicePortfolio : ${devicePortfolioListAll}" th:value="${devicePortfolio.id}" th:text="|${devicePortfolio.modality} ${devicePortfolio.modelName}|"/>
+						</select>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-4 title">Szczegóły dot. miejsca instalacji (budynek, piętro, pomieszczenia)</div>
+					<div class="col-8 content">
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.installationPlaceDetails}"></span>
+						<input th:if="${project.id} == 0 OR ${edit} == true" type="text" th:field="*{installationPlaceDetails}" class="width100"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Wykonawca adaptacji pomieszczeń</div>
+					<div class="col-8 content">
+						<div class="row" th:if="${project.id} != 0 AND ${edit} != true">
+							<div class="col-12">
+								<span th:text="${project?.subcontractorForRoomAdaptation?.name}"/>
+							</div>							
+							<div class="col-12 font-italic">
+								<p class="m-0 p-0 font-weight-normal"> <span th:text="|${project?.subcontractorForRoomAdaptation?.contactDetails?.address?.country}|"></span>
+									<span>, </span>
+									<span th:text="${project?.subcontractorForRoomAdaptation?.contactDetails?.address?.zipCode} "></span>
+									<span th:text="|${project?.subcontractorForRoomAdaptation?.contactDetails?.address?.city}|"></span>
+								</p>
+								<p class="m-0 p-0 font-weight-normal"> 
+									<span th:text="${project?.subcontractorForRoomAdaptation?.contactDetails?.address?.streetName} |"></span>
+									<span th:text="${project?.subcontractorForRoomAdaptation?.contactDetails?.address?.streetNo}"></span>
+								</p>
+							</div>
+						</div>
+						<div class="row" th:if="${project.id} == 0 OR ${edit} == true">
+							<select th:field="*{subcontractorForRoomAdaptation}" class="width100">
+								<option th:each="subcontractor: ${subcontractorList}" th:value="${subcontractor.id}" th:text="${subcontractor.name}"/>
+							</select>
+						</div>
+					</div>
+				</div>
+				<br><hr>
+				<div class="row">
+					<div class="col-4 title">Geneza projektu</div>
+					<div class="col-8 content">
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project.background}" class="width100" style="white-space: pre-line; max-height:250px"></span>
+						<textarea th:if="${project.id} == 0 OR ${edit} == true"  type="text" th:field="${project.background}" class="width100" style="min-height:250px"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Cele projektu</div>
+					<div class="col-8 content">
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.goals}" style="white-space: pre-line;"/>
+						<textarea th:if="${project.id} == 0 OR ${edit} == true"  type="text" th:field="${project.goals}" class="width100" style="min-height:250px"/>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-4 title">Ryzyka projektu</div>
+					<div class="col-8 content">
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.risks}" style="white-space: pre-line;"/>
+						<textarea th:if="${project.id} == 0 OR ${edit} == true"  type="text" th:field="${project.risks}" class="width100" style="min-height:250px"/>
+					</div>
+				</div>
+				<br><hr>
 				<div class="row">
 					<div class="col-4 title">Termin realizacji</div>
-					<div class="col-8 content"><span th:text="${project.deadline}"/></div>
+					<div class="col-8 content">
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.deadline}"/>
+						<input  class="width100" type="text" th:if="${project.id} == 0 OR ${edit} == true"  th:field="${project.deadline}"/>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-4 title">Status</div>
-					<div class="col-8 content"><span th:text="${project.status.namePl}"/></div>
-				</div>
-			</div>
-			<div class="card-footer">
-				<div class="row">
-					<div class="col-12 text-right">
-						<button class="btn btn-outline-primary text-center disabled">
-							<p class="sensit-langPl">EDYTUJ</p>
-							<p class="sensit-langEn">EDIT</p>
+					<div class="col-8 content">
+						<!-- <span th:if="${project.id} != 0"  th:text="${project.status.namePl}"/> -->
+						<button 
+							id="btn-undefined"
+							class="btn btn-sm sensit-btn-height btn-status"
+							th:classappend="${project?.status?.nameEn == 'UNDEFINED' ? 'btn-outline-success' : 'btn-outline-dark'}"
+							>
+							<p class="sensit-langPl">BRAK DANYCH</p>	
+							<p class="sensit-langEn">undefined</p>
+						</button>
+						<button 
+							id="btn-precontract"
+							class="btn btn-sm sensit-btn-height btn-status"
+							th:classappend="${project?.status?.nameEn == 'PRE-CONTRACT' ? 'btn-outline-success' : 'btn-outline-dark'}"
+							>
+							<p class="sensit-langPl">AKWIZYCJA</p>	
+							<p class="sensit-langEn">pre-contract</p>
+						</button>
+						<button 
+							id="btn-contract"
+							class="btn btn-sm sensit-btn-height btn-status"
+							th:classappend="${project?.status?.nameEn == 'CONTRACT' ? 'btn-outline-success' : 'btn-outline-dark'}"
+							> 
+							<p class="sensit-langPl">UMOWA</p>	
+							<p class="sensit-langEn">contract</p>
+						</button>
+						<button
+							id="btn-execution"
+							class="btn btn-sm sensit-btn-height btn-status"
+							th:classappend="${project?.status?.nameEn == 'EXECUTION' ? 'btn-outline-success' : 'btn-outline-dark'}"
+							> 
+							<p class="sensit-langPl">REALIZACJA</p>	
+							<p class="sensit-langEn">execution</p>
+						</button>
+						<button 
+							id="btn-nobid"
+							class="btn btn-sm sensit-btn-height btn-status"
+							th:classappend="${project?.status?.nameEn == 'NO-BID' ? 'btn-outline-success' : 'btn-outline-dark'}"
+							>
+							<p class="sensit-langPl">ANULOWANY</p>	
+							<p class="sensit-langEn">no-bid</p>
+						</button>
+						<button 
+							id="btn-completed"
+							class="btn btn-sm sensit-btn-height btn-status"
+							th:classappend="${project?.status?.nameEn == 'COMPLETED' ? 'btn-outline-success' : 'btn-outline-dark'}"
+							>
+							<p class="sensit-langPl">ZAKOŃCZONY</p>	
+							<p class="sensit-langEn">completed</p>
 						</button>
 					</div>
 				</div>
 			</div>
-		</div>
+			<div class="card-footer">
+			
+			
+ 
 
+			
+				<div class="row">
+					<div th:if="${project.id} != 0 AND ${edit} != true"  class="col-12 text-right">
+						<a th:href="@{/smnsh/projects/edit?projectId={projectId}&userNameBySpringSecurity={userNameBySpringSecurity}(userNameBySpringSecurity=${#authentication.name},projectId=${project.id})}" class="btn btn-outline-primary text-center">
+							<p class="sensit-langPl">EDYTUJ</p>
+							<p class="sensit-langEn">EDIT</p>
+						</a>
+					</div>
+					<div th:if="${project.id} == 0 OR ${edit} == true" class="col-12 text-right">
+						<button type="submit" class="btn btn-outline-success text-center">
+							<p class="sensit-langPl">ZAPISZ</p>
+							<p class="sensit-langEn">SAVE5</p>
+						</button>
+					</div>
+
+				</div>
+				
+			</div>
+		</div>
+		
+		</form>
+		
 	</div>
 
 	<div th:replace="./smnsh/footer" :: footer class="sensit-footer"></div>

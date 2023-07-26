@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import pl.krzysztofskul.sensit.smnsh.project.Project;
 
 /*
- * TODO create DevicesGenerator and Default/Essential list of devices for demo/test/real app.
+ * TODO 2023-06-21 create DevicesGenerator and Default/Essential list of devices for demo/test/real app.
  */
 @Entity
 public class DevicePortfolio {
@@ -23,6 +23,14 @@ public class DevicePortfolio {
 	private String modality;
 	
 	private String modelName;
+
+	
+	
+	/**
+	 * CONSTRUCTOR
+	 */
+	public DevicePortfolio() {
+	}
 
 	/**
 	 * CONSTRUCTOR

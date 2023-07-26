@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>SMNSH</title>
+	
+	<!-- BOOTSTRAP -->
+	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	
+	<!-- CSS -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+	
+	<!-- JS -->
+	<script th:src="@{/js/login.js}"></script> 
+	
+</head>
+<body>
+
+<div th:replace="./smnsh/header" :: header class="sensit-header"></div>
+
+	<div class="container" style="min-height:250px">
+	
+		<div th:fragment="content">
+
+
+			<form name="f" th:action="@{/login}" method="post">
+				<div class="card sensit-card">
+		       			<div class="card-header text-center">
+				           		<p class="sensit-langPl">ZALOGUJ</p>
+				           		<p class="sensit-langEn">login</p>
+			           	</div>	
+							<div th:if="${param.error}" class="alert alert-error">
+		         		       <p class="sensit-langPl">Błędne dane logowania</p>
+		         		       <p class="sensit-langEn">Invalid username/password</p>
+				           </div>
+				           <div th:if="${param.logout}" class="alert alert-success">
+				               <p class="sensit-langPl">Wylogowano poprawnie. Zaloguj się ponownie.</p>
+				               <p class="sensit-langEn">Logged out succesfully. Login again.</p>
+				           </div>
+			           </div>
+			           <div class="card-body text-center">
+				           <label for="username">
+				           		<p class="sensit-langPl">Nazwa użytkownika</p>
+				           		<p class="sensit-langEn">Username</p>
+				           </label>
+				           <input type="text" id="username" name="username" value="Krzysztof_K."/>
+				           <label for="password">
+				           		<p class="sensit-langPl">Hasło</p>
+				           		<p class="sensit-langEn">Password</p>
+				           </label>
+				           <input type="password" id="password" name="password" value="password"/>
+			           </div>
+			           <div class="card-footer text-right">
+				           <div class="btn-group">
+				               <button type="submit" class="btn btn-sm btn-outline-success">
+					           		<p class="sensit-langPl">Zaloguj</p>
+					           		<p class="sensit-langEn">Login</p>
+				               </button>
+								<button type="button" class="btn btn-outline-dark dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								  <span class="sr-only">Toggle Dropdown</span>
+								</button>
+								 <div class="dropdown-menu">
+								   <a class="dropdown-item" href="#">Piotr_W.</a>
+								   <a class="dropdown-item" href="#">Ewa_W.-M.</a>
+								   <a class="dropdown-item" href="#">Sebastian_K.</a>
+								   <a class="dropdown-item" href="#">Magdalena_S.</a>
+								   <a class="dropdown-item" href="#">Marika_J.-B.</a>
+								   <a class="dropdown-item" href="#">Emilia_B.</a>
+								   <a class="dropdown-item" href="#">Wojciech_P.</a>
+								   <a class="dropdown-item" href="#">Krzysztof_S.</a>
+								   <a class="dropdown-item" href="#">Henryk_S.</a>
+								   <a class="dropdown-item" href="#">Sebastian_R.</a>
+								   <a class="dropdown-item" href="#">Piotr_S.</a>
+								   <a class="dropdown-item" href="#">Arkadiusz_O.</a>
+								   <a class="dropdown-item" href="#">Kamil_S.</a>
+								   <a class="dropdown-item" href="#">Mateusz_C.</a>
+								   <a class="dropdown-item" href="#">Jaroslaw_N.</a>
+								   <a class="dropdown-item" href="#">Sebastian_S.</a>
+								   <div class="dropdown-divider"></div>
+								   <a class="dropdown-item" href="#">Maciej_D.</a>
+								   <a class="dropdown-item" href="#">Karol_D.</a>
+								   <a class="dropdown-item" href="#">Krzysztof_K.</a>
+								   <div class="dropdown-divider"></div>
+								   <a class="dropdown-item" href="#">Wojciech_G.</a>
+								   <a class="dropdown-item" href="#">Ryszard_G.</a>
+								 </div>
+							</div>
+						
+						</div>
+						</div>
+			</form>
+		   
+		   
+		</div>
+	</div>
+	
+	<div th:replace="./smnsh/footer" :: header class="sensit-header"></div>
+	
+</body>
+</html>

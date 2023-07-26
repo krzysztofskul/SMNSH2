@@ -3,13 +3,19 @@ package pl.krzysztofskul.sensit.smnsh.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import pl.krzysztofskul.sensit.smnsh.project.Project;
+import pl.krzysztofskul.sensit.smnsh.project.installation.Installation;
 
 @Entity
 public class User {
@@ -18,15 +24,26 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nameFirst;
+    private String nameFirst = "";
 
-    private String nameLast;
+    private String nameLast = "";
 
     @OneToMany(mappedBy = "salesRep")
     private List<Project> projectListAsSalesRep = new ArrayList<Project>();
 
     @OneToMany(mappedBy = "projectManager")
     private List<Project> projectListAsProjectManager = new ArrayList<Project>();
+    
+    @OneToMany(mappedBy = "projectManagerAdd")
+    private List<Project> projectListAsProjectManagerAdd = new ArrayList<Project>();
+    
+    /**
+     * TODO
+     * The list of project installations where user is set as additional project manager
+     */
+    @ManyToMany
+    @JoinTable(name = "projectmanagers_installations", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "inastallation_id")})
+    private List<Installation> projectManagersAdd= new ArrayList<Installation>();
     
     private UserBusinessPosition businessPosition;
 
@@ -133,6 +150,34 @@ public class User {
 	}
 
 	/**
+	 * @return the projectListAsProjectManagerAdd
+	 */
+	public List<Project> getProjectListAsProjectManagerAdd() {
+		return projectListAsProjectManagerAdd;
+	}
+
+	/**
+	 * @param projectListAsProjectManagerAdd the projectListAsProjectManagerAdd to set
+	 */
+	public void setProjectListAsProjectManagerAdd(List<Project> projectListAsProjectManagerAdd) {
+		this.projectListAsProjectManagerAdd = projectListAsProjectManagerAdd;
+	}
+
+	/**
+	 * @return the projectManagersAdd
+	 */
+	public List<Installation> getProjectManagersAdd() {
+		return projectManagersAdd;
+	}
+
+	/**
+	 * @param projectManagersAdd the projectManagersAdd to set
+	 */
+	public void setProjectManagersAdd(List<Installation> projectManagersAdd) {
+		this.projectManagersAdd = projectManagersAdd;
+	}
+
+	/**
 	 * @return the businessPosition
 	 */
 	public UserBusinessPosition getBusinessPosition() {
@@ -188,6 +233,4 @@ public class User {
 		this.password = password;
 	}
 
-    
-    
 }

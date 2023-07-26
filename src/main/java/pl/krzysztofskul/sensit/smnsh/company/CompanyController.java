@@ -4,16 +4,19 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import pl.krzysztofskul.sensit.smnsh.company.CompanyCategory.CompanyCategoryEnum;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping(name = "/smnsh/companies")
+@RequestMapping("/smnsh/companies")
 public class CompanyController {
 
-	CompanyService companyService;
+	private CompanyService companyService;
 	
 	/**
 	 * Constructor
@@ -23,8 +26,64 @@ public class CompanyController {
 		this.companyService = companyService;
 	}
 
-//	@ModelAttribute("subcontractorsForRoomAdaptation")
-//	public List<Company> getAllSubcontractorsForRoomAdaptations() {
-//		return companyService.loadAllByCompanyCategoryEnum(CompanyCategoryEnum.SUBCONTRACTOR_ROOM_ADAPTATION);
-//	}
+	@ModelAttribute("labelEnumList")
+	public List<LabelEnum> getLabelEnums() {
+		return List.of(LabelEnum.values());
+	}
+	
+	@GetMapping("/subcontractors-room-adaptation")
+	public String allSubcontractorsForRoomAdaptation(Model model) {
+		model.addAttribute("companies", companyService.loadAllSubcontrsctorsForRoomAdaptation());
+		return "smnsh/companies/allSubcontractors";
+	}
+	
+	@GetMapping("/{companyId}")
+	public String setNewComapnyLabel(
+				@PathVariable Long companyId,
+				@RequestParam(name = "label") String label
+			) {
+		Company company = companyService.loadById(companyId);
+		LabelEnum labelEnum = null;
+		switch (label) {
+			case "green":
+				{
+					labelEnum = LabelEnum.GREEN;
+					break;
+				}
+			case "yellow":
+				{
+					labelEnum = LabelEnum.YELLOW;
+					break;
+				}
+			case "red":
+				{
+					labelEnum = LabelEnum.RED;
+					break;
+				}	
+			case "black":
+				{
+					labelEnum = LabelEnum.BLACK;
+					break;
+				}	
+			case "gray":
+				{
+					labelEnum = LabelEnum.GRAY;
+					break;
+				}	
+			case "blue":
+				{
+					labelEnum = LabelEnum.BLUE;
+					break;
+				}	
+			default:
+				{
+					labelEnum = LabelEnum.GRAY;
+					break;
+				}	
+		}
+		company.setLabelEnum(labelEnum);
+		companyService.save(company);
+		return "redirect:/smnsh/companies/subcontractors-room-adaptation";
+	}
+	
 }

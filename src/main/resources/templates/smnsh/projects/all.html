@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xlmns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>SMNSH</title>
@@ -20,13 +22,18 @@
 	
 	<div class="container-fluid" style="min-height:250px">
 	
-		<!-- TODO sort columns -->
+		<!-- TODO 2023-06-17 sort columns -->
 		<table class="table table-hover">
 		  <thead>
+		  	<tr>
+		  		<th scope="col">
+		  			<a class="btn btn-sm btn-outline-success" th:href="@{/smnsh/projects/edit?projectId={projectId}&userNameBySpringSecurity={userNameBySpringSecurity}(userNameBySpringSecurity=${#authentication.name},projectId=0)}">+</a>
+		  		</th>
+		  	</tr>
 		    <tr>
 		      	<th scope="col" style="width:5%">
 		      		<p class="sensit-langPl">ID</p>
-		      		<p class="sensit-langEn"></p>
+		      		<p class="sensit-langEn">id</p>
 	      		</th>
 		      <th scope="col">
 		      	<p class="sensit-langPl">Kod projektu</p>
@@ -77,9 +84,9 @@
 		      
 		      <td th:text="${project.investor.name}"></td>
 		      <td th:text="${project.contractNo}"></td>
-		      <td th:text="${project.device}"></td>
+		      <td th:text="${project.devicePortfolio.modality} + ' ' + ${project.devicePortfolio.modelName}"></td>
 		      <td th:text="${project.salesRep.nameFirst} + ' ' + ${project.salesRep.nameLast}"></td>
-		      <td th:text="${project.projectManager.nameFirst} + ' ' + ${project.projectManager.nameLast}"></td>
+		      <td th:text="${project?.projectManager?.nameFirst} + ' ' + ${project?.projectManager?.nameLast}"></td>
 		      <td th:text="${project.deadline}"></td>
 		      <td>
 		      	<p th:text="${project.status.namePl}" class="sensit-langPl"></p>

@@ -201,15 +201,24 @@
 				<br><hr>
 				<div class="row">
 					<div class="col-4 title">Geneza projektu</div>
-					<div class="col-8 content"><span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.background}"/></div>
+					<div class="col-8 content">
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project.background}" class="width100" style="white-space: pre-line; max-height:250px"></span>
+						<textarea th:if="${project.id} == 0 OR ${edit} == true"  type="text" th:field="${project.background}" class="width100" style="min-height:250px"/>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-4 title">Cele projektu</div>
-					<div class="col-8 content"><span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.goals}"/></div>
+					<div class="col-8 content">
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.goals}" style="white-space: pre-line;"/>
+						<textarea th:if="${project.id} == 0 OR ${edit} == true"  type="text" th:field="${project.goals}" class="width100" style="min-height:250px"/>
+					</div>
 				</div>
 				<div class="row">
 					<div class="col-4 title">Ryzyka projektu</div>
-					<div class="col-8 content"><span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.risks}"/></div>
+					<div class="col-8 content">
+						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.risks}" style="white-space: pre-line;"/>
+						<textarea th:if="${project.id} == 0 OR ${edit} == true"  type="text" th:field="${project.risks}" class="width100" style="min-height:250px"/>
+					</div>
 				</div>
 				<br><hr>
 				<div class="row">

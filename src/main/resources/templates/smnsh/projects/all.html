@@ -27,7 +27,7 @@
 		  <thead>
 		  	<tr>
 		  		<th scope="col">
-		  			<a class="btn btn-sm btn-outline-success" th:href="@{/smnsh/projects/new?userNameBySpringSecurity={userNameBySpringSecurity}(userNameBySpringSecurity=${#authentication.name})}">+</a>
+		  			<a class="btn btn-sm btn-outline-success" th:href="@{/smnsh/projects/edit?projectId={projectId}&userNameBySpringSecurity={userNameBySpringSecurity}(userNameBySpringSecurity=${#authentication.name},projectId=0)}">+</a>
 		  		</th>
 		  	</tr>
 		    <tr>
@@ -86,7 +86,7 @@
 		      <td th:text="${project.contractNo}"></td>
 		      <td th:text="${project.devicePortfolio.modality} + ' ' + ${project.devicePortfolio.modelName}"></td>
 		      <td th:text="${project.salesRep.nameFirst} + ' ' + ${project.salesRep.nameLast}"></td>
-		      <td th:text="${project.projectManager.nameFirst} + ' ' + ${project.projectManager.nameLast}"></td>
+		      <td th:text="${project?.projectManager?.nameFirst} + ' ' + ${project?.projectManager?.nameLast}"></td>
 		      <td th:text="${project.deadline}"></td>
 		      <td>
 		      	<p th:text="${project.status.namePl}" class="sensit-langPl"></p>

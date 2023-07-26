@@ -39,20 +39,46 @@ public class CompanyService {
 		
 		return companyInvestor;
 	}
+	
+	public Company loadRandomCustomer() {
+		List<Company> customerList = companyRepo.findAllByCompanyCategoryEnum(CompanyCategoryEnum.CUSTOMER);
+		Company companyCustomer = customerList.get(new Random().nextInt(customerList.size()));
+		return companyCustomer;
+	}
 
+	public Company loadRandomSubcontractorForRoomAdaptation() {
+		List<Company> subcontractorList = this.loadAllSubcontrsctorsForRoomAdaptation();
+		Company subcontractor = subcontractorList.get(new Random().nextInt(subcontractorList.size())); 
+		return subcontractor;
+	}
+	
+	
 	public List<Company> loadAllSubcontrsctorsForRoomAdaptation() {
 		return companyRepo.findAllByCompanyCategoryEnum(CompanyCategoryEnum.SUBCONTRACTOR_ROOM_ADAPTATION);
 		
 	}
-	public Object loadAllInvestors() {
+	public List<Company> loadAllInvestors() {
 		return companyRepo.findAllByCompanyCategoryEnum(CompanyCategoryEnum.INVESTOR);
 	}
+	
+	public List<Company> loadAllCustomers() {
+		return companyRepo.findAllByCompanyCategoryEnum(CompanyCategoryEnum.CUSTOMER);
+	}
+
+	public List<Company> loadAllSubcontractors() {
+		List<Company> subcontractorList = new ArrayList<Company>();
+		subcontractorList.addAll(companyRepo.findAllByCompanyCategoryEnum(CompanyCategoryEnum.SUBCONTRACTOR));
+		subcontractorList.addAll(companyRepo.findAllByCompanyCategoryEnum(CompanyCategoryEnum.SUBCONTRACTOR_GENERAL));
+		subcontractorList.addAll(companyRepo.findAllByCompanyCategoryEnum(CompanyCategoryEnum.SUBCONTRACTOR_ROOM_ADAPTATION));
+		return subcontractorList;
+	}
+	
+	
 	public Company loadById(Long companyId) {
 		return companyRepo.findById(companyId).get();
 	}
 
 
-	
 //	public List<Company> loadAllByCompanyCategoryEnum(CompanyCategoryEnum comCatEnum) {
 //		List<Company> allCompanies = companyRepo.findAll();
 //		List<Company> companiesFiltered = new ArrayList<Company>();

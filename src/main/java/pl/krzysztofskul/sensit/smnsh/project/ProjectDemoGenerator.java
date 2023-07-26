@@ -78,35 +78,17 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				
 				project.setSalesRep(userService.loadByEmail(userSalesRep.getEmail()));
 				project.setInvestor(companyService.loadRandomInvestor());
-				project.setProjectManager(userService.loadByEmail(userPM.getEmail()));				
+				project.setCustomer(companyService.loadRandomCustomer());
+				project.setSubcontractorForRoomAdaptation(companyService.loadRandomSubcontractorForRoomAdaptation());
+				project.setProjectManager(userService.loadByEmail(userPM.getEmail()));		
 				
-//				List<Stakeholder> stakeholders = new ArrayList<>();
-//				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Dyrektor ds. technicznych", "dyrekcja@example.com", project));
-//				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Dyrektor ds. administracyjnych", "administracja@example.com", project));
-//				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Ordynator oddziału", "tel. +099 99 00 99", project));
-//				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Pielęgniarka oddziałowa", "email: oddzialowa@example.com", project));
-//				stakeholders.add(new Stakeholder(LoremIpsum.getInstance().getFirstName(), LoremIpsum.getInstance().getLastName(), "Sekretariat", "sekretariat@example.com", project));
+				project.setInstallationPlaceDetails("New  building no. A; Floor 0; Room no. A010");
+				
 				List<Stakeholder> stakeholders = generateAndReturnDemoStakeholders(project);
 				
 				project.setStakeholders(stakeholders);
 				project.setDesigner("Krzysztof K.");
 				project.setDeadline(LocalDate.now().plusWeeks(new Random().nextInt(12 * 4)));				
-				/*
-				 * add milestones <String>
-				 */
-//				List<String> milestones = new ArrayList<String>();
-//				milestones.add("Podpisanie Umowy");
-//				milestones.add("Zlecenie wykonania koncepcji");
-//				milestones.add("Akceptacja koncepcji");
-//				milestones.add("Checklista");
-//				milestones.add("Zlecenie wykonania wytycznych");
-//				milestones.add("Przekazanie wytycznych");
-//				milestones.add("Rozpoczęcie adaptacji pomiesczeń");
-//				milestones.add("Zakończenie adaptacji pomiesczeń");
-//				milestones.add("Dostawa");
-//				milestones.add("Instalacja");
-//				milestones.add("Szkolenia");
-//				milestones.add("Odbiór");
 				
 				/*
 				 * add milestones <MilestoneInstance> from template

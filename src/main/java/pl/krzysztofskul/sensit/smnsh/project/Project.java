@@ -84,6 +84,8 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 	@ManyToOne
 	private DevicePortfolio devicePortfolio;
 	
+	private String installationPlaceDetails;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Installation installation;
 	
@@ -99,7 +101,8 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
     		)
 	private List<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
 	
-	private String subcontractor;
+    @ManyToOne
+	private Company subcontractorForRoomAdaptation;
 	private String designer;
 	
 	private LocalDate deadline = LocalDate.now().plusMonths(3);
@@ -312,6 +315,20 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 	}
 
 	/**
+	 * @return the installationPlaceDetails
+	 */
+	public String getInstallationPlaceDetails() {
+		return installationPlaceDetails;
+	}
+
+	/**
+	 * @param installationPlaceDetails the installationPlaceDetails to set
+	 */
+	public void setInstallationPlaceDetails(String installationPlaceDetails) {
+		this.installationPlaceDetails = installationPlaceDetails;
+	}
+
+	/**
 	 * @return the installation
 	 */
 	public Installation getInstallation() {
@@ -356,17 +373,17 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 	}
 
 	/**
-	 * @return the subcontractor
+	 * @return the subcontractorForRoomAdaptation
 	 */
-	public String getSubcontractor() {
-		return subcontractor;
+	public Company getSubcontractorForRoomAdaptation() {
+		return subcontractorForRoomAdaptation;
 	}
 
 	/**
-	 * @param subcontractor the subcontractor to set
+	 * @param subcontractorForRoomAdaptation the subcontractorForRoomAdaptation to set
 	 */
-	public void setSubcontractor(String subcontractor) {
-		this.subcontractor = subcontractor;
+	public void setSubcontractorForRoomAdaptation(Company subcontractorForRoomAdaptation) {
+		this.subcontractorForRoomAdaptation = subcontractorForRoomAdaptation;
 	}
 
 	/**

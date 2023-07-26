@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 
+import pl.krzysztofskul.sensit.smnsh.company.Company;
 import pl.krzysztofskul.sensit.smnsh.company.CompanyService;
 import pl.krzysztofskul.sensit.smnsh.filestorage.File;
 import pl.krzysztofskul.sensit.smnsh.filestorage.FileStorageService;
@@ -64,42 +67,72 @@ public class ProjectController {
 		this.devicePortfolioService = devicePortfolioService;
 	}
 	
+	@ModelAttribute(name = "investorList")
+	public List<Company> getInvestorListAll() {
+		return companyService.loadAllInvestors();
+	}
+	@ModelAttribute(name = "customerList")
+	public List<Company> getCustomerListAll() {
+		return companyService.loadAllCustomers();
+	}
+	@ModelAttribute(name = "subcontractorList")
+	public List<Company> getSubcontractorListAll() {
+		return companyService.loadAllSubcontractors();
+	}
+	@ModelAttribute(name = "devicePortfolioListAll")
+	public List<DevicePortfolio> getDevicePortfolioListAll() {
+		return devicePortfolioService.loadAll();
+	}
+	@ModelAttribute(name = "salesRepListAll")
+	public List<User> getSalesRepListAll() {
+		return userService.loadAllSalesReps();
+	}
+	@ModelAttribute(name = "projectManagerListAll")
+	public List<User> getProjectManagerListAll() {
+		return userService.loadAllProjectManagers();
+	}
+	
 	@GetMapping("/projects")
 	public String getTestProjects() {		
 		return "smnsh/projects/all";
 	}
 	
-	@GetMapping("/projects/new")
+	@GetMapping("/projects/edit")
 	public String getNewProject(
 				Model model,
 				@RequestParam(required = false) Long userId,
+				@RequestParam(required = true) Long projectId,
 				@RequestParam(required = false) String userNameBySpringSecurity
 			) {
-		Project project = new Project();
-		project.setDateTimeOfCreation(LocalDateTime.now());
-		project.setDeadline(project.getDateTimeOfCreation().plusMonths(3).toLocalDate());
-		if (userNameBySpringSecurity != null) {
-			User user = userService.loadByUserSpringSecurityName(userNameBySpringSecurity);
-			if (user.getBusinessPosition() == UserBusinessPosition.PROJECT_MANAGER) {
-				project.setProjectManager(user);
+		Project project;
+		if (projectId == 0) {
+			project = new Project();	
+			project.setDateTimeOfCreation(LocalDateTime.now());
+			project.setDeadline(project.getDateTimeOfCreation().plusMonths(3).toLocalDate());
+			if (userNameBySpringSecurity != null) {
+				User user = userService.loadByUserSpringSecurityName(userNameBySpringSecurity);
+				if (user.getBusinessPosition() == UserBusinessPosition.PROJECT_MANAGER) {
+					project.setProjectManager(user);
+				}
 			}
+		} else {
+			project = projectService.loadById(projectId);
 		}
 		
 		model.addAttribute("project", project);
-		model.addAttribute("investorList", companyService.loadAllInvestors());
-		model.addAttribute("devicePortfolioListAll", devicePortfolioService.loadAll());
-		model.addAttribute("salesRepListAll", userService.loadAllSalesReps());
+		model.addAttribute("edit", true);
 		return "smnsh/projects/idDetails";
 	}
 	
-	@PostMapping("/projects/new")
+	@PostMapping("/projects/save")
 	public String postProjectsNew(
 				@RequestParam(required = false) String backToPage,
-				@ModelAttribute Project project,
+				@ModelAttribute("project") @Validated Project project, BindingResult result,
 				HttpSession httpSession
 			) {
-		projectService.save(project);
-		return "redirect:/smnsh/thymeleaf/projects";
+		
+		project = projectService.saveAndReturn(project);
+		return "redirect:/smnsh/projects/"+project.getId();
 	}
 	
 	@GetMapping("/projects/{id}")

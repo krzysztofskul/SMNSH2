@@ -8,6 +8,11 @@
 	min-height: 75px;
 }
 
+.sensit-card .card-body {
+	padding-bottom: 25px;
+
+}
+
 .sensit-card .card-body .title {
 	text-align: right;
 	font-style: italic;

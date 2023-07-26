@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xlmns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<title>SMNSH</title>
@@ -14,6 +16,7 @@
 	<div th:replace="./smnsh/projects/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
 
 	<div class="container">
+	<form class="row" action="#" th:action="@{/smnsh/projects/{id}/remarks(id=${project.id})}" method="post" th:object="${newRemark}">
 		
 		<div class="card sensit-card">
 			<div class="card-header">
@@ -29,7 +32,7 @@
 					<div class="col-12">
 						<div class="row">
 							<div class="col-4 title">Data dodania:</div>
-							<div class="col-8 content"><span th:text="|${remark.dateTimeOfCreation.toLocalDate} ${remark.dateTimeOfCreation.toLocalTime}|"/></div>
+							<div class="col-8"><span th:text="|${remark.dateTimeOfCreation.toLocalDate} ${remark.dateTimeOfCreation.toLocalTime}|"/></div>
 						</div>
 					</div>
 					
@@ -38,7 +41,7 @@
 							<div class="col-4 title">
 								Autor:
 							</div>
-							<div class="col-8 content">
+							<div class="col-8">
 								<span th:if="${remark.author.nameFirst != null}">
 									<span th:text="${remark.author.nameFirst}"/>
 								</span>
@@ -52,27 +55,79 @@
 					<div class="col-12">
 						<div class="row">
 							<div class="col-4 title">Treść:</div>
-							<div class="col-8 content"><span th:text="${remark.text}"/></div>
+							<div class="col-8 content"><span th:text="${remark.text}" style="white-space: pre-line"/></div>
+						</div>
+					</div>
+	
+				</div>
+				
+				<!-- *** -->
+				<!-- *** NEW REMARK FORM FIELDS -->
+				<div th:if="${newRemark} != null" class="row mt-5 mb-5">
+
+					<div class="col-12">
+						<div class="row">
+							<div class="col-4 title" hidden="true">Id:</div>
+							<div class="col-8">
+								<input th:field="*{id}" type="hidden"/>
+							</div>
+						</div>
+					</div>
+					<div class="col-12">
+						<div class="row">
+							<div class="col-4 title">Data dodania:</div>
+							<div class="col-8">
+								<span th:text="${newRemark.dateTimeOfCreation.toLocalDate}"></span>
+								<input th:field="*{dateTimeOfCreation}" type="hidden"/>
+							</div>
 						</div>
 					</div>
 					
+					<div class="col-12">
+						<div class="row">
+							<div class="col-4 title">
+								Autor:
+							</div>
+							<div class="col-8">
+								<span th:text="${newRemark.author.nameFirst}+' '+${newRemark.author.nameLast}"/>
+								<input th:field="*{author}" type="hidden" th:if="${newRemark.author != null}"/>
+							</div>
+						</div>
+					</div>
 					
-					
+					<div class="col-12">
+						<div class="row">
+							<div class="col-4 title">Treść:</div>
+							<div class="col-8 content">
+								<textarea th:field="*{text}" type="text" class="width100" style="height: 100px"/>
+							</div>
+						</div>
+					</div>
+				<!-- *** END NEW REMARK FORM FIELDS -->
+				<!-- *** -->
+				
 				</div>
 			</div>
 			<div class="card-footer">
 				<div class="row">
 					<div class="col-12 text-right">
-						<button class="btn btn-outline-success text-center disabled">
+						<a th:if="${newRemark == null}" th:href="@{/smnsh/projects/{projectId}/remarks(projectId=${project.id}, edit=true, author=${#authentication.name})}" class="btn btn-outline-success text-center">
 							<p class="sensit-langPl">DODAJ</p>
 							<p class="sensit-langEn">ADD</p>
+						</a>
+						<button th:if="${newRemark != null}" type="submit" class="btn btn-outline-success text-center">
+							<p class="sensit-langPl">ZAPISZ</p>
+							<p class="sensit-langEn">SAVE</p>
 						</button>
 					</div>
 				</div>
 			</div>
-		</div>
 
+		</div>
+		
+	</form>
 	</div>
+
 
 	<div th:replace="./smnsh/footer" :: footer class="sensit-footer"></div>
 

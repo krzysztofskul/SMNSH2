@@ -2,6 +2,8 @@ package pl.krzysztofskul.sensit.smnsh.project;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -34,6 +36,7 @@ import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategory;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategoryService;
 import pl.krzysztofskul.sensit.smnsh.project.device.DevicePortfolio;
 import pl.krzysztofskul.sensit.smnsh.project.device.modality.DevicePortfolioService;
+import pl.krzysztofskul.sensit.smnsh.project.remark.Remark;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.sensit.smnsh.user.User;
 import pl.krzysztofskul.sensit.smnsh.user.UserBusinessPosition;
@@ -182,10 +185,33 @@ public class ProjectController {
 		return "smnsh/projects/idDetailsAndStakeholders";
 	}
 	
+	/*
+	 * TODO 2023-06-26 NEW REMARK FUNCTIONALITY
+	 */
 	@GetMapping("/projects/{id}/remarks")
-	public String getProjectByIdWithRemarks(@PathVariable Long id, Model model) {
+	public String getProjectByIdWithRemarks(
+			@PathVariable Long id, 
+			@RequestParam(name = "edit", required = false) boolean edit,
+			@RequestParam(name = "author", required = false) String author,
+			Model model
+		) {
 		model.addAttribute("project", projectService.loadByIdWithRemarks(id));
+		if (edit == true) {
+			User user = userService.loadByUserSpringSecurityName(author);
+			Remark newRemark = new Remark(user, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS), "...");
+			model.addAttribute("newRemark", newRemark);
+		}
 		return "smnsh/projects/idDetailsAndRemarks";
+	}
+	@PostMapping("/projects/{id}/remarks")
+	public String postProjectByIdWithRemarks(
+			@PathVariable("id") Long projectId,
+			@ModelAttribute("newRemark") @Validated Remark newRemark
+			) {
+		Project project = projectService.loadByIdWithRemarks(projectId);
+		project.addRemark(newRemark);
+		projectService.save(project);
+		return "redirect:/smnsh/projects/"+projectId+"/remarks";
 	}
 	
 	@GetMapping("/projects/{id}/attachments")
@@ -269,4 +295,7 @@ public class ProjectController {
 		model.addAttribute("projectList", projects);
 		return "smnsh/projects/all";
 	}
+	
+
+	
 }

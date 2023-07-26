@@ -12,6 +12,4 @@ This version has been created to prepare demo functions for a meeting arranged f
 
 * CREATE NOTES FUNCTIONALITY  
 
-* UPDATE RAMRKS/COMMENTS FUNCTIONALITY
-
 * UPDATE CONFIGURATION TAB FUNCTIONALITY

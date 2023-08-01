@@ -3,20 +3,26 @@ package pl.krzysztofskul.sensit.smnsh.project.milestone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import pl.krzysztofskul.sensit.smnsh.project.Project;
+import pl.krzysztofskul.sensit.smnsh.project.ProjectService;
 
 @Controller
 @RequestMapping("/smnsh")
 public class MilestoneController {
 
 	private MilestoneService milestoneService;
-	
-	
+	private ProjectService projectService;
 	
 	/**
 	 * CONSTRUCTOR
@@ -24,10 +30,14 @@ public class MilestoneController {
 	 * @param milestoneService
 	 */
 	@Autowired
-	public MilestoneController(MilestoneService milestoneService) {
+	public MilestoneController(
+			MilestoneService milestoneService,
+			ProjectService projectService
+			) {
 		this.milestoneService = milestoneService;
+		this.projectService = projectService;
 	}
-
+	
 	@GetMapping("/projects/{id}/milestones/{milestoneId}/set-status")
 	public String setMilestoneStatus(
 				@PathVariable(name="id") Long projectId,
@@ -42,6 +52,28 @@ public class MilestoneController {
 		
 		milestoneService.saveMilestoneInstance(milestoneInstance);
 		
+		return "forward:/smnsh/projects/"+projectId+"/milestones";
+	}
+	
+	@GetMapping("/projects/{projectId}/milestones/instances/new")
+	public String getMilestoneInstanceNew(
+				@PathVariable Long projectId,
+				Model model
+			) {
+		Project project = projectService.loadByIdWithMilestones(projectId);		
+		MilestoneInstance milestoneInstanceNew = new MilestoneInstance(project, MilestoneStatusEnum.WAITING);
+		model.addAttribute("milestoneInstanceNew", milestoneInstanceNew);
+		model.addAttribute("project", project);
+		return "smnsh/projects/idDetailsAndMilestones";
+	}
+
+	@PostMapping("/projects/{projectId}/milestones/instances/new")
+	public String postMilestoneInstanceNew(
+				@PathVariable Long projectId,
+				@ModelAttribute @Validated MilestoneInstance milestoneInstanceNew, 
+				BindingResult bindingResult
+			) {
+		milestoneService.saveMilestoneInstance(milestoneInstanceNew);
 		return "redirect:/smnsh/projects/"+projectId+"/milestones";
 	}
 	

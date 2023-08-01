@@ -9,12 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import pl.krzysztofskul.sensit.smnsh.project.Project;
 
+/**
+ * @author z0041nhm
+ *
+ */
+/**
+ * @author z0041nhm
+ *
+ */
 @Entity
 public class MilestoneInstance extends Milestone {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id = Long.valueOf(0);
 	
 	@ManyToOne
 	private Project project;
@@ -22,7 +30,7 @@ public class MilestoneInstance extends Milestone {
 	@ManyToOne
 	private MilestoneTemplate milestoneTemplate;
 	
-	private LocalDate deadline;
+	private LocalDate deadline = LocalDate.now();
 	
 	private MilestoneStatusEnum status;
 
@@ -91,7 +99,17 @@ public class MilestoneInstance extends Milestone {
 	}
 
 	
-	
+	/**
+	 * CONSTRUCTOR
+	 * Creates a new specific (not from template list) milestone to the project
+	 * @param project
+	 * @param status
+	 */
+	public MilestoneInstance(Project project, MilestoneStatusEnum status) {
+		this.project = project;
+		this.status = status;
+	}
+
 	/**
 	 * @return the id
 	 */

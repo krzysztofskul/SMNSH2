@@ -43,8 +43,9 @@
 								<p class="sensit-langEn font-weight-normal">name</p>
 							</div>
 							<div class="col-3 content">
-								<p class="sensit-langPl font-weight-bold" th:text="${milestone.milestoneTemplate.namePl}"/>
-								<p class="sensit-langEn font-weight-bold" th:text="${milestone.milestoneTemplate.nameEn}"/>
+								<p class="sensit-langPl font-weight-bold" th:text="${milestone?.namePl != null} ? ${milestone?.namePl} : ${milestone?.milestoneTemplate?.namePl}"/>
+								<p class="sensit-langPl font-weight-bold" th:text="${milestone?.nameEn != null} ? ${milestone?.nameEn} : ${milestone?.milestoneTemplate?.nameEn}"/>
+								
 							</div>
 							<div class="col-1 title">
 								<p class="sensit-langPl font-weight-normal">Status</p>
@@ -55,7 +56,7 @@
 									th:href="@{/smnsh/projects/{id}/milestones/{milestoneId}/set-status?status=WAITING(id = ${project.id}, milestoneId = ${milestone.id})}" 
 									th:id="'milestoneId-'+${milestone.id}+'-WAITING'"
 									class="btn btn-sm sensit-btn-height btn-status" 
-									th:classappend="${milestone.status.name == 'WAITING' ? 'btn-outline-success' : 'btn-outline-secondary'}"
+									th:classappend="${milestone?.status?.name == 'WAITING' ? 'btn-outline-success' : 'btn-outline-secondary'}"
 									>
 									<p class="sensit-langPl">OCZEKUJE</p>	
 									<p class="sensit-langEn">waiting</p>
@@ -64,7 +65,7 @@
 									th:href="@{/smnsh/projects/{id}/milestones/{milestoneId}/set-status?status=IN_PROGRESS(id = ${project.id}, milestoneId = ${milestone.id})}" 
 									th:id="'milestoneId-'+${milestone.id}+'-IN_PROGRESS'"
 									class="btn btn-sm sensit-btn-height btn-status" 
-									th:classappend="${milestone.status.name == 'IN_PROGRESS' ? 'btn-outline-success' : 'btn-outline-secondary'}"
+									th:classappend="${milestone?.status?.name == 'IN_PROGRESS' ? 'btn-outline-success' : 'btn-outline-secondary'}"
 									>
 									<p class="sensit-langPl">W TOKU</p>	
 									<p class="sensit-langEn">in progress</p>
@@ -73,7 +74,7 @@
 									th:href="@{/smnsh/projects/{id}/milestones/{milestoneId}/set-status?status=CANCELED(id = ${project.id}, milestoneId = ${milestone.id})}" 
 									th:id="'milestoneId-'+${milestone.id}+'-CANCELED'"
 									class="btn btn-sm sensit-btn-height btn-status" 
-									th:classappend="${milestone.status.name == 'CANCELED' ? 'btn-outline-success' : 'btn-outline-secondary'}"
+									th:classappend="${milestone?.status?.name == 'CANCELED' ? 'btn-outline-success' : 'btn-outline-secondary'}"
 									>
 									<p class="sensit-langPl">ANULOWANY</p>	
 									<p class="sensit-langEn">canceled</p>
@@ -82,7 +83,7 @@
 									th:href="@{/smnsh/projects/{id}/milestones/{milestoneId}/set-status?status=COMPLETED(id = ${project.id}, milestoneId = ${milestone.id})}" 
 									th:id="'milestoneId-'+${milestone.id}+'-COMPLETED'"
 									class="btn btn-sm sensit-btn-height btn-status" 
-									th:classappend="${milestone.status.name == 'COMPLETED' ? 'btn-outline-success' : 'btn-outline-secondary'}"
+									th:classappend="${milestone?.status?.name == 'COMPLETED' ? 'btn-outline-success' : 'btn-outline-secondary'}"
 									>
 									<p class="sensit-langPl">ZAKOŃCZONY</p>	
 									<p class="sensit-langEn">completed</p>
@@ -108,15 +109,103 @@
 					</div>
 
 				
+				</div> <!-- end of the row with information about milestone -->
+				
+				
+				
+				<!-- THE NEW MILESTONE FORM -->
+				<div class="row border border-success" th:if="${milestoneInstanceNew != null}">
+					<form action="#" th:action="@{/smnsh/projects/{projectId}/milestones/instances/new(projectId=${project.id})}" method="post" th:object="${milestoneInstanceNew}">
+					<div class="col-12">
+						<div class="row">
+							<input type="text" th:field="*{id}" hidden="true"/>
+						</div>
+						<div class="row">
+							<input type="text" th:field="*{project.id}" th:value="${milestoneInstanceNew.project}" hidden="true"/>
+						</div>
+						<div class="row">
+							<div class="col-2 title">
+								<p class="sensit-langPl font-weight-normal">NAZWA</p>
+								<p class="sensit-langEn font-weight-normal">name</p>
+							</div>
+							<div class="col-3 content">
+								<input class="sensit-langPl font-weight-bold" th:field="*{namePl}"/>
+								<input class="sensit-langEn font-weight-bold" th:field="*{nameEn}"/>
+							</div>
+							<div class="col-1 title">
+								<p class="sensit-langPl font-weight-normal">Status</p>
+								<p class="sensit-langEn font-weight-normal">Status</p>
+							</div>
+							<div class="col-5 content">
+								<button 
+									class="btn btn-sm sensit-btn-height btn-status" 
+									>
+									<p class="sensit-langPl">OCZEKUJE</p>	
+									<p class="sensit-langEn">waiting</p>
+								</button>
+								<button 
+									class="btn btn-sm sensit-btn-height btn-status" 
+									>
+									<p class="sensit-langPl">W TOKU</p>	
+									<p class="sensit-langEn">in progress</p>
+								</button>
+								<button 
+									class="btn btn-sm sensit-btn-height btn-status" 
+									>
+									<p class="sensit-langPl">ANULOWANY</p>	
+									<p class="sensit-langEn">canceled</p>
+								</button>
+								<button 
+									class="btn btn-sm sensit-btn-height btn-status" 
+									>
+									<p class="sensit-langPl">ZAKOŃCZONY</p>	
+									<p class="sensit-langEn">completed</p>
+								</button>
+							</div>
+							<div class="col-1 text-right">
+								<button class="btn btn-sm btn-outline-success sensit-btn-height">
+									<p class="sensit-langPl">ZAPISZ</p>	
+									<p class="sensit-langEn">save</p>
+								</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-2 title">
+								<p class="sensit-langPl font-weight-normal">OPIS</p>
+								<p class="sensit-langEn font-weight-normal">description</p>
+							</div>
+							<div class="col-10 content">
+								<input class="font-weight-bold" type="text" th:field="*{description}"/>
+							</div>
+
+							
+						</div>
+						<div class="row">
+							<div class="col-2 title">
+								<p class="sensit-langPl font-weight-normal">TERMIN REALIZACJI</p>
+								<p class="sensit-langEn font-weight-normal">deadline</p>
+							</div>
+							<div class="col-10 content">
+								<input class="font-weight-bold" type="text" th:field="${milestoneInstanceNew.deadline}"/>
+							</div>
+
+							
+						</div>
+					</div>
+					</form>
 				</div>
+				<!-- ENDO OF THE NEW MILESTONE FORM -->
+				
+				
+				
 			</div>
 			<div class="card-footer">
 				<div class="row">
 					<div class="col-12 text-right">
-						<button class="btn btn-outline-success text-center disabled">
+						<a th:href="@{/smnsh/projects/{projectId}/milestones/instances/new(projectId=${project.id})}" class="btn btn-outline-success text-center">
 							<p class="sensit-langPl">DODAJ</p>
 							<p class="sensit-langEn">ADD</p>
-						</button>
+						</a>
 					</div>
 				</div>
 			</div>

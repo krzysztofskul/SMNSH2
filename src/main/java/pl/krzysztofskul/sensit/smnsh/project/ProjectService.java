@@ -1,12 +1,15 @@
 package pl.krzysztofskul.sensit.smnsh.project;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneComparator;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneInstance;
 import pl.krzysztofskul.sensit.smnsh.project.status.Status;
 import pl.krzysztofskul.sensit.smnsh.user.User;
 import pl.krzysztofskul.sensit.smnsh.user.UserService;
@@ -54,6 +57,9 @@ public class ProjectService {
 	public Project loadByIdWithMilestones(Long id) {
 		Project project = this.loadById(id);
 		Hibernate.initialize(project.getMilestones());
+		List<MilestoneInstance> milestones = project.getMilestones();
+		milestones.sort(new MilestoneComparator());
+		project.setMilestones(milestones);
 		return project;
 	}
 

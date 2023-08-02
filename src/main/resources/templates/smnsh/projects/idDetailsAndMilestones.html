@@ -25,9 +25,19 @@
 		
 		<div class="card sensit-card">
 			<div class="card-header">
-				<div class="col-12 text-center">
-					<p class="sensit-langPl">KAMIENIE MILOWE PROJEKTU</p>
-					<p class="sensit-langEn">PROJECT MILESTONES</p>
+				<div class="row">
+					<div class="col-12 text-center">
+						<p class="sensit-langPl">KAMIENIE MILOWE PROJEKTU</p>
+						<p class="sensit-langEn">PROJECT MILESTONES</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 text-right">
+						<a th:href="@{/smnsh/projects/{projectId}/milestones/instances/new(projectId=${project.id})}" class="btn btn-outline-success text-center">
+							<p class="sensit-langPl">DODAJ</p>
+							<p class="sensit-langEn">ADD</p>
+						</a>
+					</div>
 				</div>
 			</div>
 			<div class="card-body">
@@ -35,6 +45,80 @@
 					<div class="col-4 title">Id projektu</div>
 					<div class="col-8 content"><span id="projectId" th:text="${project.id}"/></div>
 				</div>
+				
+				<!-- THE NEW MILESTONE FORM -->
+				<div class="container border border-success m-1 p-3" th:if="${milestoneInstanceNew != null}">
+					<form action="#" th:action="@{/smnsh/projects/{projectId}/milestones/instances/new(projectId=${project.id})}" method="post" th:object="${milestoneInstanceNew}">
+					<div class="card border-0">
+						<div class="row">
+							<input type="text" th:field="*{id}" hidden="true"/>
+						</div>
+						<div class="row">
+							<input type="text" th:field="*{project.id}" th:value="${milestoneInstanceNew.project}" hidden="true"/>
+						</div>
+						<div class="row mb-3">
+							<div class="col-12 text-center">
+								<p class="sensit-langPl">NOWY KAMIEŃ MILOWY</p>
+								<p class="sensit-langEn">new milestone</p>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-2 title">
+								<p class="sensit-langPl font-weight-normal">NAZWA</p>
+								<p class="sensit-langEn font-weight-normal">name</p>
+							</div>
+							<div class="col-3 content">
+								<input class="sensit-langPl font-weight-bold width100" th:field="*{namePl}"/>
+								<!--  
+								<input class="sensit-langEn font-weight-bold width100" th:field="*{nameEn}"/>
+								-->
+							</div>
+							<div class="col-1 title">
+								<p class="sensit-langPl font-weight-normal">Status</p>
+								<p class="sensit-langEn font-weight-normal">Status</p>
+							</div>
+							<div class="col-5 content">
+								<input type="radio" th:field="*{status}" value="WAITING" th:text="OCZEKUJE"/><br/>
+								<input type="radio" th:field="*{status}" value="IN_PROGRESS" th:text="W_TOKU"/><br/>
+								<input type="radio" th:field="*{status}" value="CANCELED" th:text="ANULOWANY"/><br/>
+								<input type="radio" th:field="*{status}" value="FINISHED" th:text="ZAKOŃCZONY"/>
+							</div>
+							<div class="col-1 text-right">
+								<button class="btn btn-sm btn-outline-success sensit-btn-height">
+									<p class="sensit-langPl">ZAPISZ</p>	
+									<p class="sensit-langEn">save</p>
+								</button>
+							</div>
+						</div>
+						<!--  
+						<div class="row">
+							<div class="col-2 title">
+								<p class="sensit-langPl font-weight-normal">OPIS</p>
+								<p class="sensit-langEn font-weight-normal">description</p>
+							</div>
+							<div class="col-10 content">
+								<input class="font-weight-bold" type="text" th:field="*{description}"/>
+							</div>
+						</div>
+						-->
+						<div class="row">
+							<div class="col-2 title">
+								<p class="sensit-langPl font-weight-normal">TERMIN REALIZACJI</p>
+								<p class="sensit-langEn font-weight-normal">deadline</p>
+							</div>
+							<div class="col-10 content">
+								<input class="font-weight-bold" type="text" th:field="${milestoneInstanceNew.deadline}"/>
+							</div>
+
+							
+						</div>
+					</div>
+					</form>
+				</div>
+				<!-- ENDO OF THE NEW MILESTONE FORM -->
+				
+				
 				<div class="row" th:each="milestone: ${project.milestones}">
 					<div class="col-12">
 						<div class="row">
@@ -44,7 +128,7 @@
 							</div>
 							<div class="col-3 content">
 								<p class="sensit-langPl font-weight-bold" th:text="${milestone?.namePl != null} ? ${milestone?.namePl} : ${milestone?.milestoneTemplate?.namePl}"/>
-								<p class="sensit-langPl font-weight-bold" th:text="${milestone?.nameEn != null} ? ${milestone?.nameEn} : ${milestone?.milestoneTemplate?.nameEn}"/>
+								<p class="sensit-langEn font-weight-normal" th:text="${milestone?.nameEn != null} ? ${milestone?.nameEn} : ${milestone?.milestoneTemplate?.nameEn}"/>
 								
 							</div>
 							<div class="col-1 title">
@@ -110,93 +194,6 @@
 
 				
 				</div> <!-- end of the row with information about milestone -->
-				
-				
-				
-				<!-- THE NEW MILESTONE FORM -->
-				<div class="row border border-success" th:if="${milestoneInstanceNew != null}">
-					<form action="#" th:action="@{/smnsh/projects/{projectId}/milestones/instances/new(projectId=${project.id})}" method="post" th:object="${milestoneInstanceNew}">
-					<div class="col-12">
-						<div class="row">
-							<input type="text" th:field="*{id}" hidden="true"/>
-						</div>
-						<div class="row">
-							<input type="text" th:field="*{project.id}" th:value="${milestoneInstanceNew.project}" hidden="true"/>
-						</div>
-						<div class="row">
-							<div class="col-2 title">
-								<p class="sensit-langPl font-weight-normal">NAZWA</p>
-								<p class="sensit-langEn font-weight-normal">name</p>
-							</div>
-							<div class="col-3 content">
-								<input class="sensit-langPl font-weight-bold" th:field="*{namePl}"/>
-								<input class="sensit-langEn font-weight-bold" th:field="*{nameEn}"/>
-							</div>
-							<div class="col-1 title">
-								<p class="sensit-langPl font-weight-normal">Status</p>
-								<p class="sensit-langEn font-weight-normal">Status</p>
-							</div>
-							<div class="col-5 content">
-								<button 
-									class="btn btn-sm sensit-btn-height btn-status" 
-									>
-									<p class="sensit-langPl">OCZEKUJE</p>	
-									<p class="sensit-langEn">waiting</p>
-								</button>
-								<button 
-									class="btn btn-sm sensit-btn-height btn-status" 
-									>
-									<p class="sensit-langPl">W TOKU</p>	
-									<p class="sensit-langEn">in progress</p>
-								</button>
-								<button 
-									class="btn btn-sm sensit-btn-height btn-status" 
-									>
-									<p class="sensit-langPl">ANULOWANY</p>	
-									<p class="sensit-langEn">canceled</p>
-								</button>
-								<button 
-									class="btn btn-sm sensit-btn-height btn-status" 
-									>
-									<p class="sensit-langPl">ZAKOŃCZONY</p>	
-									<p class="sensit-langEn">completed</p>
-								</button>
-							</div>
-							<div class="col-1 text-right">
-								<button class="btn btn-sm btn-outline-success sensit-btn-height">
-									<p class="sensit-langPl">ZAPISZ</p>	
-									<p class="sensit-langEn">save</p>
-								</button>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-2 title">
-								<p class="sensit-langPl font-weight-normal">OPIS</p>
-								<p class="sensit-langEn font-weight-normal">description</p>
-							</div>
-							<div class="col-10 content">
-								<input class="font-weight-bold" type="text" th:field="*{description}"/>
-							</div>
-
-							
-						</div>
-						<div class="row">
-							<div class="col-2 title">
-								<p class="sensit-langPl font-weight-normal">TERMIN REALIZACJI</p>
-								<p class="sensit-langEn font-weight-normal">deadline</p>
-							</div>
-							<div class="col-10 content">
-								<input class="font-weight-bold" type="text" th:field="${milestoneInstanceNew.deadline}"/>
-							</div>
-
-							
-						</div>
-					</div>
-					</form>
-				</div>
-				<!-- ENDO OF THE NEW MILESTONE FORM -->
-				
-				
 				
 			</div>
 			<div class="card-footer">

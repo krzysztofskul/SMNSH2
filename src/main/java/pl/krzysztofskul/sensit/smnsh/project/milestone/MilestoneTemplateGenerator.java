@@ -46,7 +46,7 @@ public class MilestoneTemplateGenerator implements InitDataGenerator<MilestoneTe
 			milestoneTemplateList.add(new MilestoneTemplate("Dostawa", "Delivery", ""));
 			milestoneTemplateList.add(new MilestoneTemplate("Instalacja", "Instalation", ""));
 			milestoneTemplateList.add(new MilestoneTemplate("Szkolenia", "Trainings", ""));
-			milestoneTemplateList.add(new MilestoneTemplate("Odbiór", "Receipt", ""));
+			milestoneTemplateList.add(new MilestoneTemplate("Odbiór", "Acceptance", ""));
 			for (MilestoneTemplate milestoneTemplate : milestoneTemplateList) {
 				milestoneTemplateRepo.save(milestoneTemplate);
 			} 

@@ -247,7 +247,7 @@
 					<div class="col-4 title">Termin realizacji</div>
 					<div class="col-8 content">
 						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.deadline}"/>
-						<input  class="width100" type="text" th:if="${project.id} == 0 OR ${edit} == true"  th:field="${project.deadline}"/>
+						<input class="width100" type="date" th:if="${project.id} == 0 OR ${edit} == true"  th:field="*{deadline}" th:value="*{deadline}"/>
 					</div>
 				</div>
 				<div class="row">
@@ -325,6 +325,11 @@
 			
 				<div class="row">
 					<div th:if="${project.id} != 0 AND ${edit} != true"  class="col-12 text-right">
+						<a href="#" 
+							class="btn btn-outline-danger text-center disabled">
+							<p class="sensit-langPl">USUŃ</p>
+							<p class="sensit-langEn">DELETE</p>
+						</a>
 						<a th:href="@{/smnsh/projects/edit?projectId={projectId}&userNameBySpringSecurity={userNameBySpringSecurity}(userNameBySpringSecurity=${#authentication.name},projectId=${project.id})}" class="btn btn-outline-primary text-center">
 							<p class="sensit-langPl">EDYTUJ</p>
 							<p class="sensit-langEn">EDIT</p>

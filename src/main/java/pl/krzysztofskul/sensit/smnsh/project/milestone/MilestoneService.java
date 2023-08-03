@@ -30,5 +30,10 @@ public class MilestoneService {
 	public MilestoneInstance loadById(Long milestoneId) {
 		return milestoneInstnceRepo.findById(milestoneId).get();
 	}
+
+	public void deleteMilestoneById(Long milestoneId) {
+		milestoneInstnceRepo.deleteById(milestoneId);
+		
+	}
 	
 }

@@ -7,6 +7,7 @@ $(document).ready(function() {
 	//alert("test project and milestones page"); //ok
 	
 		let btnStatus = $(".btn-status");
+		let btnDelete = $(".btn-delete");
 		let projectId = $("#projectId").text();
 	
 		btnStatus.each(function() {
@@ -27,6 +28,16 @@ $(document).ready(function() {
 
 		});
 	
-		
+		btnDelete.on("click", function() {
+			//alert("projectId: "+projectId+"\nmilestoneId: "+$(this).attr("id").split("-")[1]+"\nbtn-delete id attr.: "+$(this).attr("id").split("-")[2]);
+			$.ajax({
+				type: 'DELETE',
+				url: '/smnsh/restapi/milestones/'+$(this).attr("id").split("-")[1],
+			}).always(function() {
+				location.reload();
+			});
+			
+			;
+		});
 	
 });

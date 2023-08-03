@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import pl.krzysztofskul.sensit.smnsh.project.Project;
 
 /**
@@ -30,6 +33,7 @@ public class MilestoneInstance extends Milestone {
 	@ManyToOne
 	private MilestoneTemplate milestoneTemplate;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate deadline = LocalDate.now();
 	
 	private MilestoneStatusEnum status;

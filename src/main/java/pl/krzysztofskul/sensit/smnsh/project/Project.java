@@ -22,6 +22,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import pl.krzysztofskul.sensit.smnsh.company.Company;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.Attachment;
 import pl.krzysztofskul.sensit.smnsh.project.device.Device;
@@ -39,7 +41,7 @@ import pl.krzysztofskul.sensit.smnsh.user.User;
 
 @Entity
 @Table(name = "projects")
-public class Project /*TODO 2023-06-26 1555 implement serializable? also for related classes?*/ {
+public class Project implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -111,6 +113,7 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 	private Company subcontractorForRoomAdaptation;
 	private String designer;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate deadline = LocalDate.now().plusMonths(3);
 	
 	private Status status = Status.UNDEFINED;

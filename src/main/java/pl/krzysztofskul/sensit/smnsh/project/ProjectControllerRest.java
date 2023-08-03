@@ -16,7 +16,7 @@ public class ProjectControllerRest {
 	private ProjectService projectService;
 
 	/**
-	 * CONTROLLER
+	 * CONSTRUCTOR
 	 */
 	@Autowired
 	public ProjectControllerRest(ProjectService projectService) {

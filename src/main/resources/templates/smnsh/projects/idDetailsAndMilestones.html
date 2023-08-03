@@ -33,7 +33,10 @@
 				</div>
 				<div class="row">
 					<div class="col-12 text-right">
-						<a th:href="@{/smnsh/projects/{projectId}/milestones/instances/new(projectId=${project.id})}" class="btn btn-outline-success text-center">
+						<a th:href="@{/smnsh/projects/{projectId}/milestones/instances/new(projectId=${project.id})}" 
+							class="btn btn-outline-success text-center"
+							th:classappend="${milestoneInstanceNew} != null ? 'disabled'"
+						>
 							<p class="sensit-langPl">DODAJ</p>
 							<p class="sensit-langEn">ADD</p>
 						</a>
@@ -108,7 +111,7 @@
 								<p class="sensit-langEn font-weight-normal">deadline</p>
 							</div>
 							<div class="col-10 content">
-								<input class="font-weight-bold" type="text" th:field="${milestoneInstanceNew.deadline}"/>
+								<input class="font-weight-bold" type="date" th:field="*{deadline}"/>
 							</div>
 
 							
@@ -174,7 +177,10 @@
 								</button>
 							</div>
 							<div class="col-1 text-right">
-								<button class="btn btn-sm btn-outline-danger sensit-btn-height disabled">
+								<button 
+									class="btn btn-sm btn-outline-danger sensit-btn-height btn-delete"
+									th:id="'milestoneId-'+${milestone.id}+'-DELETE'"
+								>
 									<p class="sensit-langPl">USUŃ</p>	
 									<p class="sensit-langEn">del</p>
 								</button>
@@ -199,7 +205,10 @@
 			<div class="card-footer">
 				<div class="row">
 					<div class="col-12 text-right">
-						<a th:href="@{/smnsh/projects/{projectId}/milestones/instances/new(projectId=${project.id})}" class="btn btn-outline-success text-center">
+						<a th:href="@{/smnsh/projects/{projectId}/milestones/instances/new(projectId=${project.id})}" 
+							class="btn btn-outline-success text-center"
+							th:classappend="${milestoneInstanceNew} != null ? 'disabled'"
+							>
 							<p class="sensit-langPl">DODAJ</p>
 							<p class="sensit-langEn">ADD</p>
 						</a>

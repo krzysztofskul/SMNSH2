@@ -105,7 +105,7 @@ public class Project implements Serializable {
 	
     @OneToMany(
     		mappedBy = "project",
-    		cascade = {CascadeType.PERSIST, CascadeType.MERGE}
+    		cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}
     		)
 	private List<Stakeholder> stakeholders = new ArrayList<Stakeholder>();
 	

@@ -296,6 +296,19 @@ public class ProjectController {
 		return "smnsh/projects/all";
 	}
 	
-
+	@GetMapping("/projects/delete/{projectId}")
+	public String getDeleteProjectById(
+				@PathVariable Long projectId,
+				@RequestParam(required = false) String backToPage
+			) {
+		
+		projectService.deleteById(projectId);
+		
+		if (backToPage != null) {
+			return "redirect:"+backToPage;
+		}
+		
+		return "redirect:/smnsh/projects";
+	}
 	
 }

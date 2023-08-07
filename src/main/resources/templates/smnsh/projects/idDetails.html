@@ -325,8 +325,8 @@
 			
 				<div class="row">
 					<div th:if="${project.id} != 0 AND ${edit} != true"  class="col-12 text-right">
-						<a href="#" 
-							class="btn btn-outline-danger text-center disabled">
+						<a th:href="@{/smnsh/projects/delete/{projectId}?backToPage=/smnsh/projects/user/springsecurityname/{userNameBySpringSecurity} (projectId=${project.id}, userNameBySpringSecurity=${#authentication.name})}" 
+							class="btn btn-outline-danger text-center">
 							<p class="sensit-langPl">USUŃ</p>
 							<p class="sensit-langEn">DELETE</p>
 						</a>

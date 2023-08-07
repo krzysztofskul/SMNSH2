@@ -17,7 +17,7 @@ This version has been created to prepare demo functions for a meeting arranged f
  ** **add attachment as a link to the local drive**  
  ** add sort all projects functionality  
  ** update the strategy of set status for new project and edit project functionality  
- ** delete project functionality  
+ ** ~~delete project functionality~~  
  ** ~~update deadline save functionality~~
 
 * **CREATE NOTES FUNCTIONALITY**    

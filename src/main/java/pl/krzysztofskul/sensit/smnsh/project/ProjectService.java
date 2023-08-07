@@ -94,5 +94,10 @@ public class ProjectService {
 		
 		return projectList;
 	}
+
+	public void deleteById(Long projectId) {
+		projectRepo.deleteById(projectId);
+		
+	}
 	
 }

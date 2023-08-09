@@ -31,6 +31,7 @@ import pl.krzysztofskul.sensit.smnsh.company.Company;
 import pl.krzysztofskul.sensit.smnsh.company.CompanyService;
 import pl.krzysztofskul.sensit.smnsh.filestorage.File;
 import pl.krzysztofskul.sensit.smnsh.filestorage.FileStorageService;
+import pl.krzysztofskul.sensit.smnsh.importdata.FileSelector;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.Attachment;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategory;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategoryService;
@@ -51,6 +52,7 @@ public class ProjectController {
 	private CompanyService companyService;
 	private UserService userService;
 	private DevicePortfolioService devicePortfolioService;
+	private FileSelector fileSelector;
 	
 	/**
 	 * CONSTRUCTOR
@@ -61,13 +63,15 @@ public class ProjectController {
 			AttachmentCategoryService attachmentCategoryService,
 			CompanyService companyService,
 			UserService userService,
-			DevicePortfolioService devicePortfolioService
+			DevicePortfolioService devicePortfolioService,
+			FileSelector fileSelector
 			) {
 		this.projectService = projectService;
 		this.attachmentCategoryService = attachmentCategoryService;
 		this.companyService = companyService;
 		this.userService = userService;
 		this.devicePortfolioService = devicePortfolioService;
+		this.fileSelector = fileSelector;
 	}
 	
 	@ModelAttribute(name = "investorList")
@@ -148,6 +152,21 @@ public class ProjectController {
 	public String getProjectByIdWithMilestones(@PathVariable Long id, Model model) {
 		model.addAttribute("project", projectService.loadByIdWithMilestones(id));
 		return "smnsh/projects/idDetailsAndMilestones";
+	}
+	
+	@GetMapping("/projects/{id}/configurations")
+	public String getProjectByIdWithConfigurations(@PathVariable Long id, Model model) {
+		model.addAttribute("project", projectService.loadByIdWithAttachments(id));
+		return "smnsh/projects/idDetailsAndConfigurations";
+	}
+
+	@GetMapping("/projects/{id}/configurations/new")
+	public String getProjectByIdWithConfigurationsNew(@PathVariable Long id) {
+		String filePath = fileSelector.select("file");
+		Project project = projectService.loadByIdWithAttachments(id);
+		project = projectService.addLinkToConfigurationFile(project, filePath);
+		project = projectService.saveAndReturn(project);
+		return "redirect:/smnsh/projects/"+id+"/configurations";
 	}
 	
 	@GetMapping("/projects/{id}/stakeholders")

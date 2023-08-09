@@ -99,5 +99,12 @@ public class ProjectService {
 		projectRepo.deleteById(projectId);
 		
 	}
+
+	public Project addLinkToConfigurationFile(Project project, String filePath) {
+		List<String> configurationLinkList = project.getConfigurationLinks();
+		configurationLinkList.add(filePath);
+		project.setConfigurationLinks(configurationLinkList);
+		return project;
+	}
 	
 }

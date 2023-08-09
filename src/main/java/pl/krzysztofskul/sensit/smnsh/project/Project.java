@@ -91,6 +91,9 @@ public class Project implements Serializable {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Installation installation;
 	
+	@ElementCollection
+	private List<String> configurationLinks;
+	
 	/*
 	 * TODO (?) move to the installation class
 	 */
@@ -352,6 +355,20 @@ public class Project implements Serializable {
 	}
 
 	/**
+	 * @return the configurationLinks
+	 */
+	public List<String> getConfigurationLinks() {
+		return configurationLinks;
+	}
+
+	/**
+	 * @param configurationLinks the configurationLinks to set
+	 */
+	public void setConfigurationLinks(List<String> configurationLinks) {
+		this.configurationLinks = configurationLinks;
+	}
+
+	/**
 	 * @return the projectManager
 	 */
 	public User getProjectManager() {
@@ -578,4 +595,5 @@ public class Project implements Serializable {
 				break;
 			}
 	}
+
 }

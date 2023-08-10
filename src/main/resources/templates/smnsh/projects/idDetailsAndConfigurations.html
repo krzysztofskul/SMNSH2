@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>SMNSH</title>
+	
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	
+	<!-- CSS -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+	
+</head>
+<body>
+
+	<div th:replace="./smnsh/header" :: header class="sensit-header"></div>
+	<div th:replace="./smnsh/projects/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
+	
+	<div class="container" style="min-height:250px">
+	
+		<div class="row cards-in-columns">
+			<div class="col">
+				<div class="card sensit-card">
+					<div class="card-header">
+						<p class="sensit-langPl">PLIKI KONFIGURACJI SPRZĘTU (LINK)</p>
+						<p class="sensit-langEn">DEVICE CONFIGURATION FILES (LINK)</p>
+					</div>
+					<div class="card-body">
+						<div th:each="link : ${project.configurationLinks}">
+							<a th:href="${link}" th:text="${link}"></a>
+						</div>
+					</div>
+					<div class="card-footer">
+						<a th:href="@{/smnsh/projects/{id}/configurations/new(id=${project.id})}" class="btn btn-sm btn-outline-success">+</a>
+					</div>
+
+				</div>
+			</div>
+			
+			
+		</div>
+		
+	</div>
+
+	<div th:replace="./smnsh/footer" :: footer class="sensit-footer"></div>
+
+</body>
+</html>

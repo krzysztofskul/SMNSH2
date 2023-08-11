@@ -61,6 +61,16 @@
 	padding-top: 0;
 }
 
+.sensit-btn-sort {
+  background-color: white;
+  color: black;
+  /* border: 2px solid #e7e7e7; */	
+}
+.sensit-btn-sort:hover {
+	background-color: #e7e7e7;
+
+}
+
 .sensit-attachment-thumbnail {
 	display: inline-block;
 	width: 75px;

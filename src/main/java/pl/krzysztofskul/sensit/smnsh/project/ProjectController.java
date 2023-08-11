@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -100,7 +102,30 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/projects")
-	public String getTestProjects() {		
+	public String getTestProjects(
+				@RequestParam(required = false) String sort,
+				Model model
+			) {
+		
+		List<Project> projectList = projectService.loadAll();
+		
+		if (sort != null) {
+			if (sort.equals("byCodeAsc") ) {
+				projectList.sort((p1, p2) -> p1.getCode().compareTo(p2.getCode()));
+			}
+			if (sort.equals("byCodeDes")) {
+				projectList.sort((p1, p2) -> p2.getCode().compareTo(p1.getCode()));
+			}
+			if (sort.equals("deadlineAsc") ) {
+				projectList.sort((p1, p2) -> p1.getDeadline().compareTo(p2.getDeadline()));
+			}
+			if (sort.equals("deadlineDes")) {
+				projectList.sort((p1, p2) -> p2.getDeadline().compareTo(p1.getDeadline()));
+			}
+		} 
+		
+		model.addAttribute("projectList", projectList);
+		
 		return "smnsh/projects/all";
 	}
 	

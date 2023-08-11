@@ -15,6 +15,7 @@
 	
 	<!-- CSS -->
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
 
@@ -41,8 +42,20 @@
 		      		<p class="sensit-langEn">id</p>
 	      		</th>
 		      <th scope="col">
-		      	<p class="sensit-langPl">Kod projektu</p>
-		      	<p class="sensit-langEn">project code</p>
+	      		<div class="d-inline-block">
+					<p class="sensit-langPl">Kod projektu</p>
+			      	<p class="sensit-langEn">project code</p>
+	      		</div>
+		      	<a class="sensit-btn-sort d-inline" th:href="@{/smnsh/projects?sort=byCodeAsc}">
+					<span class="material-symbols-outlined">
+					arrow_drop_up
+					</span>
+	      		</a>
+		      	<a class="sensit-btn-sort d-inline" th:href="@{/smnsh/projects?sort=byCodeDes}">
+					<span class="material-symbols-outlined">
+					arrow_drop_down
+					</span>
+	      		</a>
 		      <th scope="col">
 		      	<p class="sensit-langPl">Nazwa projektu</p>
 		      	<p class="sensit-langEn">project name</p>
@@ -68,8 +81,20 @@
 		      	<p class="sensit-langEn">project manager</p>
 		      	</th>
 		      <th scope="col">
-		      	<p class="sensit-langPl">Termin realizacji</p>
-		      	<p class="sensit-langEn">deadline</p>
+    	      	<div class="d-inline-block">
+			      	<p class="sensit-langPl">Termin realizacji</p>
+			      	<p class="sensit-langEn">deadline</p>
+		      	</div>
+		      	<a class="sensit-btn-sort d-inline" th:href="@{/smnsh/projects?sort=deadlineAsc}">
+					<span class="material-symbols-outlined">
+					arrow_drop_up
+					</span>
+	      		</a>
+		      	<a class="sensit-btn-sort d-inline" th:href="@{/smnsh/projects?sort=deadlineDes}">
+					<span class="material-symbols-outlined">
+					arrow_drop_down
+					</span>
+	      		</a>
 		      	</th>
 		      <th scope="col">
 					<p class="sensit-langPl">Status</p>

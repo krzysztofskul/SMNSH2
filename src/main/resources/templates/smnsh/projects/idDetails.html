@@ -46,10 +46,10 @@
 				</div>
 				
 				
-				<div class="row">
+				<div class="row d-none">
 					<div class="col-4 title">Kamienie milowe</div>
 					<div class="col-8 content">
-						<select th:if="${project.id} == 0" name="milestones" id="milestones" multiple>
+						<select th:if="${project.id} == 0" name="milestones" id="milestones" multiple hidden="hidden">
 							<option th:each="milestone : ${project.milestones}" th:value="${milestone}" th:text="${milestone.milestoneTemplate.namePl}" selected/>
 						</select>
 					</div>

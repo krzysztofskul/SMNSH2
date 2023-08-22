@@ -97,3 +97,10 @@
 .width100 {
 	width: 100%
 }
+
+.labelEnum {
+	display: inline-block;
+	width: 1em;
+	height: 2em;
+	border: 2px solid;
+}

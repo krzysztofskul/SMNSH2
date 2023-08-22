@@ -29,7 +29,14 @@
 					</div>
 					<div class="card-body">
 						<div th:each="link : ${project.configurationLinks}">
-							<a th:href="${link}" th:text="${link}"></a>
+							<div class="row mb-4">
+								<div class="col-10">
+									<a th:href="${link}" target="_blank" th:text="${link}" class="align-middle pt-2"></a>
+								</div>
+								<div class="col-2">
+									<a href="#" class="btn btn-sn btn-outline-danger">-</a>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="card-footer">

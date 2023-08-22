@@ -349,6 +349,12 @@
 							<p class="sensit-langEn">EDIT</p>
 						</a>
 					</div>
+					<div th:if="${project.id} == 0 OR ${edit} == true" class="col-12 text-leeft">
+						<a th:href="${project.id} == 0 ? @{/smnsh/projects/} : @{/smnsh/projects/{projectId} (projectId=${project.id})}" type="button" class="btn btn-outline-warning text-center">
+							<p class="sensit-langPl">ANULUJ</p>
+							<p class="sensit-langEn">CANCEL</p>
+						</a>
+					</div>
 					<div th:if="${project.id} == 0 OR ${edit} == true" class="col-12 text-right">
 						<button type="submit" class="btn btn-outline-success text-center">
 							<p class="sensit-langPl">ZAPISZ</p>

@@ -1,5 +1,8 @@
 package pl.krzysztofskul.sensit.smnsh.project.milestone;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -29,6 +32,10 @@ public class MilestoneService {
 	
 	public MilestoneInstance loadById(Long milestoneId) {
 		return milestoneInstnceRepo.findById(milestoneId).get();
+	}
+	
+	public List<MilestoneTemplate> loadAllMilestonesFromTemplates() {
+		return milestoneTemplateRepo.findAll();
 	}
 
 	public void deleteMilestoneById(Long milestoneId) {

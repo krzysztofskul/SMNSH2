@@ -44,6 +44,20 @@
 						<input type="text" th:if="${project.id} == 0 OR ${edit} == true" th:field="${project.id}" th:value="${project.id}"/>
 					</div>
 				</div>
+				
+				
+				<div class="row">
+					<div class="col-4 title">Kamienie milowe</div>
+					<div class="col-8 content">
+						<select th:if="${project.id} == 0" name="milestones" id="milestones" multiple>
+							<option th:each="milestone : ${project.milestones}" th:value="${milestone}" th:text="${milestone.milestoneTemplate.namePl}" selected/>
+						</select>
+					</div>
+				</div>
+
+				
+				
+				
 				<div class="row">
 					<div class="col-2 title">SLS prowadzący:</div>
 					<div class="col-4 content">

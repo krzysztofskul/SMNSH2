@@ -10,8 +10,7 @@ This version has been created to prepare demo functions for a meeting arranged f
  
 * PROJECTS FUNCTIONALITY  
  ** add the back to page functionality after the new project had been created by project manager  
- ** **sort projects functionality**   
-  ** **fix sort project for logged-in user**  
+ ** **sort projects functionality**     
  ** update the strategy of set status for new project and edit project functionality  
  ** **update the relationship project-installation(pm, devices)**
 

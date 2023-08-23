@@ -117,20 +117,7 @@ public class ProjectController {
 		
 		List<Project> projectList = projectService.loadAll();
 		
-		if (sort != null) {
-			if (sort.equals("byCodeAsc") ) {
-				projectList.sort((p1, p2) -> p1.getCode().compareTo(p2.getCode()));
-			}
-			if (sort.equals("byCodeDes")) {
-				projectList.sort((p1, p2) -> p2.getCode().compareTo(p1.getCode()));
-			}
-			if (sort.equals("deadlineAsc") ) {
-				projectList.sort((p1, p2) -> p1.getDeadline().compareTo(p2.getDeadline()));
-			}
-			if (sort.equals("deadlineDes")) {
-				projectList.sort((p1, p2) -> p2.getDeadline().compareTo(p1.getDeadline()));
-			}
-		} 
+		projectList = sortProjectList(sort, projectList); 
 		
 		model.addAttribute("projectList", projectList);
 		
@@ -350,9 +337,13 @@ public class ProjectController {
 	@GetMapping("/projects/user/{userId}")
 	public String getProjectsByUserId(
 				@PathVariable(name = "userId") String userId,
+				@RequestParam(required = false) String sort,
 				Model model
 			) {
 		List<Project> projects = projectService.loadProjectsByUserId(Long.parseLong(userId) );
+		
+		projects = sortProjectList(sort, projects); 
+		
 		model.addAttribute("projectList", projects);
 		return "smnsh/projects/all";
 	}
@@ -370,6 +361,30 @@ public class ProjectController {
 		}
 		
 		return "redirect:/smnsh/projects";
+	}
+	
+	/**
+	 * Sort list of projects ascending or descending depends of the sort parameter
+	 * @param sort
+	 * @param projectList
+	 * @return projectList
+	 */
+	private List<Project> sortProjectList(String sort, List<Project> projectList) {
+		if (sort != null) {
+			if (sort.equals("byCodeAsc") ) {
+				projectList.sort((p1, p2) -> p1.getCode().compareTo(p2.getCode()));
+			}
+			if (sort.equals("byCodeDes")) {
+				projectList.sort((p1, p2) -> p2.getCode().compareTo(p1.getCode()));
+			}
+			if (sort.equals("deadlineAsc") ) {
+				projectList.sort((p1, p2) -> p1.getDeadline().compareTo(p2.getDeadline()));
+			}
+			if (sort.equals("deadlineDes")) {
+				projectList.sort((p1, p2) -> p2.getDeadline().compareTo(p1.getDeadline()));
+			}
+		}
+		return projectList;
 	}
 	
 }

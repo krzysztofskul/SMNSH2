@@ -46,12 +46,12 @@
 					<p class="sensit-langPl">Kod projektu</p>
 			      	<p class="sensit-langEn">project code</p>
 	      		</div>
-		      	<a class="sensit-btn-sort d-inline" th:href="@{/smnsh/projects?sort=byCodeAsc}">
+		      	<a class="sensit-btn-sort d-inline" th:href="@{__${#httpServletRequest.requestURI}__?sort=byCodeAsc}">
 					<span class="material-symbols-outlined">
 					arrow_drop_up
 					</span>
 	      		</a>
-		      	<a class="sensit-btn-sort d-inline" th:href="@{/smnsh/projects?sort=byCodeDes}">
+		      	<a class="sensit-btn-sort d-inline" th:href="@{__${#httpServletRequest.requestURI}__?sort=byCodeDes}">
 					<span class="material-symbols-outlined">
 					arrow_drop_down
 					</span>
@@ -85,12 +85,12 @@
 			      	<p class="sensit-langPl">Termin realizacji</p>
 			      	<p class="sensit-langEn">deadline</p>
 		      	</div>
-		      	<a class="sensit-btn-sort d-inline" th:href="@{/smnsh/projects?sort=deadlineAsc}">
+		      	<a class="sensit-btn-sort d-inline" th:href="@{__${#httpServletRequest.requestURI}__?sort=deadlineAsc}">
 					<span class="material-symbols-outlined">
 					arrow_drop_up
 					</span>
 	      		</a>
-		      	<a class="sensit-btn-sort d-inline" th:href="@{/smnsh/projects?sort=deadlineDes}">
+		      	<a class="sensit-btn-sort d-inline" th:href="@{__${#httpServletRequest.requestURI}__?sort=deadlineDes}">
 					<span class="material-symbols-outlined">
 					arrow_drop_down
 					</span>

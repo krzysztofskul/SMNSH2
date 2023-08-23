@@ -17,9 +17,19 @@
 		
 		<div class="card sensit-card">
 			<div class="card-header">
-				<div class="col-12 text-center">
-					<p class="sensit-langPl">WYKAZ INTERESARIUSZY PROJEKTU</p>
-					<p class="sensit-langEn">STAKEHOLDERS</p>
+				<div class= "row">
+					<div class="col-12 text-center">
+						<p class="sensit-langPl">WYKAZ INTERESARIUSZY PROJEKTU</p>
+						<p class="sensit-langEn">STAKEHOLDERS</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 text-right">
+						<a href="#" th:href="@{/smnsh/projects/{id}/stakeholders/add(id=${project.id})}" class="btn btn-outline-success text-center">
+							<p class="sensit-langPl">DODAJ</p>
+							<p class="sensit-langEn">ADD</p>
+						</a>
+					</div>
 				</div>
 			</div>
 			<div class="card-body">

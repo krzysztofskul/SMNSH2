@@ -6,11 +6,7 @@
 	<meta charset="UTF-8">
 	<title>SMNSH</title>
 	<!-- BOOTSTRAP -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 	<!-- CSS -->
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
 	<!-- JS -->
@@ -41,7 +37,7 @@
 					<div class="col-4 title">Id projektu</div>
 					<div class="col-8 content">
 						<span id="projectId" th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project.id}"></span>
-						<input type="text" th:if="${project.id} == 0 OR ${edit} == true" th:field="${project.id}" th:value="${project.id}"/>
+						<input type="text" th:if="${project.id} == 0 OR ${edit} == true" th:field="${project.id}" th:value="${project.id}" disabled/>
 					</div>
 				</div>
 				
@@ -89,7 +85,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="row">
+						<div class="row mt-1">
 							<div class="col-4 title">PM zastępujący:</div>
 							<!-- 
 							<div class="col-8 content"><a th:href="@{#}" th:if="${project.id} != 0" class="btn btn-outline-success" style="height: 1.5em; padding: 0; width: 4em;">+</a></div>
@@ -151,9 +147,11 @@
 							</div>
 						</div>
 						<div class="row" th:if="${project.id} == 0 OR ${edit} == true">
-							<select th:field="*{investor}" class="width100">
-								<option th:each="investor : ${investorList}" th:value="${investor.id}" th:text="${investor.name}"/>
-							</select>
+							<div class="col-12">
+								<select th:field="*{investor}" class="width100">
+									<option th:each="investor : ${investorList}" th:value="${investor.id}" th:text="${investor.name}"/>
+								</select>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -177,9 +175,11 @@
 							</div>
 						</div>
 						<div class="row" th:if="${project.id} == 0 OR ${edit} == true">
-							<select th:field="*{customer}" class="width100">
-								<option th:each="customer : ${customerList}" th:value="${customer.id}" th:text="${customer.name}"/>
-							</select>
+							<div class="col-12">
+								<select th:field="*{customer}" class="width100">
+									<option th:each="customer : ${customerList}" th:value="${customer.id}" th:text="${customer.name}"/>
+								</select>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -195,14 +195,14 @@
 					<div class="col-4 title">Aparat oferowany</div>
 					<div class="col-8 content">
 						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.devicePortfolio?.modality} + ' ' + ${project.devicePortfolio?.modelName}"/>
-						<select th:if="${project.id} == 0 OR ${edit} == true" th:field="*{devicePortfolio}">
+						<select th:if="${project.id} == 0 OR ${edit} == true" th:field="*{devicePortfolio}" class="width100">
 							<option th:each="devicePortfolio : ${devicePortfolioListAll}" th:value="${devicePortfolio.id}" th:text="|${devicePortfolio.modality} ${devicePortfolio.modelName}|"/>
 						</select>
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="col-4 title">Szczegóły dot. miejsca instalacji (budynek, piętro, pomieszczenia)</div>
+					<div class="col-4 title">Szczegóły dot. miejsca instalacji (budynek, piętro, nr pomieszczenia)</div>
 					<div class="col-8 content">
 						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.installationPlaceDetails}"></span>
 						<input th:if="${project.id} == 0 OR ${edit} == true" type="text" th:field="*{installationPlaceDetails}" class="width100"/>
@@ -228,9 +228,11 @@
 							</div>
 						</div>
 						<div class="row" th:if="${project.id} == 0 OR ${edit} == true">
-							<select th:field="*{subcontractorForRoomAdaptation}" class="width100">
-								<option th:each="subcontractor: ${subcontractorList}" th:value="${subcontractor.id}" th:text="${subcontractor.name}"/>
-							</select>
+							<div class="col-12">
+								<select th:field="*{subcontractorForRoomAdaptation}" class="width100">
+									<option th:each="subcontractor: ${subcontractorList}" th:value="${subcontractor.id}" th:text="${subcontractor.name}"/>
+								</select>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -372,6 +374,10 @@
 	</div>
 
 	<div th:replace="./smnsh/footer" :: footer class="sensit-footer"></div>
+
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
 
 </body>
 </html>

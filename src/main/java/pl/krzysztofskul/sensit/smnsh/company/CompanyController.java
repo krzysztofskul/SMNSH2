@@ -33,10 +33,28 @@ public class CompanyController {
 		return List.of(LabelEnum.values());
 	}
 	
-	@GetMapping("/subcontractors-room-adaptation")
-	public String allSubcontractorsForRoomAdaptation(Model model) {
-		model.addAttribute("companies", companyService.loadAllSubcontrsctorsForRoomAdaptation());
-		return "smnsh/companies/allSubcontractors";
+	@GetMapping("")
+	public String all(
+			@RequestParam(name = "companyCategory") String companyCategory,
+			Model model
+			) {
+		switch (companyCategory) {
+		case "subcontractors-room-adaptation":
+			{
+				model.addAttribute("companies", companyService.loadAllSubcontrsctorsForRoomAdaptation());
+				break;
+			}
+		case "investors":
+		{
+			model.addAttribute("companies", companyService.loadAllInvestors());
+			break;
+		}
+
+		default:
+			break;
+		}
+		
+		return "smnsh/companies/all";
 	}
 	
 	@GetMapping("/setLabel/{companyId}")
@@ -85,7 +103,7 @@ public class CompanyController {
 		}
 		company.setLabelEnum(labelEnum);
 		companyService.save(company);
-		return "redirect:/smnsh/companies/subcontractors-room-adaptation";
+		return "redirect:/smnsh/companies/"+companyId;
 	}
 
 	@GetMapping("/{companyId}")

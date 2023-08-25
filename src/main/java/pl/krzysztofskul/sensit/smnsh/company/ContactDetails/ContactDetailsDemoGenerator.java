@@ -21,6 +21,8 @@ public class ContactDetailsDemoGenerator implements InitDataGenerator<ContactDet
 	@Override
 	public List<ContactDetails> initDataAndReturn() {
 		
+		demoContactDetailsList.clear();
+		
 		demoContactDetailsList.add(
 					
 					new ContactDetails(

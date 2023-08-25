@@ -27,9 +27,9 @@
 		  <thead>
 		    <tr>
 		    	<td colspan="5">
-			      	<a href="/smnsh/companies/new?companyCategoryEnumString=subcontractor" class="d-inline-block btn btn-outline-success text-center float-right">
-				      	<p class="sensit-langPl">NOWY PODWYKONAWCA</p>
-				      	<p class="sensit-langEn">new subcontrator</p>
+			      	<a href="#/smnsh/companies/new" class="d-inline-block btn btn-outline-success text-center float-right">
+				      	<p class="sensit-langPl">NOWA FIRMA</p>
+				      	<p class="sensit-langEn">new company</p>
 			      	</a>
 		      	</td>
 		    </tr>
@@ -69,17 +69,19 @@
 		      </td>
 		      <td th:text="..."></td>
 		      <td>
-		      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=green(companyId=${company.id})}" th:id="'labelEnumGreenForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'GREEN' ? 'border border-success bg-success text-success fs-4' : 'border border-success text-success opacity-25 fs-6'}" th:text="_"></a>
-		      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=yellow(companyId=${company.id})}" th:id="'labelEnumYellowForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'YELLOW' ? 'border border-warning bg-warning text-warning fs-4' : 'border border-warning text-warning opacity-25 fs-6'}" th:text="_"></a>
-		      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=red(companyId=${company.id})}" th:id="'labelEnumRedForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'RED' ? 'border border-danger bg-danger text-danger fs-4' : 'border border-danger text-danger  opacity-25 fs-6'}" th:text="_"></a>
-		      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=black(companyId=${company.id})}" th:id="'labelEnumBlackForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'BLACK' ? 'border border-dark bg-dark text-dark fs-4' : 'border border-dark text-dark opacity-25 fs-6'}" th:text="_"></a>
-		      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=gray(companyId=${company.id})}" th:id="'labelEnumGrayForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'GRAY' ? 'border border-light bg-light text-light fs-4' : 'border border-light text-light opacity-25 fs-6'}" th:text="_"></a>
-		      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=blue(companyId=${company.id})}" th:id="'labelEnumBlueForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'BLUE' ? 'border border-primary bg-primary text-secondary fs-4' : 'border border-secondary text-primary opacity-25 fs-6'}" th:text="_"></a>
+		      	<a th:href="@{#/smnsh/companies/setLabel/{companyId}?label=green(companyId=${company.id})}" th:id="'labelEnumGreenForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'GREEN' ? 'border border-success bg-success text-success fs-4' : 'border border-success text-success opacity-25 fs-6'}" th:text="_"></a>
+		      	<a th:href="@{#/smnsh/companies/setLabel/{companyId}?label=yellow(companyId=${company.id})}" th:id="'labelEnumYellowForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'YELLOW' ? 'border border-warning bg-warning text-warning fs-4' : 'border border-warning text-warning opacity-25 fs-6'}" th:text="_"></a>
+		      	<a th:href="@{#/smnsh/companies/setLabel/{companyId}?label=red(companyId=${company.id})}" th:id="'labelEnumRedForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'RED' ? 'border border-danger bg-danger text-danger fs-4' : 'border border-danger text-danger  opacity-25 fs-6'}" th:text="_"></a>
+		      	<a th:href="@{#/smnsh/companies/setLabel/{companyId}?label=black(companyId=${company.id})}" th:id="'labelEnumBlackForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'BLACK' ? 'border border-dark bg-dark text-dark fs-4' : 'border border-dark text-dark opacity-25 fs-6'}" th:text="_"></a>
+		      	<!--
+		      	<a th:href="@{#/smnsh/companies/setLabel/{companyId}?label=gray(companyId=${company.id})}" th:id="'labelEnumGrayForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'GRAY' ? 'border border-light bg-light text-light fs-4' : 'border border-light text-light opacity-25 fs-6'}" th:text="_"></a>
+		      	<a th:href="@{#/smnsh/companies/setLabel/{companyId}?label=blue(companyId=${company.id})}" th:id="'labelEnumBlueForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'BLUE' ? 'border border-primary bg-primary text-secondary fs-4' : 'border border-secondary text-primary opacity-25 fs-6'}" th:text="_"></a>
+		      	-->
 		      </td>
 		      <td>
-		      	<a href="#" class="btn btn-outline-secondary sensit-btn-height">
-		      		<p class="sensit-langPl">EDYCJA</p>
-		      		<p class="sensit-langEn">edit</p>
+		      	<a th:href="@{/smnsh/companies/{companyId}(companyId = ${company.id})}" class="btn btn-outline-secondary sensit-btn-height">
+		      		<p class="sensit-langPl">SZCZEGÓŁY</p>
+		      		<p class="sensit-langEn">details</p>
 		      	</a>
 		      </td>
 		    </tr>
@@ -87,9 +89,9 @@
 			<tfoot>
 			    <tr>
 			    	<td colspan="5">
-				      	<a href="/smnsh/companies/new?companyCategoryEnumString=subcontractor" class="d-inline-block btn btn-outline-success text-center float-right">
-					      	<p class="sensit-langPl">NOWY PODWYKONAWCA</p>
-					      	<p class="sensit-langEn">new subcontractor</p>
+				      	<a href="#/smnsh/companies/new" class="d-inline-block btn btn-outline-success text-center float-right">
+					      	<p class="sensit-langPl">NOWA FIRMA</p>
+					      	<p class="sensit-langEn">new company</p>
 				      	</a>
 			      	</td>
 			    </tr>

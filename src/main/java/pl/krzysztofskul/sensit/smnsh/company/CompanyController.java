@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import pl.krzysztofskul.sensit.smnsh.company.CompanyCategory.CompanyCategoryEnum;
+
 @Controller
 @RequestMapping("/smnsh/companies")
 public class CompanyController {
@@ -37,7 +39,7 @@ public class CompanyController {
 		return "smnsh/companies/allSubcontractors";
 	}
 	
-	@GetMapping("/{companyId}")
+	@GetMapping("/setLabel/{companyId}")
 	public String setNewComapnyLabel(
 				@PathVariable Long companyId,
 				@RequestParam(name = "label") String label
@@ -84,6 +86,30 @@ public class CompanyController {
 		company.setLabelEnum(labelEnum);
 		companyService.save(company);
 		return "redirect:/smnsh/companies/subcontractors-room-adaptation";
+	}
+
+	@GetMapping("/{companyId}")
+	public String getPageByCompanyId(
+				@PathVariable Long companyId,
+				Model model
+				) {
+		model.addAttribute(companyService.loadById(companyId));
+		return "smnsh/companies/idDetails";
+	}
+	
+	@GetMapping("/new")
+	public String getNewCompany(
+				@RequestParam(name = "companyCategoryEnumString", required = true) CompanyCategoryEnum companyCategoryEnum,
+				Model model
+			) {
+		Company company = new Company();
+		
+		if (companyCategoryEnum != null) {
+			company.setCompanyCategoryEnum(companyCategoryEnum);
+
+		}
+		model.addAttribute(company);
+		return "smnsh/companies/idDetails";
 	}
 	
 }

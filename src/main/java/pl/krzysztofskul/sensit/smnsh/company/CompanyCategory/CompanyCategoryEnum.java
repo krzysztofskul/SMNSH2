@@ -12,7 +12,7 @@ public enum CompanyCategoryEnum {
 	private String namePL;
 	private String nameEN;
 	
-	private CompanyCategoryEnum(String namePL, String nameEN) {
+	private CompanyCategoryEnum(String nameEN, String namePL) {
 		this.namePL = namePL;
 		this.nameEN = nameEN;
 	}

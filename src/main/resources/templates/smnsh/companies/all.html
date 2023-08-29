@@ -26,10 +26,14 @@
 		<table class="table table-hover">
 		  <thead>
 		    <tr>
-		    	<td colspan="5">
-			      	<a href="#/smnsh/companies/new" class="d-inline-block btn btn-outline-success text-center float-right">
-				      	<p class="sensit-langPl">NOWA FIRMA</p>
-				      	<p class="sensit-langEn">new company</p>
+		    	<td colspan="5" th:switch="${param.companyCategory[0]}">
+			      	<a th:case="'investors'" href="/smnsh/companies/new?companyCategoryEnumString=INVESTOR" class="d-inline-block btn btn-outline-success text-center float-right">
+				      	<p class="sensit-langPl">NOWY INWESTOR</p>
+				      	<p class="sensit-langEn">new investor</p>
+			      	</a>
+			      	<a th:case="'subcontractors-room-adaptation'" href="/smnsh/companies/new?companyCategoryEnumString=SUBCONTRACTOR_ROOM_ADAPTATION" class="d-inline-block btn btn-outline-success text-center float-right">
+				      	<p class="sensit-langPl">NOWY PODWYKONAWCA</p>
+				      	<p class="sensit-langEn">new subcontractor</p>
 			      	</a>
 		      	</td>
 		    </tr>
@@ -89,10 +93,13 @@
 			<tfoot>
 			    <tr>
 			    	<td colspan="5">
-				      	<a href="#/smnsh/companies/new" class="d-inline-block btn btn-outline-success text-center float-right">
-					      	<p class="sensit-langPl">NOWA FIRMA</p>
-					      	<p class="sensit-langEn">new company</p>
-				      	</a>
+			      	<a href="#/smnsh/companies/new" class="d-inline-block btn btn-outline-success text-center float-right">
+				      	<p class="sensit-langPl" th:switch="${param.companyCategory[0]}">
+				      		<span th:case="'investors'">NOWY INWESTOR</span>
+				      		<span th:case="subcontractors-room-adaptation">NOWY PODWYKONAWCA</span>
+				      	</p>
+				      	<p class="sensit-langEn">new</p>
+			      	</a>
 			      	</td>
 			    </tr>
 			</tfoot>

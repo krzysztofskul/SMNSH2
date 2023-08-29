@@ -28,7 +28,9 @@ public class ContactDetailsDemoGenerator implements InitDataGenerator<ContactDet
 					new ContactDetails(
 								Long.valueOf("0"),
 								getDemoAddress(),
+								LoremIpsum.getInstance().getPhone(),
 								getDemoPhoneNumbers(),
+								"example@example.com",
 								getDemoEmailAdresses(),
 								"www.example.com"
 							)

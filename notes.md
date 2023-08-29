@@ -24,9 +24,6 @@ This version has been created to prepare demo functions for a meeting arranged f
 
 * UPDATE SUB-CONTRACTORS TAB FUNCTIONALITY  
  ** create the functionality which allows to add and edit a sub-contractor
-
-* **ADD NEW COMPANY FUNCTIONAITY**  
-  ** in progress 2023-08-23 ...
  
 * UPDATE FOR BOOTSTRAP 4.6 AND HTML HEADERS INCLUDED BY THYMELEAF
 

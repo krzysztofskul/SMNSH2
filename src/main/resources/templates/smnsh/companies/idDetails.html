@@ -16,11 +16,19 @@
 	<div th:replace="./smnsh/header" :: header class="sensit-header"></div>
 
 	<div class="container">
-	
+	<form th:action="@{/smnsh/companies/new}" th:object="${company}" method="post">
+		
 		<div class="card sensit-card">
 			<div class="card-header text-center">
-				<p class="sensit-langPl">SZCZEGÓLY DOT. FIRMY</p>
-				<p class="sensit-langEn">company details</p>
+				<section th:if="${company.id != null AND company.id != 0}">
+					<p class="sensit-langPl">SZCZEGÓŁY DOT. FIRMY</p>
+					<p class="sensit-langEn">company details</p>
+					<p th:if="${param.edit != null}">TRYB EDYCJI</p>
+				</section>
+				<section th:if="${company.id == null}">
+					<p class="sensit-langPl">FORMULARZ DODAWANIA NOWEJ FIRMY</p>
+					<p class="sensit-langEn">new company</p>
+				</section>
 			</div>
 			<div class="card-body">
 				<div class="row">
@@ -29,7 +37,12 @@
 						<p class="sensit-langEn">id:</p>
 					</div>
 					<div class="content col-8">
-						<p class="sensit-langPl" th:text="${company.id}"></p>
+						<section>
+							<p class="sensit-langPl" th:text="${company?.id}"></p>
+						</section>
+						<section th:if="${company.id == null OR param.edit != null}">
+							<input type="hidden" class="width100" th:value="0" th:field="${company.id}" placeholder="0" readonly/>
+						</section>
 					</div>
 				</div>
 				<div class="row">
@@ -38,7 +51,12 @@
 						<p class="sensit-langEn">name:</p>
 					</div>
 					<div class="content col-8">
-						<p class="sensit-langPl" th:text="${company.name}"></p>
+						<section th:if="${company.id != null AND company.id != 0 AND param.edit == null}">
+							<p class="sensit-langPl" th:text="${company?.name}"></p>
+						</section>
+						<section th:if="${company.id == null OR param.edit != null}">
+							<input type="text" class="width100" th:field="${company.name}"/>
+						</section>
 					</div>
 				</div>
 				<div class="row">
@@ -47,8 +65,13 @@
 						<p class="sensit-langEn">category:</p>
 					</div>
 					<div class="content col-8">
-						<p class="sensit-langPl" th:text="${company.companyCategoryEnum.namePL}"></p>
-						<p class="sensit-langEn" th:text="${company.companyCategoryEnum.nameEN}"></p>
+						<section>
+							<p class="sensit-langPl" th:text="${company?.companyCategoryEnum?.namePL}"></p>
+							<p class="sensit-langEn" th:text="${company?.companyCategoryEnum?.nameEN}"></p>
+						</section>
+						<section th:if="${company.id == null OR param.edit != null}">
+							<input type="hidden" class="width100" th:field="${company.companyCategoryEnum}" th:value="${company.companyCategoryEnum}" readonly/>
+						</section>
 					</div>
 				</div>
 				 
@@ -64,23 +87,39 @@
 						<p class="sensit-langEn">address:</p>
 					</div>
 					<div class="content col-8">
-						<p class="sensit-langPl" th:text="${company?.contactDetails?.address?.country}"></p>
-						<p class="sensit-langPl m-0 font-italic font-weight-normal" th:text="|${company?.contactDetails?.address?.zipCode} ${company?.contactDetails?.address?.city}|"></p>
-						<p class="sensit-langPl m-0 font-italic font-weight-normal" th:text="|${company?.contactDetails?.address?.streetName} ${company?.contactDetails?.address?.streetNo}|"></p>
+						<section th:if="${company.id != null AND company.id != 0 AND param.edit == null}">
+							<p class="sensit-langPl" th:text="${company?.contactDetails?.address?.country}"></p>
+							<p class="sensit-langPl m-0 font-italic font-weight-normal" th:text="|${company?.contactDetails?.address?.zipCode} ${company?.contactDetails?.address?.city}|"></p>
+							<p class="sensit-langPl m-0 font-italic font-weight-normal" th:text="|${company?.contactDetails?.address?.streetName} ${company?.contactDetails?.address?.streetNo}|"></p>
+						</section>
+						<section th:if="${company.id == null OR param.edit != null}">
+							<input type="text" th:field="${company.contactDetails.address.country}" placeholder="Poland"/>
+							<br>
+							<input type="text" th:field="${company.contactDetails.address.zipCode}" placeholder="00-000"/>
+							<input type="text" th:field="${company.contactDetails.address.city}" placeholder="Warsaw"/>
+							<br>
+							<input type="text" th:field="${company.contactDetails.address.streetName}" placeholder="Al. Jerozolimskie"/>
+							<input type="text" th:field="${company.contactDetails.address.streetNo}" placeholder="0"/>
+						</section>
 					</div>
 				</div>
 				<hr>
-				<div th:each="email : ${company.contactDetails.emailAdresses}" class="row">
+				<div class="row">
 					<div class="title col-4">
-						<p class="sensit-langPl">EMAIL:</p>
-						<p class="sensit-langEn">email:</p>
+						<p class="sensit-langPl">NR TEL.:</p>
+						<p class="sensit-langEn">phone number:</p>
 					</div>
 					<div class="content col-8">
-						<p class="sensit-langPl" th:text="${email.key}"></p>
-						<p class="sensit-langPl" th:text="${email.value}"></p>
+						<section th:if="${company.id != null AND company.id != 0 AND param.edit == null}">
+							<p class="sensit-langPl" th:text="${company?.contactDetails?.phoneNumberMain}"></p>
+						</section>
+						<section th:if="${company.id == null OR param.edit != null}">
+							<input type="text" th:field="${company.contactDetails.phoneNumberMain}" class="width100"/>
+						</section>
 					</div>
 				</div>
-				<div th:each="phoneNo : ${company.contactDetails.phoneNumbers}" class="row">
+				<!--  
+				<div th:each="phoneNo : ${company?.contactDetails?.phoneNumbers}" class="row">
 					<div class="title col-4">
 						<p class="sensit-langPl">Nr tel.:</p>
 						<p class="sensit-langEn">phone number:</p>
@@ -90,7 +129,34 @@
 						<p class="sensit-langPl" th:text="${phoneNo?.value}"></p>
 					</div>
 				</div>
-				
+				-->
+				<hr>
+				<div class="row">
+					<div class="title col-4">
+						<p class="sensit-langPl">EMAIL:</p>
+						<p class="sensit-langEn">email:</p>
+					</div>
+					<div class="content col-8">
+						<section th:if="${company.id != null AND company.id != 0 AND param.edit == null}">
+							<p class="sensit-langPl" th:text="${company?.contactDetails?.emailMain}"></p>
+						</section>
+						<section th:if="${company.id == null OR param.edit != null}">
+							<input type="text" th:field="${company.contactDetails.emailMain}" class="width100"/>
+						</section>
+					</div>
+				</div>
+				<!--  
+				<div th:each="email : ${company?.contactDetails?.emailAdresses}" class="row">
+					<div class="title col-4">
+						<p class="sensit-langPl">EMAIL:</p>
+						<p class="sensit-langEn">email:</p>
+					</div>
+					<div class="content col-8">
+						<p class="sensit-langPl" th:text="${email?.key}"></p>
+						<p class="sensit-langPl" th:text="${email?.value}"></p>
+					</div>
+				</div>
+				-->
 				<hr>
 				<div class="row">
 					<div class="title col-4">
@@ -98,7 +164,12 @@
 						<p class="sensit-langEn">website:</p>
 					</div>
 					<div class="content col-8">
-						<a th:href="|http://${company.contactDetails.website}|" target="_blank" class="sensit-langPl" th:text="${company.contactDetails.website}"></a>
+						<section th:if="${company.id != null AND company.id != 0 AND param.edit == null}">
+							<a th:href="|http://${company?.contactDetails?.website}|" target="_blank" class="sensit-langPl" th:text="${company?.contactDetails?.website}"></a>
+						</section>
+						<section th:if="${company.id == null OR param.edit != null}">
+							<input type="text" th:field="${company.contactDetails.website}" class="width100"/>
+						</section>
 					</div>
 				</div>
 							
@@ -115,14 +186,19 @@
 						<p class="sensit-langEn">reputation:</p>
 					</div>
 					<div class="content col-8">
-						<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=green(companyId=${company.id})}" th:id="'labelEnumGreenForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'GREEN' ? 'border border-success bg-success text-success fs-4' : 'border border-success text-success opacity-25 fs-6'}" th:text="_"></a>
-				      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=yellow(companyId=${company.id})}" th:id="'labelEnumYellowForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'YELLOW' ? 'border border-warning bg-warning text-warning fs-4' : 'border border-warning text-warning opacity-25 fs-6'}" th:text="_"></a>
-				      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=red(companyId=${company.id})}" th:id="'labelEnumRedForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'RED' ? 'border border-danger bg-danger text-danger fs-4' : 'border border-danger text-danger  opacity-25 fs-6'}" th:text="_"></a>
-				      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=black(companyId=${company.id})}" th:id="'labelEnumBlackForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'BLACK' ? 'border border-dark bg-dark text-dark fs-4' : 'border border-dark text-dark opacity-25 fs-6'}" th:text="_"></a>
-				      	<!--
-				      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=gray(companyId=${company.id})}" th:id="'labelEnumGrayForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'GRAY' ? 'border border-light bg-light text-light fs-4' : 'border border-light text-light opacity-25 fs-6'}" th:text="_"></a>
-				      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=blue(companyId=${company.id})}" th:id="'labelEnumBlueForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'BLUE' ? 'border border-primary bg-primary text-secondary fs-4' : 'border border-secondary text-primary opacity-25 fs-6'}" th:text="_"></a>
-						-->
+						<section th:if="${company.id != null AND company.id != 0 AND param.edit == null}">
+							<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=green(companyId=${company.id})}" th:id="'labelEnumGreenForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company?.labelEnum?.name() == 'GREEN' ? 'border border-success bg-success text-success fs-4' : 'border border-success text-success opacity-25 fs-6'}" th:text="_"></a>
+					      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=yellow(companyId=${company.id})}" th:id="'labelEnumYellowForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company?.labelEnum?.name() == 'YELLOW' ? 'border border-warning bg-warning text-warning fs-4' : 'border border-warning text-warning opacity-25 fs-6'}" th:text="_"></a>
+					      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=red(companyId=${company.id})}" th:id="'labelEnumRedForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company?.labelEnum?.name() == 'RED' ? 'border border-danger bg-danger text-danger fs-4' : 'border border-danger text-danger  opacity-25 fs-6'}" th:text="_"></a>
+					      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=black(companyId=${company.id})}" th:id="'labelEnumBlackForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company?.labelEnum?.name() == 'BLACK' ? 'border border-dark bg-dark text-dark fs-4' : 'border border-dark text-dark opacity-25 fs-6'}" th:text="_"></a>
+					      	<!--
+					      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=gray(companyId=${company.id})}" th:id="'labelEnumGrayForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'GRAY' ? 'border border-light bg-light text-light fs-4' : 'border border-light text-light opacity-25 fs-6'}" th:text="_"></a>
+					      	<a th:href="@{/smnsh/companies/setLabel/{companyId}?label=blue(companyId=${company.id})}" th:id="'labelEnumBlueForCompanyId-'+${company.id}" th:class="labelEnum" th:classappend="${company.labelEnum.name() == 'BLUE' ? 'border border-primary bg-primary text-secondary fs-4' : 'border border-secondary text-primary opacity-25 fs-6'}" th:text="_"></a>
+							-->
+						</section>
+						<section th:if="${company.id == null OR param.edit != null}">
+							<input type="hidden" th:field="${company.labelEnum}" th:value="${company.labelEnum}" class="width100" readonly/>
+						</section>
 					</div>
 				</div>
 				
@@ -134,21 +210,26 @@
 					<p class="sensit-langEn">back</p>
 				</button>
 		 		-->
-				<button class="btn btn-sm btn-sensit-height btn-outline-success float-right">
+				<a th:href="@{/smnsh/companies/{id} (id = ${company.id})}" th:if="${company.id != null AND param.edit != null}" class="btn btn-sm btn-sensit-height btn-outline-warning float-left m-1">
+					<p class="sensit-langPl">ANULUJ</p>
+					<p class="sensit-langEn">cancel</p>
+				</a>
+				<button th:if="${company.id == null OR param.edit != null}" type="submit" class="btn btn-sm btn-sensit-height btn-outline-success float-right m-1">
 					<p class="sensit-langPl">ZAPISZ</p>
 					<p class="sensit-langEn">save</p>
 				</button>
-				<button class="btn btn-sm btn-sensit-height btn-outline-primary float-right">
+				<a th:href="@{/smnsh/companies/{id}?edit=true (id = ${company.id})}" th:if="${company.id != null AND param.edit == null}" class="btn btn-sm btn-sensit-height btn-outline-primary float-right m-1">
 					<p class="sensit-langPl">EDYTUJ</p>
 					<p class="sensit-langEn">edit</p>
-				</button>
-				<button class="btn btn-sm btn-sensit-height btn-outline-danger float-right">
+				</a>
+				<a href="#" th:if="${company.id != null AND param.edit == null}" class="btn btn-sm btn-sensit-height btn-outline-danger float-right disabled m-1">
 					<p class="sensit-langPl">USUŃ</p>
 					<p class="sensit-langEn">del</p>
-				</button>
+				</a>
 			</div>
 		</div>
 	
+	</form>
 	</div>
 
 	<div th:replace="./smnsh/footer" :: footer class="sensit-footer"></div>

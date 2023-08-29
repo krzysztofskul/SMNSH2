@@ -31,6 +31,8 @@ public class ContactDetails {
 	@JoinColumn(name = "address_id")
 	private Address address;
 	
+	private String phoneNumberMain;
+	
     @ElementCollection
     @CollectionTable(name = "contactdetails_phonename_phonenumber", 
       joinColumns = {@JoinColumn(name = "contactDetails_id", referencedColumnName = "id")})
@@ -38,6 +40,8 @@ public class ContactDetails {
     @Column(name = "phone_number")
 	private Map<String, String> phoneNumbers;
 
+    private String emailMain;
+    
     @ElementCollection
     @CollectionTable(name = "contactdetails_emailname_emailaddress", 
       joinColumns = {@JoinColumn(name = "contactDetails_id", referencedColumnName = "id")})
@@ -56,12 +60,19 @@ public class ContactDetails {
 	
 	public ContactDetails() {}
 	
-	public ContactDetails(Long id, Address address, Map<String, String> phoneNumbers, Map<String, String> emailAdresses,
+	public ContactDetails(Long id, 
+			Address address, 
+			String phoneNumberMain,
+			Map<String, String> phoneNumbers,
+			String emailMain,
+			Map<String, String> emailAdresses,
 			String website) {
 		super();
 		this.id = id;
 		this.address = address;
+		this.phoneNumberMain = phoneNumberMain;
 		this.phoneNumbers = phoneNumbers;
+		this.emailMain = emailMain;
 		this.emailAdresses = emailAdresses;
 		this.website = website;
 	}
@@ -91,6 +102,14 @@ public class ContactDetails {
 		this.address = address;
 	}
 
+	public String getPhoneNumberMain() {
+		return phoneNumberMain;
+	}
+
+	public void setPhoneNumberMain(String phoneNumberMain) {
+		this.phoneNumberMain = phoneNumberMain;
+	}
+
 	/**
 	 * @return the phoneNumbers
 	 */
@@ -103,6 +122,14 @@ public class ContactDetails {
 	 */
 	public void setPhoneNumbers(Map<String, String> phoneNumbers) {
 		this.phoneNumbers = phoneNumbers;
+	}
+
+	public String getEmailMain() {
+		return emailMain;
+	}
+
+	public void setEmailMain(String emailMain) {
+		this.emailMain = emailMain;
 	}
 
 	/**

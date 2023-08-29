@@ -2,17 +2,23 @@ package pl.krzysztofskul.sensit.smnsh.company;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import pl.krzysztofskul.sensit.smnsh.company.CompanyCategory.CompanyCategoryEnum;
+import pl.krzysztofskul.sensit.smnsh.project.Project;
 
 @Controller
 @RequestMapping("/smnsh/companies")
@@ -109,9 +115,16 @@ public class CompanyController {
 	@GetMapping("/{companyId}")
 	public String getPageByCompanyId(
 				@PathVariable Long companyId,
-				Model model
+				@RequestParam(required = false) boolean edit,
+				Model model,
+				HttpServletRequest httpServletRequest
 				) {
 		model.addAttribute(companyService.loadById(companyId));
+		if (edit == true) {
+			httpServletRequest.setAttribute("edit", true);
+			return "smnsh/companies/idDetails";
+		}
+		
 		return "smnsh/companies/idDetails";
 	}
 	
@@ -124,9 +137,20 @@ public class CompanyController {
 		
 		if (companyCategoryEnum != null) {
 			company.setCompanyCategoryEnum(companyCategoryEnum);
+			company.setLabelEnum(LabelEnum.GREEN);
 
 		}
 		model.addAttribute(company);
+		return "smnsh/companies/idDetails";
+	}
+	
+	@PostMapping("/new")
+	public String postNewCompany(
+				@RequestParam(required = false) String backToPage,
+				@ModelAttribute("company") @Validated Company company, BindingResult result,
+				Model model
+			) {
+		model.addAttribute(companyService.saveAndReturn(company));
 		return "smnsh/companies/idDetails";
 	}
 	

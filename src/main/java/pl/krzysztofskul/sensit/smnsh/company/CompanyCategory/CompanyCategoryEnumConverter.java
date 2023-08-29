@@ -9,25 +9,24 @@ public class CompanyCategoryEnumConverter implements Converter<String, CompanyCa
 	@Override
 	public CompanyCategoryEnum convert(String companyCategoryEnumString) {
 		switch (companyCategoryEnumString) {
-			case "investor":{
-					return CompanyCategoryEnum.INVESTOR;
+			case "INVESTOR":{
+				return CompanyCategoryEnum.INVESTOR;
 				}
-			case "customer":{
+			case "CUSTOMER":{
 				return CompanyCategoryEnum.CUSTOMER;
 			}
-			case "subcontractor":{
+			case "SUBCONTRACTOR":{
 				return CompanyCategoryEnum.SUBCONTRACTOR;
 			}
-			case "subcontractor-general":{
+			case "SUBCONTRACTOR_GENERAL":{
 				return CompanyCategoryEnum.SUBCONTRACTOR_GENERAL;
 			}
-			case "subcontractor-room-adaptation":{
+			case "SUBCONTRACTOR_ROOM_ADAPTATION":{
 				return CompanyCategoryEnum.SUBCONTRACTOR_ROOM_ADAPTATION;
 			}
-			case "supplier":{
+			case "SUPPLIER":{
 				return CompanyCategoryEnum.SUPPLIER;
 			}
-	
 			default:{
 				return CompanyCategoryEnum.SUBCONTRACTOR;
 			}

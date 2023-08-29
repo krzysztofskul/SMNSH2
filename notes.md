@@ -27,5 +27,5 @@ This version has been created to prepare demo functions for a meeting arranged f
  
 * UPDATE FOR BOOTSTRAP 4.6 AND HTML HEADERS INCLUDED BY THYMELEAF
 
-* CREATE ERROR PAGE AND IN-PROGRESS PAGE
+* CREATE ~~ERROR PAGE AND~~ IN-PROGRESS PAGE
 

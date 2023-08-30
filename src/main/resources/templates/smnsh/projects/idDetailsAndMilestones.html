@@ -125,7 +125,7 @@
 				<div class="row" th:each="milestone: ${project.milestones}">
 					<div class="col-12">
 						<div class="row">
-							<div class="col-2 title">
+							<div class="col-1 title">
 								<p class="sensit-langPl font-weight-normal">NAZWA</p>
 								<p class="sensit-langEn font-weight-normal">name</p>
 							</div>
@@ -178,6 +178,15 @@
 							</div>
 							<div class="col-1 text-right">
 								<button 
+									class="btn btn-sm btn-outline-primary sensit-btn-height btn-edit"
+									th:id="'milestoneId-'+${milestone.id}+'-EDIT'"
+								>
+									<p class="sensit-langPl">EDYTUJ</p>	
+									<p class="sensit-langEn">edit</p>
+								</button>
+							</div>
+							<div class="col-1 text-right">
+								<button 
 									class="btn btn-sm btn-outline-danger sensit-btn-height btn-delete"
 									th:id="'milestoneId-'+${milestone.id}+'-DELETE'"
 								>
@@ -187,11 +196,11 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-2 title">
+							<div class="col-5 title">
 								<p class="sensit-langPl font-weight-normal">TERMIN REALIZACJI</p>
 								<p class="sensit-langEn font-weight-normal">deadline</p>
 							</div>
-							<div class="col-10 content"><span class="font-weight-bold" th:text="${milestone.deadline}"/>
+							<div class="col-5 content"><span class="font-weight-bold" th:text="${milestone.deadline}"/>
 							</div>
 
 							

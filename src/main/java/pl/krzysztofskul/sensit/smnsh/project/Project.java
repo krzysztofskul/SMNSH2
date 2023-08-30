@@ -495,6 +495,9 @@ public class Project implements Serializable {
 	 * @param milestones the milestones to set
 	 */
 	public void setMilestones(List<MilestoneInstance> milestones) {
+		for (MilestoneInstance milestoneInstance : milestones) {
+			milestoneInstance.setProject(this);
+		}
 		this.milestones = milestones;
 	}
 

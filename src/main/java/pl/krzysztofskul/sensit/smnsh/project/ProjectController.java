@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -37,6 +40,10 @@ import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategory;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategoryService;
 import pl.krzysztofskul.sensit.smnsh.project.device.DevicePortfolio;
 import pl.krzysztofskul.sensit.smnsh.project.device.modality.DevicePortfolioService;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneInstance;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneService;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplate;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplateGenerator;
 import pl.krzysztofskul.sensit.smnsh.project.remark.Remark;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.sensit.smnsh.user.User;
@@ -53,6 +60,7 @@ public class ProjectController {
 	private UserService userService;
 	private DevicePortfolioService devicePortfolioService;
 	private FileSelector fileSelector;
+	private MilestoneService milestoneService;
 	
 	/**
 	 * CONSTRUCTOR
@@ -64,7 +72,8 @@ public class ProjectController {
 			CompanyService companyService,
 			UserService userService,
 			DevicePortfolioService devicePortfolioService,
-			FileSelector fileSelector
+			FileSelector fileSelector,
+			MilestoneService milestoneService
 			) {
 		this.projectService = projectService;
 		this.attachmentCategoryService = attachmentCategoryService;
@@ -72,6 +81,7 @@ public class ProjectController {
 		this.userService = userService;
 		this.devicePortfolioService = devicePortfolioService;
 		this.fileSelector = fileSelector;
+		this.milestoneService = milestoneService;
 	}
 	
 	@ModelAttribute(name = "investorList")
@@ -100,7 +110,17 @@ public class ProjectController {
 	}
 	
 	@GetMapping("/projects")
-	public String getTestProjects() {		
+	public String getTestProjects(
+				@RequestParam(required = false) String sort,
+				Model model
+			) {
+		
+		List<Project> projectList = projectService.loadAll();
+		
+		projectList = sortProjectList(sort, projectList); 
+		
+		model.addAttribute("projectList", projectList);
+		
 		return "smnsh/projects/all";
 	}
 	
@@ -116,6 +136,7 @@ public class ProjectController {
 			project = new Project();	
 			project.setDateTimeOfCreation(LocalDateTime.now());
 			project.setDeadline(project.getDateTimeOfCreation().plusMonths(3).toLocalDate());
+			
 			if (userNameBySpringSecurity != null) {
 				User user = userService.loadByUserSpringSecurityName(userNameBySpringSecurity);
 				if (user.getBusinessPosition() == UserBusinessPosition.PROJECT_MANAGER) {
@@ -137,6 +158,14 @@ public class ProjectController {
 				@ModelAttribute("project") @Validated Project project, BindingResult result,
 				HttpSession httpSession
 			) {
+		
+		if (project.getId() == 0) {
+			List<MilestoneInstance> milestoneInstanceList = new ArrayList<MilestoneInstance>();
+			for (MilestoneTemplate milestoneTemplate : milestoneService.loadAllMilestonesFromTemplates()) {
+				milestoneInstanceList.add(new MilestoneInstance(milestoneTemplate));
+			}
+			project.setMilestones(milestoneInstanceList);
+		}
 		
 		project = projectService.saveAndReturn(project);
 		return "redirect:/smnsh/projects/"+project.getId();
@@ -308,9 +337,13 @@ public class ProjectController {
 	@GetMapping("/projects/user/{userId}")
 	public String getProjectsByUserId(
 				@PathVariable(name = "userId") String userId,
+				@RequestParam(required = false) String sort,
 				Model model
 			) {
 		List<Project> projects = projectService.loadProjectsByUserId(Long.parseLong(userId) );
+		
+		projects = sortProjectList(sort, projects); 
+		
 		model.addAttribute("projectList", projects);
 		return "smnsh/projects/all";
 	}
@@ -328,6 +361,30 @@ public class ProjectController {
 		}
 		
 		return "redirect:/smnsh/projects";
+	}
+	
+	/**
+	 * Sort list of projects ascending or descending depends of the sort parameter
+	 * @param sort
+	 * @param projectList
+	 * @return projectList
+	 */
+	private List<Project> sortProjectList(String sort, List<Project> projectList) {
+		if (sort != null) {
+			if (sort.equals("byCodeAsc") ) {
+				projectList.sort((p1, p2) -> p1.getCode().compareTo(p2.getCode()));
+			}
+			if (sort.equals("byCodeDes")) {
+				projectList.sort((p1, p2) -> p2.getCode().compareTo(p1.getCode()));
+			}
+			if (sort.equals("deadlineAsc") ) {
+				projectList.sort((p1, p2) -> p1.getDeadline().compareTo(p2.getDeadline()));
+			}
+			if (sort.equals("deadlineDes")) {
+				projectList.sort((p1, p2) -> p2.getDeadline().compareTo(p1.getDeadline()));
+			}
+		}
+		return projectList;
 	}
 	
 }

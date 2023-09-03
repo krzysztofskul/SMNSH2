@@ -9,8 +9,7 @@ This version has been created to prepare demo functions for a meeting arranged f
  ** edit milestone functionality
  
 * PROJECTS FUNCTIONALITY  
- ** add the back to page functionality after the new project had been created by project manager  
- ** **sort projects functionality**     
+ ** add the back to page functionality after the new project had been created by project manager      
  ** update the strategy of set status for new project and edit project functionality  
  ** **update the relationship project-installation(pm, devices)**
 
@@ -27,5 +26,11 @@ This version has been created to prepare demo functions for a meeting arranged f
  
 * UPDATE FOR BOOTSTRAP 4.6 AND HTML HEADERS INCLUDED BY THYMELEAF
 
-* CREATE ~~ERROR PAGE AND~~ IN-PROGRESS PAGE
+* CREATE ~~ERROR PAGE AND~~ IN-PROGRESS PAGE  
+
+* **CHECK THE INIT FUNCTIONALITY**  
+ **companies are initialized many times when click init. function after deploying on AWS!!!?**
+ 
+ * UPDATE IMPORT DATA/CONFIGURATION  
+  ** xls import ... 2023-08-31
 

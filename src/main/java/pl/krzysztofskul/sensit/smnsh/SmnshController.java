@@ -69,7 +69,7 @@ public class SmnshController {
 	@GetMapping("/initData")
 	public String initDemoData() {
 		
-		if (!isInitDataDone) {
+		if (isInitDataDone == false) {
 			
 			System.out.println("Data initialization to databse has started...");
 			
@@ -113,13 +113,13 @@ public class SmnshController {
 			
 
 			
-			isInitDataDone = true;
+			this.isInitDataDone = true;
 			System.out.println("Data initialization to databse has been finished.");
 		}
 		/*
 		 * return to page
 		 */
-		return "redirect:/smnsh/thymeleaf/projects";
+		return "redirect:/smnsh/projects";
 	}
 	
 	

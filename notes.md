@@ -28,9 +28,9 @@ This version has been created to prepare demo functions for a meeting arranged f
 
 * CREATE ~~ERROR PAGE AND~~ IN-PROGRESS PAGE  
 
-* **CHECK THE INIT FUNCTIONALITY**  
- **companies are initialized many times when click init. function after deploying on AWS!!!?**
+~~* **CHECK THE INIT FUNCTIONALITY**  ~~
+~~ **companies are initialized many times when click init. function after deploying on AWS!!!?**~~
  
  * UPDATE IMPORT DATA/CONFIGURATION  
   ** xls import ... 2023-08-31
-
+  ** link import ... 2023-09-07 (error problem in thymeleaf when no file path inside input)

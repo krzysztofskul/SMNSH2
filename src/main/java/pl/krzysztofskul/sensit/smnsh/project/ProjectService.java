@@ -106,5 +106,12 @@ public class ProjectService {
 		project.setConfigurationLinks(configurationLinkList);
 		return project;
 	}
+
+	public Project removeLinkToConfigurationFile(Project project, String configurationLink) {
+		List<String> configurationLinkList = project.getConfigurationLinks();
+		configurationLinkList.removeIf(s -> s.equals(configurationLink));
+		project.setConfigurationLinks(configurationLinkList);
+		return project;
+	}
 	
 }

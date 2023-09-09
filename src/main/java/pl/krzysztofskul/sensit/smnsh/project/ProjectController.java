@@ -198,6 +198,39 @@ public class ProjectController {
 		return "redirect:/smnsh/projects/"+id+"/configurations";
 	}
 	
+	@GetMapping("/projects/{projectId}/configurations/delete")
+	public String deleteConfigurationLinkById(
+				@PathVariable Long projectId,
+				@RequestParam String configurationLink
+			) {
+		Project project = projectService.loadById(projectId);
+		project = projectService.removeLinkToConfigurationFile(project, configurationLink);
+		projectService.save(project);
+		return "redirect:/smnsh/projects/"+projectId+"/configurations";
+	}
+	
+	@PostMapping("/projects/{id}/configurationLinks")
+	public String postConfigurationLinks(
+			@PathVariable(name="id") Long projectId,
+			@RequestParam(name = "filePath", required = true) String filePath,
+			@RequestParam(name = "fileName", required = false) String fileName,
+			@RequestParam(name = "multipartFile", required = false) MultipartFile multipartFile,
+			Model model
+		) {
+//		String errorFilePath = "false";
+//		if (filePath.length() == 0) {
+//			errorFilePath = "true";
+//			model.addAttribute("errorFilePath", errorFilePath);
+//			return "redirect:/smnsh/projects/"+projectId+"/configurations";
+//		}
+		StringBuilder sb = new StringBuilder();
+		sb.append(filePath+"\\"+multipartFile.getOriginalFilename());
+		Project project = projectService.loadById(projectId);
+		project = projectService.addLinkToConfigurationFile(project, sb.toString());
+		projectService.save(project);
+		return "redirect:/smnsh/projects/"+projectId+"/configurations";
+	}
+	
 	@GetMapping("/projects/{id}/stakeholders")
 	public String getProjectByIdWithStakeholders(@PathVariable Long id, Model model) {
 		model.addAttribute("project", projectService.loadByIdWithStakeholders(id));

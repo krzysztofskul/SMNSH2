@@ -249,7 +249,6 @@ public class ImportData {
 			
 			dataImported.put("deviceCategory", getCellValue(wb, "SRF", 2, 6, calculationFilePath));
 			
-			//dataImported.put("deviceModelName", getCellValue(wb, "SRF", 2, 7, calculationFilePath));
 			dataImported.put("deviceModelName", 
 					getCellValue(
 							wb, 
@@ -261,20 +260,9 @@ public class ImportData {
 					
 					);
 			
-//			dataImported.put("slsCustomer", 
-//					getCellValue(
-//							wb, 
-//							cellsToImportFromCalculationXlsFile.get("slsCustomer")[0], 
-//							Integer.parseInt(cellsToImportFromCalculationXlsFile.get("slsCustomer")[1]), 
-//							Integer.parseInt(cellsToImportFromCalculationXlsFile.get("slsCustomer")[2]), 
-//
-//							calculationFilePath)
-//					
-//					);
 			
 			dataImported.put("projectManager", getCellValue(wb, "SRF", 3, 11, calculationFilePath));
 			
-			//dataImported.put("investorSapNo", getCellValue(wb, "HCALC-1", 4, 9, calculationFilePath));
 			dataImported.put("slsInvestorSapNo", 
 					getCellValue(
 							wb, 
@@ -286,6 +274,17 @@ public class ImportData {
 					
 					);
 			
+//			String[] arr = new String[3];
+//			arr[0] = cellsToImportFromCalculationXlsFile.get("slsConfiguration")[0].toString();
+//			arr[1] = cellsToImportFromCalculationXlsFile.get("slsConfiguration")[1].toString();
+//			arr[2] = cellsToImportFromCalculationXlsFile.get("slsConfiguration")[2].toString();
+//			dataImported.put("configuration", 
+//						getCellsValuesInRow(
+//								calculationFilePath, 
+//								arr
+//						)
+//					);	
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -295,8 +294,29 @@ public class ImportData {
 		}
 		return dataImported;
 	}
-
-	private String getCellValue(Workbook wb, String sheetName, int rowNo, int colNo, String calculationFilePath) {
+	
+	public Workbook getWorkbook(File file) {
+		
+		FileInputStream fis;
+		Workbook wb;
+		try {
+			fis = new FileInputStream(file.getAbsolutePath());
+			wb = new XSSFWorkbook(fis);
+		} catch (FileNotFoundException e) {
+			wb = null;
+			e.printStackTrace();
+		} catch (IOException e) {
+			wb = null;
+			e.printStackTrace();
+		}
+		return wb;
+	}
+	
+	public String getFilePathFromFile(File file) {
+		return file.getPath();
+	}
+	
+	public String getCellValue(Workbook wb, String sheetName, int rowNo, int colNo, String calculationFilePath) {
 		String cellValue = null;
 		try {
 			Sheet sheet=wb.getSheet(sheetName);   //getting the XSSFSheet object at given index  
@@ -311,7 +331,7 @@ public class ImportData {
 		return cellValue;
 	}
 	
-	private String getCellsValuesInRow(String filePath, String[] sheetRowCol) {
+	public String getCellsValuesInRow(String filePath, String[] sheetRowCol) {
 		String cellsVallues = null;
 		
 		while (null != getCellValue(filePath, sheetRowCol) && getCellValue(filePath, sheetRowCol) != "") {
@@ -327,8 +347,9 @@ public class ImportData {
 		
 		return cellsVallues;
 	}
+
 	
-	private String getCellValue(String filePath, String[] sheetRowCol) {
+	public String getCellValue(String filePath, String[] sheetRowCol) {
 		String cellValue = null;
 
 		try {
@@ -554,6 +575,7 @@ public class ImportData {
 		cellsToImportFromCalculationXlsFile.put("slsTrainingsOther", new String[] {"Szkolenia", "9", "2"});
 		cellsToImportFromCalculationXlsFile.put("slsAdditionalsSIWZ", new String[] {"rekomendacja PUR", "2", "1"});
 		cellsToImportFromCalculationXlsFile.put("slsStakeholderContactPerson", new String[] {"Kontrolka Umowy", "16", "3"});
+		cellsToImportFromCalculationXlsFile.put("slsConfiguration", new String[] {"SCON-1-2", "3", "1"});
 	}
 	
 	/**

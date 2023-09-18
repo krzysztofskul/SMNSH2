@@ -39,6 +39,9 @@
 								</div>
 							</div>
 						</div>
+						<div th:each="part : ${project.installation.deviceInstance.configurationDevice.partList}">
+							<p th:text="${part.description}"></p>
+						</div>
 					</div>
 					<div class="card-footer">
 						<!-- JFileChooser -->

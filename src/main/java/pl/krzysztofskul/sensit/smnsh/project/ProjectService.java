@@ -8,6 +8,7 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDevice;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneComparator;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneInstance;
 import pl.krzysztofskul.sensit.smnsh.project.status.Status;

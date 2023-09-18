@@ -1,16 +1,24 @@
 package pl.krzysztofskul.sensit.smnsh.project;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,11 +43,14 @@ import pl.krzysztofskul.sensit.smnsh.company.CompanyService;
 import pl.krzysztofskul.sensit.smnsh.filestorage.File;
 import pl.krzysztofskul.sensit.smnsh.filestorage.FileStorageService;
 import pl.krzysztofskul.sensit.smnsh.importdata.FileSelector;
+import pl.krzysztofskul.sensit.smnsh.importdata.ImportData;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.Attachment;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategory;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategoryService;
 import pl.krzysztofskul.sensit.smnsh.project.device.DevicePortfolio;
 import pl.krzysztofskul.sensit.smnsh.project.device.modality.DevicePortfolioService;
+import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDevice;
+import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.Part;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneInstance;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneService;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplate;
@@ -216,17 +227,37 @@ public class ProjectController {
 			@RequestParam(name = "fileName", required = false) String fileName,
 			@RequestParam(name = "multipartFile", required = false) MultipartFile multipartFile,
 			Model model
-		) {
-//		String errorFilePath = "false";
-//		if (filePath.length() == 0) {
-//			errorFilePath = "true";
-//			model.addAttribute("errorFilePath", errorFilePath);
-//			return "redirect:/smnsh/projects/"+projectId+"/configurations";
-//		}
+		) throws FileNotFoundException, IOException {
+		
+		java.io.File file = new java.io.File("src/main/resources/targetFile.tmp");
+
+		try (OutputStream os = new FileOutputStream(file)) {
+		    os.write(multipartFile.getBytes());
+		}
+		
+		ImportData.getImportDataSingleton();
+		ImportData.setFileInputStream(new FileInputStream(file));
+		ImportData.setWorkbook(new XSSFWorkbook(ImportData.getFileInputStream()));
+		
+		Project project = projectService.loadById(projectId);
+		
+		String slsConfigurationString = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"SCON-1-2", "3", "1"});
+		List<String> slsConfigurationList = Arrays.asList(slsConfigurationString.split(";"));
+		List<Part> partList = new ArrayList<Part>();
+		for (String slsConfiguration : slsConfigurationList) {
+			partList.add(new Part(project.getInstallation().getDeviceInstance().getConfigurationDevice(), slsConfiguration));
+		}
+				
+		String slsTrainings = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"Szkolenia", "9", "2"});
+		file.delete();
+		
 		StringBuilder sb = new StringBuilder();
 		sb.append(filePath+"\\"+multipartFile.getOriginalFilename());
-		Project project = projectService.loadById(projectId);
+		
 		project = projectService.addLinkToConfigurationFile(project, sb.toString());
+		
+		project.getInstallation().getDeviceInstance().setConfigurationDevice(new ConfigurationDevice(partList));
+		
 		projectService.save(project);
 		return "redirect:/smnsh/projects/"+projectId+"/configurations";
 	}

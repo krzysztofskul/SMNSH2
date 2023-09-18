@@ -11,9 +11,7 @@ This version has been created to prepare demo functions for a meeting arranged f
 * PROJECTS FUNCTIONALITY  
  ** add the back to page functionality after the new project had been created by project manager      
  ** update the strategy of set status for new project and edit project functionality  
- ** **update the relationship project-installation(pm, devices)**
-
-* **CREATE NOTES FUNCTIONALITY**    
+ ** **update the relationship project-installation(pm, devices)** 
 
 * **CREATE HISTORY FUNCTIONALITY**    
 
@@ -26,11 +24,11 @@ This version has been created to prepare demo functions for a meeting arranged f
  
 * UPDATE FOR BOOTSTRAP 4.6 AND HTML HEADERS INCLUDED BY THYMELEAF
 
-* CREATE ~~ERROR PAGE AND~~ IN-PROGRESS PAGE  
+* CREATE IN-PROGRESS PAGE  
 
-~~* **CHECK THE INIT FUNCTIONALITY**  ~~
-~~ **companies are initialized many times when click init. function after deploying on AWS!!!?**~~
- 
- * UPDATE IMPORT DATA/CONFIGURATION  
-  ** xls import ... 2023-08-31
-  ** link import ... 2023-09-07 (error problem in thymeleaf when no file path inside input)
+* UPDATE IMPORT CONFIGURATION FUNCTIONALITY
+  ** create the functionality which allows to encrypt imported data names and descriptions
+  ** create the functionality which allows to import many rows from xls file (ex. configuration description with part numbers)
+  ** move configuration link from project class to the configuration device class
+  
+  

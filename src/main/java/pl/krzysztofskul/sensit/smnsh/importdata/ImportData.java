@@ -331,14 +331,14 @@ public class ImportData {
 		return cellValue;
 	}
 	
-	public String getCellsValuesInRow(String filePath, String[] sheetRowCol) {
+	public String getCellsValuesInRow(String filePath, String[] sheetRowCol, boolean isEncrypted) {
 		String cellsVallues = null;
 		
-		while (null != getCellValue(filePath, sheetRowCol) && getCellValue(filePath, sheetRowCol) != "") {
+		while (null != getCellValue(filePath, sheetRowCol, isEncrypted) && getCellValue(filePath, sheetRowCol, isEncrypted) != "") {
 			if (null == cellsVallues) {
-				cellsVallues = getCellValue(filePath, sheetRowCol)+";";
+				cellsVallues = getCellValue(filePath, sheetRowCol, isEncrypted)+";";
 			} else {
-				cellsVallues = cellsVallues + getCellValue(filePath, sheetRowCol)+";";
+				cellsVallues = cellsVallues + getCellValue(filePath, sheetRowCol, isEncrypted)+";";
 			}
 			
 			
@@ -349,7 +349,7 @@ public class ImportData {
 	}
 
 	
-	public String getCellValue(String filePath, String[] sheetRowCol) {
+	public String getCellValue(String filePath, String[] sheetRowCol, boolean isEncrypted) {
 		String cellValue = null;
 
 		try {
@@ -370,6 +370,11 @@ public class ImportData {
 			Cell cell=row.getCell(colNo); //getting the cell representing the given column  
 			try {
 				cellValue=cell.getStringCellValue();    //getting cell value
+				if (isEncrypted) {
+					Encryptor encryptor = new Encryptor();
+					cellValue = encryptor.encrypt(cellValue);
+					System.out.println(cellValue);
+				}
 			} catch (IllegalStateException e) {
 				double x1 = cell.getNumericCellValue();
 				long x2 = Double.valueOf(x1).longValue();
@@ -511,13 +516,13 @@ public class ImportData {
 		switch (dataToImport) {
 		
 		case "slsTrainingsOther": {
-			dataImported = getCellsValuesInRow(calculationFilePath, cellsToImportFromCalculationXlsFile.get(dataToImport));
+			dataImported = getCellsValuesInRow(calculationFilePath, cellsToImportFromCalculationXlsFile.get(dataToImport), false);
 			System.out.println("Zaimportowano szkolenia do ImportData:" + dataImported);
 			return dataImported;
 		}
 		
 			default: {
-				dataImported = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get(dataToImport));
+				dataImported = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get(dataToImport), false);
 				return dataImported;	
 			}
 		}
@@ -525,33 +530,33 @@ public class ImportData {
 	}	
 	public String importSlsStakeholderContactPerson(String calculationFilePath) {
 		String slsStakeholderContactPerson = null;
-		slsStakeholderContactPerson = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsStakeholderContactPerson"));
+		slsStakeholderContactPerson = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsStakeholderContactPerson"), false);
 		return slsStakeholderContactPerson;
 	}	
 	public String importSlsDeadline(String calculationFilePath) {
 		String slsDeadline = null;
-		slsDeadline = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsDeadline"));
+		slsDeadline = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsDeadline"), false);
 		return slsDeadline;		
 	}
 	public String importSlsProjectManager(String calculationFilePath) {
 		String slsProjectManager = null;
-		slsProjectManager = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsProjectManager"));
+		slsProjectManager = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsProjectManager"), false);
 		return slsProjectManager;
 	}
 	public String importSlsDevicePrototypeModelName(String calculationFilePath) {
 		String slsDevicePrototypeModelName = null;
-		slsDevicePrototypeModelName = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsDevicePrototypeModelName"));
+		slsDevicePrototypeModelName = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsDevicePrototypeModelName"), false);
 		return slsDevicePrototypeModelName;
 	}
 	public String importSlsInvestorSapNo(String calculationFilePath) {
 		String slsInvestorSapNo = null;
-		slsInvestorSapNo = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsInvestorSapNo"));
+		slsInvestorSapNo = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsInvestorSapNo"), false);
 		return slsInvestorSapNo;
 	}
 	
 	public List<String> importInitDevicesNames() {
 		String initDevicesNames = null;
-		initDevicesNames = this.getCellsValuesInRow(pathInitDataDevices, this.cellsToImportFromDeviceTestPortfolio.get("deviceListStart"));
+		initDevicesNames = this.getCellsValuesInRow(pathInitDataDevices, this.cellsToImportFromDeviceTestPortfolio.get("deviceListStart"), false);
 		
 		List<String> listOfInitDeviceNames = Arrays.asList(initDevicesNames.split(";"));
 		

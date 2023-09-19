@@ -241,14 +241,14 @@ public class ProjectController {
 		
 		Project project = projectService.loadById(projectId);
 		
-		String slsConfigurationString = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"SCON-1-2", "3", "1"});
+		String slsConfigurationString = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"SCON-1-2", "3", "1"}, true);
 		List<String> slsConfigurationList = Arrays.asList(slsConfigurationString.split(";"));
 		List<Part> partList = new ArrayList<Part>();
 		for (String slsConfiguration : slsConfigurationList) {
 			partList.add(new Part(project.getInstallation().getDeviceInstance().getConfigurationDevice(), slsConfiguration));
 		}
 				
-		String slsTrainings = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"Szkolenia", "9", "2"});
+		String slsTrainings = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"Szkolenia", "9", "2"}, false);
 		file.delete();
 		
 		StringBuilder sb = new StringBuilder();

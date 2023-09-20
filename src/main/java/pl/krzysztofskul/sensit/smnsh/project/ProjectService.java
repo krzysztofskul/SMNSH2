@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDevice;
+import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDeviceService;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneComparator;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneInstance;
 import pl.krzysztofskul.sensit.smnsh.project.status.Status;
@@ -20,6 +21,7 @@ public class ProjectService {
 
 	private ProjectRepo projectRepo;
 	private UserService userService;
+	private ConfigurationDeviceService configurationDeviceService;
 	
 	/**
 	 * CONSTRUCTOR
@@ -27,10 +29,12 @@ public class ProjectService {
 	@Autowired
 	public ProjectService(
 				ProjectRepo projectRepo,
-				UserService userService
+				UserService userService,
+				ConfigurationDeviceService configurationDeviceService
 			) {
 		this.projectRepo = projectRepo;
 		this.userService = userService;
+		this.configurationDeviceService = configurationDeviceService;
 	}
 
 	public void save(Project project) {
@@ -113,6 +117,13 @@ public class ProjectService {
 		configurationLinkList.removeIf(s -> s.equals(configurationLink));
 		project.setConfigurationLinks(configurationLinkList);
 		return project;
+	}
+
+	public void removeConfigurationDevice(Project project, Long configurationDeviceId) {
+		project.getInstallation().getDeviceInstance().setConfigurationDevice(new ConfigurationDevice());
+		this.save(project);
+		configurationDeviceService.deleteConfigurationDeviceById(configurationDeviceId);	
+
 	}
 	
 }

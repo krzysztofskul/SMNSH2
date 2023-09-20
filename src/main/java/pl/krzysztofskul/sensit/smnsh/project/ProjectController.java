@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
@@ -212,11 +213,17 @@ public class ProjectController {
 	@GetMapping("/projects/{projectId}/configurations/delete")
 	public String deleteConfigurationLinkById(
 				@PathVariable Long projectId,
-				@RequestParam String configurationLink
+				@RequestParam(required = false) String configurationLink,
+				@RequestParam Long configurationDeviceId
 			) {
 		Project project = projectService.loadById(projectId);
-		project = projectService.removeLinkToConfigurationFile(project, configurationLink);
-		projectService.save(project);
+		if (configurationLink != null) {
+			project = projectService.removeLinkToConfigurationFile(project, configurationLink);
+			projectService.save(project);
+		}
+		projectService.removeConfigurationDevice(project, configurationDeviceId);
+
+		
 		return "redirect:/smnsh/projects/"+projectId+"/configurations";
 	}
 	
@@ -256,7 +263,7 @@ public class ProjectController {
 		
 		project = projectService.addLinkToConfigurationFile(project, sb.toString());
 		
-		project.getInstallation().getDeviceInstance().setConfigurationDevice(new ConfigurationDevice(partList));
+		project.getInstallation().getDeviceInstance().setConfigurationDevice(new ConfigurationDevice(LocalDate.now(), sb.toString(), partList));
 		
 		projectService.save(project);
 		return "redirect:/smnsh/projects/"+projectId+"/configurations";

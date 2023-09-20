@@ -27,8 +27,7 @@ This version has been created to prepare demo functions for a meeting arranged f
 * CREATE IN-PROGRESS PAGE  
 
 * UPDATE IMPORT CONFIGURATION FUNCTIONALITY
-  ** create the functionality which allows to encrypt imported data names and descriptions
   ** create the functionality which allows to import many rows from xls file (ex. configuration description with part numbers)
-  ** move configuration link from project class to the configuration device class
+  ** update the functionality which adds configuration - case when configuration is already added 
   
   

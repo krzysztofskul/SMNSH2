@@ -26,6 +26,8 @@
 						<p class="sensit-langEn">DEVICE CONFIGURATION FILES (LINK)</p>
 					</div>
 					<div class="card-body">
+						<!-- TODO delete cinfiguration links directly connected to the project class -->
+						<!--  
 						<div th:each="link : ${project.configurationLinks}">
 							<div class="row mb-4">
 								<div class="col-10">
@@ -39,8 +41,35 @@
 								</div>
 							</div>
 						</div>
-						<div th:each="part : ${project.installation.deviceInstance.configurationDevice.partList}">
-							<p th:text="${part.description}"></p>
+						-->
+						<div th:unless="${#lists.isEmpty(project?.installation?.deviceInstance?.configurationDevice?.partList)}" th:each="configurationDevice : ${project.installation.deviceInstance.configurationDevice}">
+							<div class="row mb-4">
+								<div class="col-8">
+									<div>
+										<a th:href="${configurationDevice?.linkToHdd}" target="_blank" th:text="${configurationDevice?.linkToHdd}" class="align-middle pt-2 text-sm"></a>
+									</div>
+								</div>
+								<div class="col-2">
+									<div>
+										<p th:text="${configurationDevice?.created}"></p>
+									</div>
+								</div>
+								<div class="col-2">
+									<a th:href="@{/smnsh/projects/{projectId}/configurations/delete(projectId=${project.id},configurationDeviceId=${configurationDevice.id})}" class="btn btn-sn btn-outline-danger">
+										<p class="sensit-langPl">USUŃ</p>
+										<p class="sensit-langEn">delete</p>
+									</a>
+								</div>		
+							</div>							
+							<div class="row mb-4">
+								<div class="col-12">
+									<p class="sensit-langPl">ZAIMPORTOWANA KONFIGURACJA:</p>
+									<p class="sensit-langEn">configuration imported:</p>
+								</div>
+							</div>	
+							<div th:each="part : ${project.installation.deviceInstance.configurationDevice.partList}">
+								<p th:text="${part.description}" class="sensit-langPl"></p>
+							</div>
 						</div>
 					</div>
 					<div class="card-footer">

@@ -1,5 +1,7 @@
 package pl.krzysztofskul.sensit.smnsh.project.installation.configuration;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +17,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import pl.krzysztofskul.sensit.smnsh.project.device.DeviceInstance;
 
 @Entity
@@ -23,6 +27,11 @@ public class ConfigurationDevice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate created;
+	
+	private String linkToHdd;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
@@ -61,6 +70,12 @@ public class ConfigurationDevice {
 		this.deviceInstance = deviceInstance;
 	}
 
+	public ConfigurationDevice(LocalDate created, String linkToHdd, List<Part> partList) {
+		this.created = created;
+		this.linkToHdd = linkToHdd;
+		this.partList = partList;
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -73,6 +88,34 @@ public class ConfigurationDevice {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the created
+	 */
+	public LocalDate getCreated() {
+		return created;
+	}
+
+	/**
+	 * @param created the created to set
+	 */
+	public void setCreated(LocalDate created) {
+		this.created = created;
+	}
+
+	/**
+	 * @return the linkToHdd
+	 */
+	public String getLinkToHdd() {
+		return linkToHdd;
+	}
+
+	/**
+	 * @param linkToHdd the linkToHdd to set
+	 */
+	public void setLinkToHdd(String linkToHdd) {
+		this.linkToHdd = linkToHdd;
 	}
 
 	/**

@@ -21,6 +21,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDevice;
+import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.Part;
+
 //Singleton
 public class ImportData {
 	
@@ -331,10 +334,58 @@ public class ImportData {
 		return cellValue;
 	}
 	
+	/**
+	 * Import the list of configurations from given xls file. It searches SCON sheets and import data from given cells.
+	 * 
+	 * @return The list of ConfigurationDevice 
+	 */
+	public List<ConfigurationDevice> importConfigurationFromXls(String filePath) {
+		List<ConfigurationDevice> configurationDeviceList = new ArrayList<ConfigurationDevice>();
+		try {
+			FileInputStream fis = fileInputStream;
+			if (null == fis) {
+				fis = new FileInputStream(filePath);				
+			}
+			Workbook wb = workbook;
+			if (null == wb) {
+				wb = new XSSFWorkbook(fis);	
+			}
+
+			Iterator<Sheet> sheetIterator = wb.sheetIterator();
+			while (sheetIterator.hasNext()) {
+				Sheet sheet = sheetIterator.next();
+				String sheetName = sheet.getSheetName();
+				if (sheetName.contains("SCON")) {
+					ConfigurationDevice newCfD = new ConfigurationDevice();
+					newCfD.setName(sheetName);
+					newCfD.setCreated(LocalDate.now());
+					List<Part> partList = new ArrayList<Part>();
+					String[] sheetRowCol = new String[] {sheetName, "3", "1"};
+					List<String> partListString = Arrays.asList(getCellsValuesInRow(filePath, sheetRowCol, true).split(";"));
+					for (String partString : partListString) {
+						Part part = new Part();
+						part.setDescription(partString);
+						partList.add(part);
+					}
+					newCfD.setPartList(partList);
+					configurationDeviceList.add(newCfD);
+				}
+			}
+			
+		} catch (IOException e) {
+			System.err.println("App. ERROR! Not found file for specified xls file! "+ filePath);
+			return null;
+		} catch (NullPointerException e) {
+			System.err.println("App. ERROR! Not found sheet/row/col/cell for specified xls file! "+ filePath);
+			return null;
+		}
+		return configurationDeviceList;
+	}
+	
 	public String getCellsValuesInRow(String filePath, String[] sheetRowCol, boolean isEncrypted) {
 		String cellsVallues = null;
 		
-		while (null != getCellValue(filePath, sheetRowCol, isEncrypted) && getCellValue(filePath, sheetRowCol, isEncrypted) != "") {
+		while (null != getCellValue(filePath, sheetRowCol, false) && getCellValue(filePath, sheetRowCol, false) != "") {
 			if (null == cellsVallues) {
 				cellsVallues = getCellValue(filePath, sheetRowCol, isEncrypted)+";";
 			} else {

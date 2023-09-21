@@ -28,6 +28,8 @@ This version has been created to prepare demo functions for a meeting arranged f
 
 * UPDATE IMPORT CONFIGURATION FUNCTIONALITY
   ** create the functionality which allows to import many rows from xls file (ex. configuration description with part numbers)
-  ** update the functionality which adds configuration - case when configuration is already added 
+  ** update the functionality which adds configuration - case when configuration is already added - remove old configuration
+  ** change id part to cpq no.
+  ** errors handling when import configuration
   
   

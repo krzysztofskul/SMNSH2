@@ -248,6 +248,8 @@ public class ProjectController {
 		
 		Project project = projectService.loadById(projectId);
 		
+		List<ConfigurationDevice> configurationDeviceList = ImportData.getImportDataSingleton().importConfigurationFromXls(filePath);
+		
 		String slsConfigurationString = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"SCON-1-2", "3", "1"}, true);
 		List<String> slsConfigurationList = Arrays.asList(slsConfigurationString.split(";"));
 		List<Part> partList = new ArrayList<Part>();

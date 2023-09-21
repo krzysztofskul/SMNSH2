@@ -28,6 +28,8 @@ public class ConfigurationDevice {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	private String name;
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate created;
 	
@@ -88,6 +90,20 @@ public class ConfigurationDevice {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**

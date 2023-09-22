@@ -119,11 +119,9 @@ public class ProjectService {
 		return project;
 	}
 
-	public void removeConfigurationDevice(Project project, Long configurationDeviceId) {
-		project.getInstallation().getDeviceInstance().setConfigurationDevice(new ConfigurationDevice());
+	public void removeConfigurationDevice(Project project, ConfigurationDevice configurationDevice) {
+		project.getInstallation().getDeviceInstance().removeConfigurationDevice(configurationDevice);
 		this.save(project);
-		configurationDeviceService.deleteConfigurationDeviceById(configurationDeviceId);	
-
 	}
 	
 }

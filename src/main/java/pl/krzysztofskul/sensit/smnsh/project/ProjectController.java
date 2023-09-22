@@ -51,6 +51,7 @@ import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategoryServic
 import pl.krzysztofskul.sensit.smnsh.project.device.DevicePortfolio;
 import pl.krzysztofskul.sensit.smnsh.project.device.modality.DevicePortfolioService;
 import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDevice;
+import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDeviceService;
 import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.Part;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneInstance;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneService;
@@ -73,6 +74,7 @@ public class ProjectController {
 	private DevicePortfolioService devicePortfolioService;
 	private FileSelector fileSelector;
 	private MilestoneService milestoneService;
+	private ConfigurationDeviceService configurationDeviceService;
 	
 	/**
 	 * CONSTRUCTOR
@@ -85,7 +87,8 @@ public class ProjectController {
 			UserService userService,
 			DevicePortfolioService devicePortfolioService,
 			FileSelector fileSelector,
-			MilestoneService milestoneService
+			MilestoneService milestoneService,
+			ConfigurationDeviceService configurationDeviceService
 			) {
 		this.projectService = projectService;
 		this.attachmentCategoryService = attachmentCategoryService;
@@ -94,6 +97,7 @@ public class ProjectController {
 		this.devicePortfolioService = devicePortfolioService;
 		this.fileSelector = fileSelector;
 		this.milestoneService = milestoneService;
+		this.configurationDeviceService = configurationDeviceService;
 	}
 	
 	@ModelAttribute(name = "investorList")
@@ -221,7 +225,7 @@ public class ProjectController {
 			project = projectService.removeLinkToConfigurationFile(project, configurationLink);
 			projectService.save(project);
 		}
-		projectService.removeConfigurationDevice(project, configurationDeviceId);
+		projectService.removeConfigurationDevice(project, configurationDeviceService.loadById(configurationDeviceId));
 
 		
 		return "redirect:/smnsh/projects/"+projectId+"/configurations";
@@ -248,25 +252,31 @@ public class ProjectController {
 		
 		Project project = projectService.loadById(projectId);
 		
+		/*
+		 * import configurations
+		 */
 		List<ConfigurationDevice> configurationDeviceList = ImportData.getImportDataSingleton().importConfigurationFromXls(filePath);
-		
-		String slsConfigurationString = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"SCON-1-2", "3", "1"}, true);
-		List<String> slsConfigurationList = Arrays.asList(slsConfigurationString.split(";"));
-		List<Part> partList = new ArrayList<Part>();
-		for (String slsConfiguration : slsConfigurationList) {
-			partList.add(new Part(project.getInstallation().getDeviceInstance().getConfigurationDevice(), slsConfiguration));
-		}
-				
-		String slsTrainings = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"Szkolenia", "9", "2"}, false);
-		file.delete();
-		
 		StringBuilder sb = new StringBuilder();
-		sb.append(filePath+"\\"+multipartFile.getOriginalFilename());
+		String configurationFilePath = sb.append(filePath+"\\"+multipartFile.getOriginalFilename()).toString();
+		for (ConfigurationDevice configurationDevice : configurationDeviceList) {
+			configurationDevice.setLinkToHdd(configurationFilePath);
+			project.getInstallation().getDeviceInstance().addConfigurationDevice(configurationDevice);	
+		}
 		
-		project = projectService.addLinkToConfigurationFile(project, sb.toString());
 		
-		project.getInstallation().getDeviceInstance().setConfigurationDevice(new ConfigurationDevice(LocalDate.now(), sb.toString(), partList));
+		//String slsConfigurationString = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"SCON-1-2", "3", "1"}, true);
+		//List<String> slsConfigurationList = Arrays.asList(slsConfigurationString.split(";"));
+		//List<Part> partList = new ArrayList<Part>();
+		//for (String slsConfiguration : slsConfigurationList) {
+		//	partList.add(new Part(project.getInstallation().getDeviceInstance().getConfigurationDevice(), slsConfiguration));
+		//}
+				
+		/*
+		 * import trainings
+		 */
+		String slsTrainings = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"Szkolenia", "9", "2"}, false);
 		
+		file.delete();
 		projectService.save(project);
 		return "redirect:/smnsh/projects/"+projectId+"/configurations";
 	}

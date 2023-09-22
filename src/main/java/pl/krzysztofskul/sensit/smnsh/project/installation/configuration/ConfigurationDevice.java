@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -33,9 +35,13 @@ public class ConfigurationDevice {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate created;
 	
+	/*
+	 * TODO: move to calculation class
+	 */
+	@Column(length = 1024)
 	private String linkToHdd;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	@JoinTable(
 				name = "configurationdevice_part",
 				joinColumns = @JoinColumn(name = "configurationdevice_id"),
@@ -43,7 +49,7 @@ public class ConfigurationDevice {
 			)
 	private List<Part> partList = new ArrayList<Part>();
 	
-	@OneToOne(mappedBy = "configurationDevice")
+	@ManyToOne
 	private DeviceInstance deviceInstance;
 
 	public ConfigurationDevice() {

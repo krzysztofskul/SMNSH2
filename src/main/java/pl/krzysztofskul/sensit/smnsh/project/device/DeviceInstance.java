@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,8 +37,8 @@ public class DeviceInstance {
 
 	//private Calculation calculation;
 	//private ConfigurationGeneral configurationGeneral;
-	@OneToOne(cascade = CascadeType.ALL)
-	private ConfigurationDevice configurationDevice = new ConfigurationDevice();
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "deviceInstance", orphanRemoval = true)
+	private List<ConfigurationDevice> configurationDeviceList = new ArrayList<ConfigurationDevice>();
 	//private ConfigurationAccessories configurationAccessories;
 	
 	@OneToMany
@@ -136,17 +137,17 @@ public class DeviceInstance {
 	}
 
 	/**
-	 * @return the configurationDevice
+	 * @return the configurationDeviceList
 	 */
-	public ConfigurationDevice getConfigurationDevice() {
-		return configurationDevice;
+	public List<ConfigurationDevice> getConfigurationDeviceList() {
+		return configurationDeviceList;
 	}
 
 	/**
-	 * @param configurationDevice the configurationDevice to set
+	 * @param configurationDeviceList the configurationDeviceList to set
 	 */
-	public void setConfigurationDevice(ConfigurationDevice configurationDevice) {
-		this.configurationDevice = configurationDevice;
+	public void setConfigurationDeviceList(List<ConfigurationDevice> configurationDeviceList) {
+		this.configurationDeviceList = configurationDeviceList;
 	}
 
 	/**
@@ -161,6 +162,17 @@ public class DeviceInstance {
 	 */
 	public void setTrainingList(List<Training> trainingList) {
 		this.trainingList = trainingList;
+	}
+
+	public void addConfigurationDevice(ConfigurationDevice configurationDevice) {
+		this.configurationDeviceList.add(configurationDevice);
+		configurationDevice.setDeviceInstance(this);
+	}
+
+	public void removeConfigurationDevice(ConfigurationDevice configurationDevice) {
+		this.configurationDeviceList.remove(configurationDevice);
+		configurationDevice.setDeviceInstance(null);
+		
 	}
 
 

@@ -19,6 +19,11 @@ public class ConfigurationDeviceService {
 	public void deleteConfigurationDeviceById(Long configurationDeviceId) {
 		configurationDeviceRepo.deleteById(configurationDeviceId);
 	}
+
+	public ConfigurationDevice loadById(Long configurationDeviceId) {
+		return configurationDeviceRepo.findById(configurationDeviceId).get();
+
+	}
 	
 	
 }

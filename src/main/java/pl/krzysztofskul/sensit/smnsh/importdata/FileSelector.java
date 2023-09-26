@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class FileSelector {
 	
 	/**
-	 * This method shows a window which allows to choose a file or a folder from the system file system;
+	 * This method shows a window which allows to choose a file or a folder from the system file system on the host local drive;
 	 * @param String mode ("file" accepts files; "folder" accepts folders; by default accepts files;)
 	 * @return String: path to chosen file or folder
 	 */

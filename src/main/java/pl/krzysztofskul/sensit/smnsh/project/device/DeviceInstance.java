@@ -13,6 +13,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import pl.krzysztofskul.sensit.smnsh.project.Project;
 import pl.krzysztofskul.sensit.smnsh.project.installation.Installation;
 import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDevice;
@@ -41,7 +44,8 @@ public class DeviceInstance {
 	private List<ConfigurationDevice> configurationDeviceList = new ArrayList<ConfigurationDevice>();
 	//private ConfigurationAccessories configurationAccessories;
 	
-	@OneToMany
+	@OneToMany(mappedBy = "deviceInstance", cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Training> trainingList = new ArrayList<Training>();
 	
 	/**
@@ -173,6 +177,11 @@ public class DeviceInstance {
 		this.configurationDeviceList.remove(configurationDevice);
 		configurationDevice.setDeviceInstance(null);
 		
+	}
+
+	public void addTraining(Training training) {
+		this.trainingList.add(training);
+		training.setDeviceInstance(this);	
 	}
 
 

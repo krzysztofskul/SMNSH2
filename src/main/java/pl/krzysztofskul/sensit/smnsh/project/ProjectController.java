@@ -45,6 +45,7 @@ import pl.krzysztofskul.sensit.smnsh.filestorage.File;
 import pl.krzysztofskul.sensit.smnsh.filestorage.FileStorageService;
 import pl.krzysztofskul.sensit.smnsh.importdata.FileSelector;
 import pl.krzysztofskul.sensit.smnsh.importdata.ImportData;
+import pl.krzysztofskul.sensit.smnsh.importdata.XlsCellReader;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.Attachment;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategory;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategoryService;
@@ -59,6 +60,7 @@ import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplate;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplateGenerator;
 import pl.krzysztofskul.sensit.smnsh.project.remark.Remark;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
+import pl.krzysztofskul.sensit.smnsh.project.training.Training;
 import pl.krzysztofskul.sensit.smnsh.user.User;
 import pl.krzysztofskul.sensit.smnsh.user.UserBusinessPosition;
 import pl.krzysztofskul.sensit.smnsh.user.UserService;
@@ -274,7 +276,12 @@ public class ProjectController {
 		/*
 		 * import trainings
 		 */
-		String slsTrainings = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"Szkolenia", "9", "2"}, false);
+		//String slsTrainings = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"Szkolenia", "9", "2"}, false);
+		XlsCellReader xlsCellReader = XlsCellReader.getXlsCellReader(configurationFilePath);
+		List<String> trainingList = xlsCellReader.getCellsValuesInRow(configurationFilePath, "Szkolenia", 9, 2, true);
+		for (String training : trainingList) {
+			project.getInstallation().getDeviceInstance().addTraining(new Training(training));
+		}
 		
 		file.delete();
 		projectService.save(project);

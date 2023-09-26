@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import pl.krzysztofskul.sensit.smnsh.project.device.DeviceInstance;
 import pl.krzysztofskul.sensit.smnsh.project.installation.Installation;
 
 @Entity
@@ -20,18 +21,22 @@ public class Training {
 	private Long amountOfDays;
 	
 	@ManyToOne
-	private Installation installation;
+	private DeviceInstance deviceInstance;
+
+	public Training() {}
 
 	/**
-	 * CONSTRUCTOR
 	 * @param description
 	 * @param amountOfDays
 	 * @param installation
 	 */
-	public Training(String description, Long amountOfDays, Installation installation) {
+	public Training(String description, Long amountOfDays) {
 		this.description = description;
 		this.amountOfDays = amountOfDays;
-		this.installation = installation;
+	}
+
+	public Training(String description) {
+		this.description = description;
 	}
 
 	/**
@@ -77,19 +82,17 @@ public class Training {
 	}
 
 	/**
-	 * @return the installation
+	 * @return the deviceInstance
 	 */
-	public Installation getInstallation() {
-		return installation;
+	public DeviceInstance getDeviceInstance() {
+		return deviceInstance;
 	}
 
 	/**
-	 * @param installation the installation to set
+	 * @param deviceInstance the deviceInstance to set
 	 */
-	public void setInstallation(Installation installation) {
-		this.installation = installation;
+	public void setDeviceInstance(DeviceInstance deviceInstance) {
+		this.deviceInstance = deviceInstance;
 	}
-	
-	
 	
 }

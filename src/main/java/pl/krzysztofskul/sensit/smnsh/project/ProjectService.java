@@ -1,5 +1,6 @@
 package pl.krzysztofskul.sensit.smnsh.project;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -8,6 +9,8 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pl.krzysztofskul.sensit.smnsh.logger.LogTypeEnum;
+import pl.krzysztofskul.sensit.smnsh.logger.LoggerService;
 import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDevice;
 import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDeviceService;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneComparator;
@@ -22,6 +25,7 @@ public class ProjectService {
 	private ProjectRepo projectRepo;
 	private UserService userService;
 	private ConfigurationDeviceService configurationDeviceService;
+	private LoggerService loggerService;
 	
 	/**
 	 * CONSTRUCTOR
@@ -30,11 +34,13 @@ public class ProjectService {
 	public ProjectService(
 				ProjectRepo projectRepo,
 				UserService userService,
-				ConfigurationDeviceService configurationDeviceService
+				ConfigurationDeviceService configurationDeviceService,
+				LoggerService loggerService
 			) {
 		this.projectRepo = projectRepo;
 		this.userService = userService;
 		this.configurationDeviceService = configurationDeviceService;
+		this.loggerService = loggerService;
 	}
 
 	public void save(Project project) {

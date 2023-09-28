@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -39,6 +40,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 
+import pl.krzysztofskul.sensit.SensitController;
 import pl.krzysztofskul.sensit.smnsh.company.Company;
 import pl.krzysztofskul.sensit.smnsh.company.CompanyService;
 import pl.krzysztofskul.sensit.smnsh.filestorage.File;
@@ -46,6 +48,9 @@ import pl.krzysztofskul.sensit.smnsh.filestorage.FileStorageService;
 import pl.krzysztofskul.sensit.smnsh.importdata.FileSelector;
 import pl.krzysztofskul.sensit.smnsh.importdata.ImportData;
 import pl.krzysztofskul.sensit.smnsh.importdata.XlsCellReader;
+import pl.krzysztofskul.sensit.smnsh.logger.Log;
+import pl.krzysztofskul.sensit.smnsh.logger.LogTypeEnum;
+import pl.krzysztofskul.sensit.smnsh.logger.LoggerService;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.Attachment;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategory;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategoryService;
@@ -77,6 +82,7 @@ public class ProjectController {
 	private FileSelector fileSelector;
 	private MilestoneService milestoneService;
 	private ConfigurationDeviceService configurationDeviceService;
+	private LoggerService loggerService;
 	
 	/**
 	 * CONSTRUCTOR
@@ -90,7 +96,8 @@ public class ProjectController {
 			DevicePortfolioService devicePortfolioService,
 			FileSelector fileSelector,
 			MilestoneService milestoneService,
-			ConfigurationDeviceService configurationDeviceService
+			ConfigurationDeviceService configurationDeviceService,
+			LoggerService loggerService
 			) {
 		this.projectService = projectService;
 		this.attachmentCategoryService = attachmentCategoryService;
@@ -100,6 +107,7 @@ public class ProjectController {
 		this.fileSelector = fileSelector;
 		this.milestoneService = milestoneService;
 		this.configurationDeviceService = configurationDeviceService;
+		this.loggerService = loggerService;
 	}
 	
 	@ModelAttribute(name = "investorList")
@@ -138,7 +146,7 @@ public class ProjectController {
 		projectList = sortProjectList(sort, projectList); 
 		
 		model.addAttribute("projectList", projectList);
-		
+		loggerService.save(new Log(userService.loadByUserSpringSecurityName(SecurityContextHolder.getContext().getAuthentication().getName()), null, LogTypeEnum.USER_VIEW_PROJECTS_PAGE, LocalDateTime.now()));
 		return "smnsh/projects/all";
 	}
 	
@@ -191,7 +199,9 @@ public class ProjectController {
 	
 	@GetMapping("/projects/{id}")
 	public String getProjectById(@PathVariable Long id, Model model) {
-		model.addAttribute("project", projectService.loadById(id));
+		Project project = projectService.loadById(id);
+		model.addAttribute("project", project);
+		loggerService.save(new Log(userService.loadByUserSpringSecurityName(SecurityContextHolder.getContext().getAuthentication().getName()), project, LogTypeEnum.USER_VIEW_PROJECT_PAGE, LocalDateTime.now()));
 		return "smnsh/projects/idDetails";
 	}
 	
@@ -435,6 +445,7 @@ public class ProjectController {
 		projects = sortProjectList(sort, projects); 
 		
 		model.addAttribute("projectList", projects);
+		loggerService.save(new Log(userService.loadByUserSpringSecurityName(SecurityContextHolder.getContext().getAuthentication().getName()), null, LogTypeEnum.USER_VIEW_PROJECTS_PAGE, LocalDateTime.now()));
 		return "smnsh/projects/all";
 	}
 	

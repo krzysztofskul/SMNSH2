@@ -89,7 +89,7 @@ public class Project implements Serializable {
 	private String installationPlaceDetails;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	private Installation installation;
+	private Installation installation = new Installation();
 	
 	@ElementCollection
 	private List<String> configurationLinks;

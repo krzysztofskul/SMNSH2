@@ -1,17 +1,27 @@
 package pl.krzysztofskul.sensit.smnsh.project;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -30,22 +40,32 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 
+import pl.krzysztofskul.sensit.SensitController;
 import pl.krzysztofskul.sensit.smnsh.company.Company;
 import pl.krzysztofskul.sensit.smnsh.company.CompanyService;
 import pl.krzysztofskul.sensit.smnsh.filestorage.File;
 import pl.krzysztofskul.sensit.smnsh.filestorage.FileStorageService;
 import pl.krzysztofskul.sensit.smnsh.importdata.FileSelector;
+import pl.krzysztofskul.sensit.smnsh.importdata.ImportData;
+import pl.krzysztofskul.sensit.smnsh.importdata.XlsCellReader;
+import pl.krzysztofskul.sensit.smnsh.logger.Log;
+import pl.krzysztofskul.sensit.smnsh.logger.LogTypeEnum;
+import pl.krzysztofskul.sensit.smnsh.logger.LoggerService;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.Attachment;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategory;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategoryService;
 import pl.krzysztofskul.sensit.smnsh.project.device.DevicePortfolio;
 import pl.krzysztofskul.sensit.smnsh.project.device.modality.DevicePortfolioService;
+import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDevice;
+import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDeviceService;
+import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.Part;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneInstance;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneService;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplate;
 import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplateGenerator;
 import pl.krzysztofskul.sensit.smnsh.project.remark.Remark;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
+import pl.krzysztofskul.sensit.smnsh.project.training.Training;
 import pl.krzysztofskul.sensit.smnsh.user.User;
 import pl.krzysztofskul.sensit.smnsh.user.UserBusinessPosition;
 import pl.krzysztofskul.sensit.smnsh.user.UserService;
@@ -61,6 +81,8 @@ public class ProjectController {
 	private DevicePortfolioService devicePortfolioService;
 	private FileSelector fileSelector;
 	private MilestoneService milestoneService;
+	private ConfigurationDeviceService configurationDeviceService;
+	private LoggerService loggerService;
 	
 	/**
 	 * CONSTRUCTOR
@@ -73,7 +95,9 @@ public class ProjectController {
 			UserService userService,
 			DevicePortfolioService devicePortfolioService,
 			FileSelector fileSelector,
-			MilestoneService milestoneService
+			MilestoneService milestoneService,
+			ConfigurationDeviceService configurationDeviceService,
+			LoggerService loggerService
 			) {
 		this.projectService = projectService;
 		this.attachmentCategoryService = attachmentCategoryService;
@@ -82,6 +106,8 @@ public class ProjectController {
 		this.devicePortfolioService = devicePortfolioService;
 		this.fileSelector = fileSelector;
 		this.milestoneService = milestoneService;
+		this.configurationDeviceService = configurationDeviceService;
+		this.loggerService = loggerService;
 	}
 	
 	@ModelAttribute(name = "investorList")
@@ -120,7 +146,7 @@ public class ProjectController {
 		projectList = sortProjectList(sort, projectList); 
 		
 		model.addAttribute("projectList", projectList);
-		
+		loggerService.save(new Log(userService.loadByUserSpringSecurityName(SecurityContextHolder.getContext().getAuthentication().getName()), null, LogTypeEnum.USER_VIEW_PROJECTS_PAGE, LocalDateTime.now()));
 		return "smnsh/projects/all";
 	}
 	
@@ -173,7 +199,9 @@ public class ProjectController {
 	
 	@GetMapping("/projects/{id}")
 	public String getProjectById(@PathVariable Long id, Model model) {
-		model.addAttribute("project", projectService.loadById(id));
+		Project project = projectService.loadById(id);
+		model.addAttribute("project", project);
+		loggerService.save(new Log(userService.loadByUserSpringSecurityName(SecurityContextHolder.getContext().getAuthentication().getName()), project, LogTypeEnum.USER_VIEW_PROJECT_PAGE, LocalDateTime.now()));
 		return "smnsh/projects/idDetails";
 	}
 	
@@ -201,11 +229,17 @@ public class ProjectController {
 	@GetMapping("/projects/{projectId}/configurations/delete")
 	public String deleteConfigurationLinkById(
 				@PathVariable Long projectId,
-				@RequestParam String configurationLink
+				@RequestParam(required = false) String configurationLink,
+				@RequestParam Long configurationDeviceId
 			) {
 		Project project = projectService.loadById(projectId);
-		project = projectService.removeLinkToConfigurationFile(project, configurationLink);
-		projectService.save(project);
+		if (configurationLink != null) {
+			project = projectService.removeLinkToConfigurationFile(project, configurationLink);
+			projectService.save(project);
+		}
+		projectService.removeConfigurationDevice(project, configurationDeviceService.loadById(configurationDeviceId));
+
+		
 		return "redirect:/smnsh/projects/"+projectId+"/configurations";
 	}
 	
@@ -216,17 +250,50 @@ public class ProjectController {
 			@RequestParam(name = "fileName", required = false) String fileName,
 			@RequestParam(name = "multipartFile", required = false) MultipartFile multipartFile,
 			Model model
-		) {
-//		String errorFilePath = "false";
-//		if (filePath.length() == 0) {
-//			errorFilePath = "true";
-//			model.addAttribute("errorFilePath", errorFilePath);
-//			return "redirect:/smnsh/projects/"+projectId+"/configurations";
-//		}
-		StringBuilder sb = new StringBuilder();
-		sb.append(filePath+"\\"+multipartFile.getOriginalFilename());
+		) throws FileNotFoundException, IOException {
+		
+		java.io.File file = new java.io.File("src/main/resources/targetFile.tmp");
+
+		try (OutputStream os = new FileOutputStream(file)) {
+		    os.write(multipartFile.getBytes());
+		}
+		
+		ImportData.getImportDataSingleton();
+		ImportData.setFileInputStream(new FileInputStream(file));
+		ImportData.setWorkbook(new XSSFWorkbook(ImportData.getFileInputStream()));
+		
 		Project project = projectService.loadById(projectId);
-		project = projectService.addLinkToConfigurationFile(project, sb.toString());
+		
+		/*
+		 * import configurations
+		 */
+		List<ConfigurationDevice> configurationDeviceList = ImportData.getImportDataSingleton().importConfigurationFromXls(filePath);
+		StringBuilder sb = new StringBuilder();
+		String configurationFilePath = sb.append(filePath+"\\"+multipartFile.getOriginalFilename()).toString();
+		for (ConfigurationDevice configurationDevice : configurationDeviceList) {
+			configurationDevice.setLinkToHdd(configurationFilePath);
+			project.getInstallation().getDeviceInstance().addConfigurationDevice(configurationDevice);	
+		}
+		
+		
+		//String slsConfigurationString = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"SCON-1-2", "3", "1"}, true);
+		//List<String> slsConfigurationList = Arrays.asList(slsConfigurationString.split(";"));
+		//List<Part> partList = new ArrayList<Part>();
+		//for (String slsConfiguration : slsConfigurationList) {
+		//	partList.add(new Part(project.getInstallation().getDeviceInstance().getConfigurationDevice(), slsConfiguration));
+		//}
+				
+		/*
+		 * import trainings
+		 */
+		//String slsTrainings = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"Szkolenia", "9", "2"}, false);
+		XlsCellReader xlsCellReader = XlsCellReader.getXlsCellReader(configurationFilePath);
+		List<String> trainingList = xlsCellReader.getCellsValuesInRow(configurationFilePath, "Szkolenia", 9, 2, true);
+		for (String training : trainingList) {
+			project.getInstallation().getDeviceInstance().addTraining(new Training(training));
+		}
+		
+		file.delete();
 		projectService.save(project);
 		return "redirect:/smnsh/projects/"+projectId+"/configurations";
 	}
@@ -378,6 +445,7 @@ public class ProjectController {
 		projects = sortProjectList(sort, projects); 
 		
 		model.addAttribute("projectList", projects);
+		loggerService.save(new Log(userService.loadByUserSpringSecurityName(SecurityContextHolder.getContext().getAuthentication().getName()), null, LogTypeEnum.USER_VIEW_PROJECTS_PAGE, LocalDateTime.now()));
 		return "smnsh/projects/all";
 	}
 	

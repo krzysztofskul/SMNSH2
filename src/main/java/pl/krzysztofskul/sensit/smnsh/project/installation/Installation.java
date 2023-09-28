@@ -19,6 +19,8 @@ import pl.krzysztofskul.sensit.smnsh.project.Project;
 import pl.krzysztofskul.sensit.smnsh.project.device.Device;
 import pl.krzysztofskul.sensit.smnsh.project.device.DeviceInstance;
 import pl.krzysztofskul.sensit.smnsh.project.device.DevicePortfolio;
+import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDevice;
+import pl.krzysztofskul.sensit.smnsh.project.training.Training;
 import pl.krzysztofskul.sensit.smnsh.user.User;
 
 @Entity
@@ -28,14 +30,14 @@ public class Installation {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@OneToOne(mappedBy = "installation")
+	@OneToOne(mappedBy="installation")
 	private Project project;
 	
 	/*
 	 * Device delivered for installation to the customer
 	 */
 	@OneToOne(cascade = CascadeType.ALL)
-	private DeviceInstance deviceInstance;
+	private DeviceInstance deviceInstance = new DeviceInstance();
 	
 	/*
 	 * Customer - company which is owner of the place of installation
@@ -97,6 +99,20 @@ public class Installation {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	/**
+	 * @return the project
+	 */
+	public Project getProject() {
+		return project;
+	}
+
+	/**
+	 * @param project the project to set
+	 */
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
 	/**

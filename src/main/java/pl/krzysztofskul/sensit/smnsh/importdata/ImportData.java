@@ -21,6 +21,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.ConfigurationDevice;
+import pl.krzysztofskul.sensit.smnsh.project.installation.configuration.Part;
+
 //Singleton
 public class ImportData {
 	
@@ -249,7 +252,6 @@ public class ImportData {
 			
 			dataImported.put("deviceCategory", getCellValue(wb, "SRF", 2, 6, calculationFilePath));
 			
-			//dataImported.put("deviceModelName", getCellValue(wb, "SRF", 2, 7, calculationFilePath));
 			dataImported.put("deviceModelName", 
 					getCellValue(
 							wb, 
@@ -261,20 +263,9 @@ public class ImportData {
 					
 					);
 			
-//			dataImported.put("slsCustomer", 
-//					getCellValue(
-//							wb, 
-//							cellsToImportFromCalculationXlsFile.get("slsCustomer")[0], 
-//							Integer.parseInt(cellsToImportFromCalculationXlsFile.get("slsCustomer")[1]), 
-//							Integer.parseInt(cellsToImportFromCalculationXlsFile.get("slsCustomer")[2]), 
-//
-//							calculationFilePath)
-//					
-//					);
 			
 			dataImported.put("projectManager", getCellValue(wb, "SRF", 3, 11, calculationFilePath));
 			
-			//dataImported.put("investorSapNo", getCellValue(wb, "HCALC-1", 4, 9, calculationFilePath));
 			dataImported.put("slsInvestorSapNo", 
 					getCellValue(
 							wb, 
@@ -286,6 +277,17 @@ public class ImportData {
 					
 					);
 			
+//			String[] arr = new String[3];
+//			arr[0] = cellsToImportFromCalculationXlsFile.get("slsConfiguration")[0].toString();
+//			arr[1] = cellsToImportFromCalculationXlsFile.get("slsConfiguration")[1].toString();
+//			arr[2] = cellsToImportFromCalculationXlsFile.get("slsConfiguration")[2].toString();
+//			dataImported.put("configuration", 
+//						getCellsValuesInRow(
+//								calculationFilePath, 
+//								arr
+//						)
+//					);	
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			//e.printStackTrace();
@@ -295,8 +297,29 @@ public class ImportData {
 		}
 		return dataImported;
 	}
-
-	private String getCellValue(Workbook wb, String sheetName, int rowNo, int colNo, String calculationFilePath) {
+	
+	public Workbook getWorkbook(File file) {
+		
+		FileInputStream fis;
+		Workbook wb;
+		try {
+			fis = new FileInputStream(file.getAbsolutePath());
+			wb = new XSSFWorkbook(fis);
+		} catch (FileNotFoundException e) {
+			wb = null;
+			e.printStackTrace();
+		} catch (IOException e) {
+			wb = null;
+			e.printStackTrace();
+		}
+		return wb;
+	}
+	
+	public String getFilePathFromFile(File file) {
+		return file.getPath();
+	}
+	
+	public String getCellValue(Workbook wb, String sheetName, int rowNo, int colNo, String calculationFilePath) {
 		String cellValue = null;
 		try {
 			Sheet sheet=wb.getSheet(sheetName);   //getting the XSSFSheet object at given index  
@@ -311,14 +334,62 @@ public class ImportData {
 		return cellValue;
 	}
 	
-	private String getCellsValuesInRow(String filePath, String[] sheetRowCol) {
+	/**
+	 * Import the list of configurations from given xls file. It searches SCON sheets and import data from given cells.
+	 * 
+	 * @return The list of ConfigurationDevice 
+	 */
+	public List<ConfigurationDevice> importConfigurationFromXls(String filePath) {
+		List<ConfigurationDevice> configurationDeviceList = new ArrayList<ConfigurationDevice>();
+		try {
+			FileInputStream fis = fileInputStream;
+			if (null == fis) {
+				fis = new FileInputStream(filePath);				
+			}
+			Workbook wb = workbook;
+			if (null == wb) {
+				wb = new XSSFWorkbook(fis);	
+			}
+
+			Iterator<Sheet> sheetIterator = wb.sheetIterator();
+			while (sheetIterator.hasNext()) {
+				Sheet sheet = sheetIterator.next();
+				String sheetName = sheet.getSheetName();
+				if (sheetName.contains("SCON")) {
+					ConfigurationDevice newCfD = new ConfigurationDevice();
+					newCfD.setName(sheetName);
+					newCfD.setCreated(LocalDate.now());
+					List<Part> partList = new ArrayList<Part>();
+					String[] sheetRowCol = new String[] {sheetName, "3", "1"};
+					List<String> partListString = Arrays.asList(getCellsValuesInRow(filePath, sheetRowCol, true).split(";"));
+					for (String partString : partListString) {
+						Part part = new Part();
+						part.setDescription(partString);
+						partList.add(part);
+					}
+					newCfD.setPartList(partList);
+					configurationDeviceList.add(newCfD);
+				}
+			}
+			
+		} catch (IOException e) {
+			System.err.println("App. ERROR! Not found file for specified xls file! "+ filePath);
+			return null;
+		} catch (NullPointerException e) {
+			System.err.println("App. ERROR! Not found sheet/row/col/cell for specified xls file! "+ filePath);
+			return null;
+		}
+		return configurationDeviceList;
+	}
+	
+	public String getCellsValuesInRow(String filePath, String[] sheetRowCol, boolean isEncrypted) {
 		String cellsVallues = null;
 		
-		while (null != getCellValue(filePath, sheetRowCol) && getCellValue(filePath, sheetRowCol) != "") {
+		while (null != getCellValue(filePath, sheetRowCol, false) && getCellValue(filePath, sheetRowCol, false) != "") {
 			if (null == cellsVallues) {
-				cellsVallues = getCellValue(filePath, sheetRowCol)+";";
+				cellsVallues = getCellValue(filePath, sheetRowCol, isEncrypted)+";";
 			} else {
-				cellsVallues = cellsVallues + getCellValue(filePath, sheetRowCol)+";";
+				cellsVallues = cellsVallues + getCellValue(filePath, sheetRowCol, isEncrypted)+";";
 			}
 			
 			
@@ -327,8 +398,9 @@ public class ImportData {
 		
 		return cellsVallues;
 	}
+
 	
-	private String getCellValue(String filePath, String[] sheetRowCol) {
+	public String getCellValue(String filePath, String[] sheetRowCol, boolean isEncrypted) {
 		String cellValue = null;
 
 		try {
@@ -349,6 +421,11 @@ public class ImportData {
 			Cell cell=row.getCell(colNo); //getting the cell representing the given column  
 			try {
 				cellValue=cell.getStringCellValue();    //getting cell value
+				if (isEncrypted) {
+					Encryptor encryptor = new Encryptor();
+					cellValue = encryptor.encrypt(cellValue);
+					System.out.println(cellValue);
+				}
 			} catch (IllegalStateException e) {
 				double x1 = cell.getNumericCellValue();
 				long x2 = Double.valueOf(x1).longValue();
@@ -490,13 +567,13 @@ public class ImportData {
 		switch (dataToImport) {
 		
 		case "slsTrainingsOther": {
-			dataImported = getCellsValuesInRow(calculationFilePath, cellsToImportFromCalculationXlsFile.get(dataToImport));
+			dataImported = getCellsValuesInRow(calculationFilePath, cellsToImportFromCalculationXlsFile.get(dataToImport), false);
 			System.out.println("Zaimportowano szkolenia do ImportData:" + dataImported);
 			return dataImported;
 		}
 		
 			default: {
-				dataImported = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get(dataToImport));
+				dataImported = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get(dataToImport), false);
 				return dataImported;	
 			}
 		}
@@ -504,33 +581,33 @@ public class ImportData {
 	}	
 	public String importSlsStakeholderContactPerson(String calculationFilePath) {
 		String slsStakeholderContactPerson = null;
-		slsStakeholderContactPerson = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsStakeholderContactPerson"));
+		slsStakeholderContactPerson = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsStakeholderContactPerson"), false);
 		return slsStakeholderContactPerson;
 	}	
 	public String importSlsDeadline(String calculationFilePath) {
 		String slsDeadline = null;
-		slsDeadline = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsDeadline"));
+		slsDeadline = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsDeadline"), false);
 		return slsDeadline;		
 	}
 	public String importSlsProjectManager(String calculationFilePath) {
 		String slsProjectManager = null;
-		slsProjectManager = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsProjectManager"));
+		slsProjectManager = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsProjectManager"), false);
 		return slsProjectManager;
 	}
 	public String importSlsDevicePrototypeModelName(String calculationFilePath) {
 		String slsDevicePrototypeModelName = null;
-		slsDevicePrototypeModelName = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsDevicePrototypeModelName"));
+		slsDevicePrototypeModelName = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsDevicePrototypeModelName"), false);
 		return slsDevicePrototypeModelName;
 	}
 	public String importSlsInvestorSapNo(String calculationFilePath) {
 		String slsInvestorSapNo = null;
-		slsInvestorSapNo = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsInvestorSapNo"));
+		slsInvestorSapNo = getCellValue(calculationFilePath, cellsToImportFromCalculationXlsFile.get("slsInvestorSapNo"), false);
 		return slsInvestorSapNo;
 	}
 	
 	public List<String> importInitDevicesNames() {
 		String initDevicesNames = null;
-		initDevicesNames = this.getCellsValuesInRow(pathInitDataDevices, this.cellsToImportFromDeviceTestPortfolio.get("deviceListStart"));
+		initDevicesNames = this.getCellsValuesInRow(pathInitDataDevices, this.cellsToImportFromDeviceTestPortfolio.get("deviceListStart"), false);
 		
 		List<String> listOfInitDeviceNames = Arrays.asList(initDevicesNames.split(";"));
 		
@@ -554,6 +631,7 @@ public class ImportData {
 		cellsToImportFromCalculationXlsFile.put("slsTrainingsOther", new String[] {"Szkolenia", "9", "2"});
 		cellsToImportFromCalculationXlsFile.put("slsAdditionalsSIWZ", new String[] {"rekomendacja PUR", "2", "1"});
 		cellsToImportFromCalculationXlsFile.put("slsStakeholderContactPerson", new String[] {"Kontrolka Umowy", "16", "3"});
+		cellsToImportFromCalculationXlsFile.put("slsConfiguration", new String[] {"SCON-1-2", "3", "1"});
 	}
 	
 	/**

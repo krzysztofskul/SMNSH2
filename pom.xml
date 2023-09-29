@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>pl.krzysztofskul</groupId>
 	<artifactId>sensit</artifactId>
-	<version>#0.1.SEPTEMBR-SNAPSHOT</version>
+	<version>#0.1.SEPTEMBR-FINAL</version>
 	<name>sensit</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -38,7 +38,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
 		</dependency>	
 		<!-- https://mvnrepository.com/artifact/com.thedeanda/lorem -->
 		<dependency>

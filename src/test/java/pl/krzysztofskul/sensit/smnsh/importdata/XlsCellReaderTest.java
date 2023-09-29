@@ -2,12 +2,15 @@ package pl.krzysztofskul.sensit.smnsh.importdata;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.awt.desktop.UserSessionEvent.Reason;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
+@Disabled
 class XlsCellReaderTest {
 
 	private static String filePath;

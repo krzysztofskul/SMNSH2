@@ -13,7 +13,7 @@ $(document).ready(function() {
 			//alert("projectId: "+projectId+"\nbtn-status id attr.: "+$(this).attr("id"));
 			$.ajax({
 			    type: 'POST',
-			    url: '/smnsh/restapi/projects/'+projectId,
+			    url: '/smnsh2/restapi/projects/'+projectId,
 			    data: { 
 			        'btn-status': $(this).attr("id") 
 			    }

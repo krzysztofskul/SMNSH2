@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>SMNSH</title>
+	
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+	
+	<!-- CSS -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+	
+</head>
+<body>
+
+	<div th:replace="./smnsh2/header" :: header class="sensit-header"></div>
+	<div th:replace="./smnsh2/projects/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
+	
+	<div class="container" style="min-height:250px">
+	
+		<div class="row cards-in-columns">
+			<div class="col">
+				<div class="card sensit-card">
+					<div class="card-header">
+						<p class="sensit-langPl">KONFIGURACJA SPRZĘTU</p>
+						<p class="sensit-langEn">DEVICE CONFIGURATION</p>
+					</div>
+					<div class="card-body">
+						<div th:each="configurationDevice : ${project?.installation?.deviceInstance?.configurationDeviceList}">
+							<div th:unless="${#lists.isEmpty(configurationDevice?.partList)}">
+								<div class="row border-top mt-4">
+									<div class="col-3">
+										<p class="sensit-langPl">ZAIMPORTOWANA KONFIGURACJA:</p>
+										<p class="sensit-langEn">configuration imported:</p>
+									</div>
+									<div class="col-3">
+										<p th:text="${configurationDevice?.name}"></p>
+									</div>
+									<div class="col-2">
+										<div>
+											<a th:href="${configurationDevice?.linkToHdd}" target="_blank" class="align-middle pt-2 text-sm">LINK >>></a>
+										</div>
+									</div>
+									<div class="col-2">
+										<div>
+											<p th:text="${configurationDevice?.created}"></p>
+										</div>
+									</div>
+									<div class="col-2">
+										<a th:href="@{/smnsh2/projects/{projectId}/configurations/delete(projectId=${project.id},configurationDeviceId=${configurationDevice.id})}" class="btn btn-sn btn-outline-danger">
+											<p class="sensit-langPl">USUŃ</p>
+											<p class="sensit-langEn">delete</p>
+										</a>
+									</div>		
+								</div>							
+
+								<div th:each="part : ${configurationDevice?.partList}">
+									<p th:text="${part.description}" class="sensit-langPl"></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer">
+						<!-- JFileChooser -->
+						<!--
+						<a th:href="@{/smnsh2/projects/{id}/configurations/new(id=${project.id})}" class="btn btn-sm btn-outline-success">+</a>
+						-->
+
+						<!-- HTML form with two inputs: path and file (name) -->
+						
+						<form method="POST" enctype="multipart/form-data" th:action="@{/smnsh2/projects/{id}/configurationLinks(id=${project.id})}">
+
+							<input type="text" name="filePath" class="form-control-sm width50 border" placeholder="link: ścieżka dostępu do pliku"/>
+							<!--
+							<input type="text" name="fileName" disabled class="form-control-sm"/>
+							-->
+							<input type="file" name="multipartFile" class="form-control-sm"/>
+							<input type="submit" value="+" class="btn btn-sm btn-outline-success"/>
+							<p class="font-italic width50 text-muted">wklej link : ścieżkę dostępu do katalogu, w którym znajduje się wybierany plik (przeglądaj... -> wybrany plik ->  prawy przycisk myszy -> właściwości -> lokalizacja -> ctrl-c -> otwórz -> ctrl-v -> +)</p>
+						</form>
+					</div>
+
+				</div>
+			</div>
+			
+			<div class="col">
+				<div class="card sensit-card">
+					<div class="card-header">
+						<p class="sensit-langPl">SZKOLENIA</p>
+						<p class="sensit-langEn">trainings</p>
+					</div>
+					<div class="card-body">
+						<p th:each="training : ${project?.installation?.deviceInstance?.trainingList}" th:text="${training.description}"></p>
+					</div>
+					<div class="card-footer"></div>
+				</div>
+			</div>
+			
+		</div>
+		
+	</div>
+
+	<div th:replace="./smnsh2/footer" :: footer class="sensit-footer"></div>
+
+</body>
+</html>

@@ -21,7 +21,7 @@ $(document).ready(function() {
 		}
 
 		$.ajax({
-			url: "/smnsh/companies/rest/"+companyId,
+			url: "/smnsh2/companies/rest/"+companyId,
 			type: "POST",
 			data: {
 				'labelEnumString': labelEnumString
@@ -34,7 +34,7 @@ $(document).ready(function() {
 		});
 
 		$.post(
-			"/smnsh/companies/rest/"+companyId,
+			"/smnsh2/companies/rest/"+companyId,
 			{
 				labelEnumString : labelEnumString
 			},

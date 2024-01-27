@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>SMNSH</title>
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- CSS -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+	<div th:replace="./smnsh2/header" :: header class="sensit-header"></div>
+	<div th:replace="./smnsh2/projects/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
+
+	<div class="container">
+
+		<form action="#" th:action="@{/smnsh2/projects/{id}/stakeholders/add(id=${project.id})}" th:object="${newStakeholder}" method="post">		
+			<div class="card sensit-card">
+				<div class="card-header">
+					<div class="col-12 text-center">
+						<p class="sensit-langPl">DODAWANIE NOWEGO INTERESARIUSZA DO PROJEKTU</p>
+						<p class="sensit-langEn">ADDING NEW newStakeholder TO THE PROJECT</p>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="row">
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title" hidden="true">Stakeholder id</div>
+									<div class="col-8 content">
+										<input type="text" th:field="${newStakeholder.id}" th:value="0" hidden="true"/>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">Imię i nazwisko</div>
+									<div class="col-8 content">
+										<input type="text" class="width25" th:field="${newStakeholder.nameFirst}" placeholder="Imię / First name"/>
+										<input type="text" class="width50" th:field="${newStakeholder.nameLast}" placeholder="Nazwisko / Last name"/>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">Firma</div>
+									<div class="col-8 content">
+										<select th:field="${newStakeholder.company}" class="width75">
+											<option th:value="${newStakeholder.company.id}" th:text="${newStakeholder.company.name}"></option>
+											<option th:each="company : ${companies}" th:value=${company.id} th:text="${company.name}" ></option> 
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">Stanowisko</div>
+									<div class="col-8 content">
+										<input type="text" th:field="${newStakeholder.businessPosition}" class="width75"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">Opis</div>
+									<div class="col-8 content">
+										<textarea th:field="${newStakeholder.description}" class="width75"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">Nr. tel.</div>
+									<div class="col-8 content">
+										<input th:field="${newStakeholder.phoneNumber}" class="width75"></input>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">Email</div>
+									<div class="col-8 content">
+										<input th:field="${newStakeholder.email}" class="width75"></input>
+									</div>
+								</div>
+							</div>
+							
+							<!-- TODO phoneNumbers as hashmap mapping-->
+							<!-- <div class="col-12">
+								<div class="row" th:each="phoneNumberMap : ${newStakeholder.getPhoneNumbers()}">
+									<div class="col-4 title">
+										<label th:for="*{phoneNumbers['__ ${phoneNumberMap.key}__']}" th:text="${phoneNumberMap.key}"></label>
+									</div>
+									<div class="col-8 content">
+										<input type="text" th:fied="*{phoneNumbers['__${phoneNumberMap.value}__']}"/>
+									</div>
+								</div>
+							</div> -->
+
+	
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="row">
+						<div class="col-12 text-right">
+							<button type="submit" class="btn btn-outline-success text-center">
+								<p class="sensit-langPl">DODAJ</p>
+								<p class="sensit-langEn">ADD</p>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div th:replace="./smnsh2/footer" :: footer class="sensit-footer"></div>
+
+</body>
+</html>

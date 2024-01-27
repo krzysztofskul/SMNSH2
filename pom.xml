@@ -9,12 +9,12 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pl.krzysztofskul</groupId>
-	<artifactId>sensit</artifactId>
-	<version>#0.1.SEPTEMBR-FINAL</version>
+	<artifactId>SMNSH2</artifactId>
+	<version>#0.1</version>
 	<name>sensit</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>8</java.version>
+		<java.version>12</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

@@ -27,7 +27,10 @@
 		  <thead>
 		  	<tr>
 		  		<th scope="col">
-		  			<a class="btn btn-sm btn-outline-success" th:href="@{/smnsh/projects/edit?projectId={projectId}&userNameBySpringSecurity={userNameBySpringSecurity}(userNameBySpringSecurity=${#authentication.name},projectId=0)}">+</a>
+		  			<a class="btn btn-sm btn-outline-success" th:href="@{/smnsh/projects/edit?projectId={projectId}&userNameBySpringSecurity={userNameBySpringSecurity}(userNameBySpringSecurity=${#authentication.name},projectId=0)}">
+			      		<p class="sensit-langPl">NOWY PROJEKT</p>
+			      		<p class="sensit-langEn">new project</p>
+				  	</a>
 		  		</th>
 		  	</tr>
 		    <tr>

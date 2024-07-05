@@ -20,7 +20,7 @@ public class SensitController {
 	
 	@GetMapping("/login")
 	public ModelAndView login() {
-		return new ModelAndView("smnsh/login");
+		return new ModelAndView("/smnsh/login");
 	}
 
 }

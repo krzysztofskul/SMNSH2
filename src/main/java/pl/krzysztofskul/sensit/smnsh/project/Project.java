@@ -558,7 +558,7 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 				this.setStatus(status);
 				break;
 			}
-			case EXECUTION: {
+			case IMPLEMENTATION: {
 				this.setStatus(status);
 				this.installation = new Installation(this, new DeviceInstance(this.devicePortfolio, this));
 				break;

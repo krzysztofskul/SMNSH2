@@ -116,7 +116,7 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				project.setContractNo("U-TES-2023-" + new Random().nextInt(99));
 				project.setDevicePortfolio(devicePortfolioGenerator.getRandomDevicePortfolio());
 
-				project.setStatus(Status.EXECUTION);
+				project.setStatus(Status.IMPLEMENTATION);
 				
 				project.addRemark(new Remark(project.getSalesRep(), project.getDateTimeOfCreation().plusSeconds(new Random().nextInt(60*60*24*7)), LoremIpsum.getInstance().getParagraphs(1, 1)));
 				project.addRemark(new Remark(project.getProjectManager(), project.getDateTimeOfCreation().plusSeconds(new Random().nextInt(60*60*24*7)), LoremIpsum.getInstance().getWords(5, 10)));

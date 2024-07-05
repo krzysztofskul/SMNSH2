@@ -23,7 +23,7 @@
 
 	<div class="container">
 		
-		<form action="#" th:action="@{/smnsh/projects/save}" th:object="${project}" method="post">
+		<form action="#" th:action="@{/smnsh/projects/save}" th:object="${project}" method="POST">
 		
 		<div class="card sensit-card">
 			<div class="card-header" th:switch="${project.id}">
@@ -41,7 +41,7 @@
 					<div class="col-4 title">Id projektu</div>
 					<div class="col-8 content">
 						<span id="projectId" th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project.id}"></span>
-						<input type="text" th:if="${project.id} == 0 OR ${edit} == true" th:field="${project.id}" th:value="${project.id}"/>
+						<input type="text" th:if="${project.id} == 0 OR ${edit} == true" th:field="${project.id}" th:value="${project.id}" readonly />
 					</div>
 				</div>
 				<div class="row">
@@ -254,7 +254,9 @@
 					<div class="col-4 title">Status</div>
 					<div class="col-8 content">
 						<!-- <span th:if="${project.id} != 0"  th:text="${project.status.namePl}"/> -->
+						<input  class="width100" type="hidden" th:field="${project.status}"/>
 						<button 
+							type="button"
 							id="btn-undefined"
 							class="btn btn-sm sensit-btn-height btn-status"
 							th:classappend="${project?.status?.nameEn == 'UNDEFINED' ? 'btn-outline-success' : 'btn-outline-dark'}"
@@ -263,6 +265,7 @@
 							<p class="sensit-langEn">undefined</p>
 						</button>
 						<button 
+							type="button"
 							id="btn-precontract"
 							class="btn btn-sm sensit-btn-height btn-status"
 							th:classappend="${project?.status?.nameEn == 'PRE-CONTRACT' ? 'btn-outline-success' : 'btn-outline-dark'}"
@@ -271,6 +274,7 @@
 							<p class="sensit-langEn">pre-contract</p>
 						</button>
 						<button 
+							type="button"
 							id="btn-contract"
 							class="btn btn-sm sensit-btn-height btn-status"
 							th:classappend="${project?.status?.nameEn == 'CONTRACT' ? 'btn-outline-success' : 'btn-outline-dark'}"
@@ -279,14 +283,16 @@
 							<p class="sensit-langEn">contract</p>
 						</button>
 						<button
+							type="button"
 							id="btn-execution"
 							class="btn btn-sm sensit-btn-height btn-status"
-							th:classappend="${project?.status?.nameEn == 'EXECUTION' ? 'btn-outline-success' : 'btn-outline-dark'}"
+							th:classappend="${project?.status?.nameEn == 'IMPLEMENTATION' ? 'btn-outline-success' : 'btn-outline-dark'}"
 							> 
 							<p class="sensit-langPl">REALIZACJA</p>	
-							<p class="sensit-langEn">execution</p>
+							<p class="sensit-langEn">implementation</p>
 						</button>
 						<button 
+							type="button"
 							id="btn-nobid"
 							class="btn btn-sm sensit-btn-height btn-status"
 							th:classappend="${project?.status?.nameEn == 'NO-BID' ? 'btn-outline-success' : 'btn-outline-dark'}"
@@ -295,6 +301,7 @@
 							<p class="sensit-langEn">no-bid</p>
 						</button>
 						<button 
+							type="button"
 							id="btn-completed"
 							class="btn btn-sm sensit-btn-height btn-status"
 							th:classappend="${project?.status?.nameEn == 'COMPLETED' ? 'btn-outline-success' : 'btn-outline-dark'}"

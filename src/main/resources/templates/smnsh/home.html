@@ -23,8 +23,15 @@
 			<h5 class="d-inline-block"><span style="color:#009898">PROJECT & HEALTHCARE</span> <span style="color:#ec6602">APP.</span></h5>
 			<img class="d-inline-block" height="30px" th:src="@{/pics/logo-smnsh.svg}"/>	
 		</div>
+		<div class="sensit-welcome-button">
+			<a class="btn btn-sm text-primary border" th:href="@{/smnsh/projects/user/springsecurityname/{userNameBySpringSecurity}(userNameBySpringSecurity=${#authentication.name})}" sec:authorize="isAuthenticated()">
+				<p class="sensit-langPl">MOJE PROJEKTY</p>
+				<p class="sensit-langEn">MY PROJECTS</p>
+			</a>
+		</div>
 	</div>
 	
+
 
 	
 	<div th:replace="./smnsh/footer" :: footer class="sensit-footer"></div>

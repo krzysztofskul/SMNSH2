@@ -61,6 +61,10 @@
 	padding-top: 0;
 }
 
+.sensit-welcome-button {
+	margin-top: 50px;
+}
+
 .sensit-attachment-thumbnail {
 	display: inline-block;
 	width: 75px;
@@ -69,7 +73,7 @@
 	color: #ec6602;
 }
 
-.-sensit-error {
+.sensit-error {
     color: red;
     font-size: 12px;
     font-style: italic;

@@ -22,6 +22,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import pl.krzysztofskul.sensit.smnsh.company.Company;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.Attachment;
 import pl.krzysztofskul.sensit.smnsh.project.device.Device;
@@ -111,7 +113,8 @@ public class Project /*TODO 2023-06-26 1555 implement serializable? also for rel
 	private Company subcontractorForRoomAdaptation;
 	private String designer;
 	
-	private LocalDate deadline = LocalDate.now().plusMonths(3);
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate deadline = LocalDate.now();
 	
 	private Status status = Status.UNDEFINED;
 	

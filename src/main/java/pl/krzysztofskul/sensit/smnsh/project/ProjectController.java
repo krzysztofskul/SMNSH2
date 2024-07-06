@@ -36,6 +36,9 @@ import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategory;
 import pl.krzysztofskul.sensit.smnsh.project.attachment.AttachmentCategoryService;
 import pl.krzysztofskul.sensit.smnsh.project.device.DevicePortfolio;
 import pl.krzysztofskul.sensit.smnsh.project.device.modality.DevicePortfolioService;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneStatusEnum;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplate;
+import pl.krzysztofskul.sensit.smnsh.project.milestone.MilestoneTemplateGenerator;
 import pl.krzysztofskul.sensit.smnsh.project.remark.Remark;
 import pl.krzysztofskul.sensit.smnsh.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.sensit.smnsh.user.User;
@@ -51,6 +54,7 @@ public class ProjectController {
 	private CompanyService companyService;
 	private UserService userService;
 	private DevicePortfolioService devicePortfolioService;
+	private MilestoneTemplateGenerator milestoneTemplateGenerator; 
 	
 	/**
 	 * CONSTRUCTOR
@@ -61,13 +65,15 @@ public class ProjectController {
 			AttachmentCategoryService attachmentCategoryService,
 			CompanyService companyService,
 			UserService userService,
-			DevicePortfolioService devicePortfolioService
+			DevicePortfolioService devicePortfolioService,
+			MilestoneTemplateGenerator milestoneTemplateGenerator
 			) {
 		this.projectService = projectService;
 		this.attachmentCategoryService = attachmentCategoryService;
 		this.companyService = companyService;
 		this.userService = userService;
 		this.devicePortfolioService = devicePortfolioService;
+		this.milestoneTemplateGenerator = milestoneTemplateGenerator;
 	}
 	
 	@ModelAttribute(name = "investorList")
@@ -111,7 +117,7 @@ public class ProjectController {
 		if (projectId == 0) {
 			project = new Project();	
 			project.setDateTimeOfCreation(LocalDateTime.now());
-			project.setDeadline(project.getDateTimeOfCreation().plusMonths(3).toLocalDate());
+			//project.setDeadline(project.getDateTimeOfCreation().plusMonths(3).toLocalDate());
 			if (userNameBySpringSecurity != null) {
 				User user = userService.loadByUserSpringSecurityName(userNameBySpringSecurity);
 				if (user.getBusinessPosition() == UserBusinessPosition.PROJECT_MANAGER) {
@@ -133,7 +139,16 @@ public class ProjectController {
 				@ModelAttribute("project") @Validated Project project, BindingResult result,
 				HttpSession httpSession
 			) {
-		
+		if (project.getMilestones().size() == 0) {
+			List<MilestoneTemplate> milestoneTemplateList = milestoneTemplateGenerator.initDataAndReturn();
+			for (MilestoneTemplate milestoneTemplate : milestoneTemplateList) {
+				switch (milestoneTemplate.getNameEn()) {
+				default:
+					project.addMilestoneFromTemplate(milestoneTemplate, project.getDeadline().minusDays(7), MilestoneStatusEnum.WAITING);
+				}
+				
+			}
+		}
 		project = projectService.saveAndReturn(project);
 		return "redirect:/smnsh/projects/"+project.getId();
 	}

@@ -247,14 +247,14 @@
 					<div class="col-4 title">Termin realizacji</div>
 					<div class="col-8 content">
 						<span th:if="${project.id} != 0 AND ${edit} != true"  th:text="${project?.deadline}"/>
-						<input  class="width100" type="text" th:if="${project.id} == 0 OR ${edit} == true"  th:field="${project.deadline}"/>
+							<input class="width100" type="date" th:if="${project.id} == 0 OR ${edit} == true"  th:field="${project.deadline}" th:value="${{project.deadline}}"/>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-4 title">Status</div>
-					<div class="col-8 content">
+					<div class="col-4 title" th:if="${project.id} != 0 AND ${edit} != true">Status</div>
+					<input  class="width100" type="hidden" th:field="${project.status}"/>
+					<div class="col-8 content" th:if="${project.id} != 0 AND ${edit} != true">
 						<!-- <span th:if="${project.id} != 0"  th:text="${project.status.namePl}"/> -->
-						<input  class="width100" type="hidden" th:field="${project.status}"/>
 						<button 
 							type="button"
 							id="btn-undefined"

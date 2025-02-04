@@ -292,7 +292,7 @@ public class ProjectController {
 	
 	@GetMapping("/projects/user/springsecurityname/{userNameBySpringSecurity}")
 	public String getProjectsByUserName(
-				@PathVariable String userNameBySpringSecurity
+				@PathVariable (name = "userNameBySpringSecurity") String userNameBySpringSecurity
 			) {
 		String userNameFirst = userNameBySpringSecurity.split("_")[0];
 		String userNameLast = userNameBySpringSecurity.split("_")[1];

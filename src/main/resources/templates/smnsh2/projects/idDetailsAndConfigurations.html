@@ -69,14 +69,15 @@
 						<!-- HTML form with two inputs: path and file (name) -->
 						
 						<form method="POST" enctype="multipart/form-data" th:action="@{/smnsh2/projects/{id}/configurationLinks(id=${project.id})}">
+							<p>in progress..</p>
 
-							<input type="text" name="filePath" class="form-control-sm width50 border" placeholder="link: ścieżka dostępu do pliku"/>
+							<input type="text" name="filePath" class="form-control-sm width50 border d-none" placeholder="link: ścieżka dostępu do pliku"/>
 							<!--
 							<input type="text" name="fileName" disabled class="form-control-sm"/>
 							-->
-							<input type="file" name="multipartFile" class="form-control-sm"/>
-							<input type="submit" value="+" class="btn btn-sm btn-outline-success"/>
-							<p class="font-italic width50 text-muted">wklej link : ścieżkę dostępu do katalogu, w którym znajduje się wybierany plik (przeglądaj... -> wybrany plik ->  prawy przycisk myszy -> właściwości -> lokalizacja -> ctrl-c -> otwórz -> ctrl-v -> +)</p>
+							<input type="file" name="multipartFile" class="form-control-sm d-none"/>
+							<input type="submit" value="+" class="btn btn-sm btn-outline-success d-none"/>
+							<p class="font-italic width50 text-muted d-none">wklej link : ścieżkę dostępu do katalogu, w którym znajduje się wybierany plik (przeglądaj... -> wybrany plik ->  prawy przycisk myszy -> właściwości -> lokalizacja -> ctrl-c -> otwórz -> ctrl-v -> +)</p>
 						</form>
 					</div>
 
@@ -92,7 +93,9 @@
 					<div class="card-body">
 						<p th:each="training : ${project?.installation?.deviceInstance?.trainingList}" th:text="${training.description}"></p>
 					</div>
-					<div class="card-footer"></div>
+					<div class="card-footer">
+						<p>in progress..</p>
+					</div>
 				</div>
 			</div>
 			

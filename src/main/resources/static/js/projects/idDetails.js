@@ -12,7 +12,7 @@ $(document).ready(function() {
 		btnStatus.on("click", function() {
 			//alert("projectId: "+projectId+"\nbtn-status id attr.: "+$(this).attr("id"));
 			$.ajax({
-			    type: 'POST',
+			    type: 'PUT',
 			    url: '/smnsh2/restapi/projects/'+projectId,
 			    data: { 
 			        'btn-status': $(this).attr("id") 

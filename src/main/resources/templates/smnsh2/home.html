@@ -13,18 +13,23 @@
 	
 	<!-- CSS -->
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
+	<!-- JS -->
+	<script th:src="@{/js/home.js}"></script>
 </head>
 <body>
 
 	<div th:replace="./smnsh2/header" :: header class="sensit-header"></div>
 	
-	<div class="container text-center pt-5" style="min-height:250px">
+	<div class="container text-center pt-5" style="min-height:100px">
 		<div class="logo">
 			<h5 class="d-inline-block"><span style="color:#009898">PROJECT & HEALTHCARE</span> <span style="color:#ec6602">APP.</span></h5>
 			<img class="d-inline-block" height="30px" th:src="@{/pics/logo-smnsh.svg}"/>	
 		</div>
 	</div>
-	
+
+	<div style="text-align: center;">
+	    <img id="homepage-image" src="/pics/homepage/homepage01.jpg" alt="Slideshow Image">
+	</div>
 
 	
 	<div th:replace="./smnsh2/footer" :: footer class="sensit-footer"></div>

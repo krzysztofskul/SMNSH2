@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>pl.krzysztofskul</groupId>
 	<artifactId>SMNSH2</artifactId>
-	<version>#0.3-SNAPSHOT</version>
-	<name>sensit</name>
+	<version>#0.3-RC</version>
+	<name>SMNSH APP.</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>12</java.version>

@@ -1,0 +1,9 @@
+@charset "UTF-8";
+
+#homepage-image {
+    display: block;
+    margin: 0 auto 75px auto; /* 20px odstępu pod obrazem */
+    transition: opacity 0.5s ease-in-out;
+    max-width: 50%;
+    height: auto;
+}

@@ -2,6 +2,7 @@
 
 @import url(./style-cards.css);
 @import url(./tooltip.css);
+@import url(./home.css);
 
 .sensit-test {
 	background-color: yellow;

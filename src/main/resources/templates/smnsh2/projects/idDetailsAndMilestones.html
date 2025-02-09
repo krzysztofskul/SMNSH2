@@ -33,7 +33,7 @@
 				</div>
 				<div class="row">
 					<div class="col-12 text-right">
-						<a th:href="@{/smnsh2/projects/{projectId}/milestones/instances/new(projectId=${project.id})}" 
+						<a th:href="@{/smnsh/projects/{projectId}/milestones/instances/new(projectId=${project.id})}" 
 							class="btn btn-outline-success text-center"
 							th:classappend="${milestoneInstanceNew} != null ? 'disabled'"
 						>
@@ -51,7 +51,7 @@
 				
 				<!-- THE NEW MILESTONE FORM -->
 				<div class="container border border-success m-1 p-3" th:if="${milestoneInstanceNew != null}">
-					<form action="#" th:action="@{/smnsh2/projects/{projectId}/milestones/instances/new(projectId=${project.id})}" method="post" th:object="${milestoneInstanceNew}">
+					<form action="#" th:action="@{/smnsh/projects/{projectId}/milestones/instances/new(projectId=${project.id})}" method="post" th:object="${milestoneInstanceNew}">
 					<div class="card border-0">
 						<div class="row">
 							<input type="text" th:field="*{id}" hidden="true"/>

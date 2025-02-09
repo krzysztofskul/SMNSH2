@@ -3,6 +3,7 @@ package pl.krzysztofskul.smnsh2.project;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ public class ProjectControllerRest {
 		this.projectService = projectService;
 	}
 	
-	@PostMapping("/projects/{id}")
+	@PutMapping("/projects/{id}")
 	public void testPost(@PathVariable Long id, @RequestParam(name = "btn-status") String status) {
 		Project project = projectService.loadById(id);
 		

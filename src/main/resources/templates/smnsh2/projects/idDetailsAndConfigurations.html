@@ -29,25 +29,27 @@
 						<div th:each="configurationDevice : ${project?.installation?.deviceInstance?.configurationDeviceList}">
 							<div th:unless="${#lists.isEmpty(configurationDevice?.partList)}">
 								<div class="row border-top mt-4">
-									<div class="col-3">
-										<p class="sensit-langPl">ZAIMPORTOWANA KONFIGURACJA:</p>
-										<p class="sensit-langEn">configuration imported:</p>
+									<div class="col-4">
+										<p class="sensit-langPl">KONFIGURACJA:</p>
+										<p class="sensit-langEn">configuration:</p>
 									</div>
 									<div class="col-3">
 										<p th:text="${configurationDevice?.name}"></p>
 									</div>
+										<!--
 									<div class="col-2">
 										<div>
 											<a th:href="${configurationDevice?.linkToHdd}" target="_blank" class="align-middle pt-2 text-sm">LINK >>></a>
 										</div>
 									</div>
-									<div class="col-2">
+									-->
+									<div class="col-3">
 										<div>
 											<p th:text="${configurationDevice?.created}"></p>
 										</div>
 									</div>
 									<div class="col-2">
-										<a th:href="@{/smnsh2/projects/{projectId}/configurations/delete(projectId=${project.id},configurationDeviceId=${configurationDevice.id})}" class="btn btn-sn btn-outline-danger">
+										<a th:href="@{/smnsh2/projects/{projectId}/configurations/delete(projectId=${project.id},configurationDeviceId=${configurationDevice.id})}" class="btn btn-sm btn-outline-danger">
 											<p class="sensit-langPl">USUŃ</p>
 											<p class="sensit-langEn">delete</p>
 										</a>
@@ -65,19 +67,24 @@
 						<!--
 						<a th:href="@{/smnsh2/projects/{id}/configurations/new(id=${project.id})}" class="btn btn-sm btn-outline-success">+</a>
 						-->
-
+						
 						<!-- HTML form with two inputs: path and file (name) -->
 						
 						<form method="POST" enctype="multipart/form-data" th:action="@{/smnsh2/projects/{id}/configurationLinks(id=${project.id})}">
-							<p>in progress..</p>
-
-							<input type="text" name="filePath" class="form-control-sm width50 border d-none" placeholder="link: ścieżka dostępu do pliku"/>
+							
+							<input type="text" name="filePath" class="form-control-sm width75 border" placeholder="link/ścieżka dostępu do pliku"/>
+							<input type="text" name="fileName" disabled class="form-control-sm d-none"/>
+							
+							<input type="file" name="multipartFile" class="form-control-sm"/>
+							<input type="submit" value="+" class="btn btn-sm btn-outline-success"/>
 							<!--
-							<input type="text" name="fileName" disabled class="form-control-sm"/>
+							<hr>
+							<p class="font-italic width100 text-muted">
+								Aby móc pózniej pobrać plik z poziomu aplikacji, podczas wgrywania pliku, wklej jego link/ścieżkę dostępu do katalogu:<br>
+								(przeglądaj... -> wybrany plik ->  prawy przycisk myszy -> właściwości/properties -> 
+								lokalizacja/location -> ctrl-c -> otwórz/open -> ctrl-v)
+							</p>
 							-->
-							<input type="file" name="multipartFile" class="form-control-sm d-none"/>
-							<input type="submit" value="+" class="btn btn-sm btn-outline-success d-none"/>
-							<p class="font-italic width50 text-muted d-none">wklej link : ścieżkę dostępu do katalogu, w którym znajduje się wybierany plik (przeglądaj... -> wybrany plik ->  prawy przycisk myszy -> właściwości -> lokalizacja -> ctrl-c -> otwórz -> ctrl-v -> +)</p>
 						</form>
 					</div>
 
@@ -88,13 +95,10 @@
 				<div class="card sensit-card">
 					<div class="card-header">
 						<p class="sensit-langPl">SZKOLENIA</p>
-						<p class="sensit-langEn">trainings</p>
+						<p class="sensit-langEn">training</p>
 					</div>
 					<div class="card-body">
 						<p th:each="training : ${project?.installation?.deviceInstance?.trainingList}" th:text="${training.description}"></p>
-					</div>
-					<div class="card-footer">
-						<p>in progress..</p>
 					</div>
 				</div>
 			</div>

@@ -69,7 +69,7 @@ public class Smnsh2Controller {
 	@GetMapping("/initData")
 	public String initDemoData() {
 		
-		if (isInitDataDone == false) {
+		if (userService.loadAll().size() == 0) {
 			
 			System.out.println("Data initialization to databse has started...");
 			

@@ -17,12 +17,16 @@
 
 	<div class="container">
 
-		<form action="#" th:action="@{/smnsh2/projects/{id}/stakeholders/add(id=${project.id})}" th:object="${newStakeholder}" method="post">		
+		<form action="#" th:action="@{/smnsh2/projects/{id}/stakeholders/save (id=${project.id})}" th:object="${stakeholder}" method="post">		
 			<div class="card sensit-card">
 				<div class="card-header">
-					<div class="col-12 text-center">
-						<p class="sensit-langPl">DODAWANIE NOWEGO INTERESARIUSZA DO PROJEKTU</p>
-						<p class="sensit-langEn">ADDING NEW newStakeholder TO THE PROJECT</p>
+					<div th:if="${edit == null} or ${edit == false}" class="col-12 text-center">
+						<p class="sensit-langPl">FORMULARZ DODAWANIA NOWEGO INTERESARIUSZA DO PROJEKTU</p>
+						<p class="sensit-langEn">ADD NEW STAKEHOLDER TO THE PROJECT FORM</p>
+					</div>
+					<div th:if="${edit != null} and ${edit == true}" class="col-12 text-center">
+						<p class="sensit-langPl">FORMULARZ EDYCJI INTERESARIUSZA PROJEKTU</p>
+						<p class="sensit-langEn">EDIT STAKEHOLDER OF THE PROJECT FORM</p>
 					</div>
 				</div>
 				<div class="card-body">
@@ -31,7 +35,7 @@
 								<div class="row input-group mb-1">
 									<div class="col-4 title" hidden="true">Stakeholder id</div>
 									<div class="col-8 content">
-										<input type="text" th:field="${newStakeholder.id}" th:value="0" hidden="true"/>
+										<input type="text" th:field="${stakeholder.id}" th:value="0" hidden="true"/>
 									</div>
 								</div>
 							</div>
@@ -40,8 +44,8 @@
 								<div class="row input-group mb-1">
 									<div class="col-4 title">Imię i nazwisko</div>
 									<div class="col-8 content">
-										<input type="text" class="width25" th:field="${newStakeholder.nameFirst}" placeholder="Imię / First name"/>
-										<input type="text" class="width50" th:field="${newStakeholder.nameLast}" placeholder="Nazwisko / Last name"/>
+										<input type="text" class="width25" th:field="${stakeholder.nameFirst}" placeholder="Imię / First name"/>
+										<input type="text" class="width50" th:field="${stakeholder.nameLast}" placeholder="Nazwisko / Last name"/>
 									</div>
 								</div>
 							</div>
@@ -50,8 +54,8 @@
 								<div class="row input-group mb-1">
 									<div class="col-4 title">Firma</div>
 									<div class="col-8 content">
-										<select th:field="${newStakeholder.company}" class="width75">
-											<option th:value="${newStakeholder.company.id}" th:text="${newStakeholder.company.name}"></option>
+										<select th:field="${stakeholder.company}" class="width75">
+											<option th:value="${stakeholder.company.id}" th:text="${stakeholder.company.name}"></option>
 											<option th:each="company : ${companies}" th:value=${company.id} th:text="${company.name}" ></option> 
 										</select>
 									</div>
@@ -61,7 +65,7 @@
 								<div class="row input-group mb-1">
 									<div class="col-4 title">Stanowisko</div>
 									<div class="col-8 content">
-										<input type="text" th:field="${newStakeholder.businessPosition}" class="width75"/>
+										<input type="text" th:field="${stakeholder.businessPosition}" class="width75"/>
 									</div>
 								</div>
 							</div>
@@ -69,7 +73,7 @@
 								<div class="row input-group mb-1">
 									<div class="col-4 title">Opis</div>
 									<div class="col-8 content">
-										<textarea th:field="${newStakeholder.description}" class="width75"></textarea>
+										<textarea th:field="${stakeholder.description}" class="width75"></textarea>
 									</div>
 								</div>
 							</div>
@@ -77,7 +81,7 @@
 								<div class="row input-group mb-1">
 									<div class="col-4 title">Nr. tel.</div>
 									<div class="col-8 content">
-										<input th:field="${newStakeholder.phoneNumber}" class="width75"></input>
+										<input th:field="${stakeholder.phoneNumber}" class="width75"></input>
 									</div>
 								</div>
 							</div>
@@ -85,14 +89,14 @@
 								<div class="row input-group mb-1">
 									<div class="col-4 title">Email</div>
 									<div class="col-8 content">
-										<input th:field="${newStakeholder.email}" class="width75"></input>
+										<input th:field="${stakeholder.email}" class="width75"></input>
 									</div>
 								</div>
 							</div>
 							
 							<!-- TODO phoneNumbers as hashmap mapping-->
 							<!-- <div class="col-12">
-								<div class="row" th:each="phoneNumberMap : ${newStakeholder.getPhoneNumbers()}">
+								<div class="row" th:each="phoneNumberMap : ${stakeholder.getPhoneNumbers()}">
 									<div class="col-4 title">
 										<label th:for="*{phoneNumbers['__ ${phoneNumberMap.key}__']}" th:text="${phoneNumberMap.key}"></label>
 									</div>
@@ -108,9 +112,13 @@
 				<div class="card-footer">
 					<div class="row">
 						<div class="col-12 text-right">
+							<a th:href="@{/smnsh2/projects/{id}/stakeholders (id = ${project.id}) }" class="btn btn-outline-warning text-center float-left">
+								<p class="sensit-langPl">ANULUJ</p>
+								<p class="sensit-langEn">CANCEL</p>
+							</a>
 							<button type="submit" class="btn btn-outline-success text-center">
-								<p class="sensit-langPl">DODAJ</p>
-								<p class="sensit-langEn">ADD</p>
+								<p class="sensit-langPl">ZAPISZ</p>
+								<p class="sensit-langEn">SAVE</p>
 							</button>
 						</div>
 					</div>

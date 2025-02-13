@@ -20,9 +20,10 @@ Version **#0.3** has been created to test and demonstrate an idea of the project
 **TODO:**  
 * create edit milestone functionality  
 * create guest user  
-* create start page for logged user
+* create start page for logged user  
 * update functionality which allows to manage stakeholders  
-* update functionality which allows to manage remarks
+* update functionality which allows to read training while upload configuration file without location link  
+* update functionality which allows to save configuration to database while editing project data  
 * update init data functionality:
      * essential data  
      * test/demo data  

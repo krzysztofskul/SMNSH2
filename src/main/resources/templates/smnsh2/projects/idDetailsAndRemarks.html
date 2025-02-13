@@ -58,6 +58,17 @@
 							<div class="col-8 content"><span th:text="${remark.text}" style="white-space: pre-line"/></div>
 						</div>
 					</div>
+					<div class="col-12">
+						<div class="row">
+							<div class="col-4 title"></div>
+							<div class="col-8 content">
+								<a th:href="@{/remarks/delete/{remarkId}?backToPage=/smnsh2/projects/{projectId}/remarks (remarkId=${remark.id},projectId=${remark.project.id})}" class="btn btn-sm btn-outline-danger float-right">
+									<p class="sensit-langPl">USUŃ</p>
+									<p class="sensit-langEn">DEL</p>
+								</a>
+							</div>
+						</div>
+					</div>
 	
 				</div>
 				
@@ -103,10 +114,8 @@
 							</div>
 						</div>
 					</div>
-				<!-- *** END NEW REMARK FORM FIELDS -->
-				<!-- *** -->
-				
 				</div>
+				
 			</div>
 			<div class="card-footer">
 				<div class="row">
@@ -114,6 +123,10 @@
 						<a th:if="${newRemark == null}" th:href="@{/smnsh2/projects/{projectId}/remarks(projectId=${project.id}, edit=true, author=${#authentication.name})}" class="btn btn-outline-success text-center">
 							<p class="sensit-langPl">DODAJ</p>
 							<p class="sensit-langEn">ADD</p>
+						</a>
+						<a th:if="${newRemark != null}" th:href="@{/smnsh2/projects/{projectId}/remarks(projectId=${project.id})}" class="btn btn-outline-warning float-left">
+							<p class="sensit-langPl">ANULUJ</p>
+							<p class="sensit-langEn">CANCEL</p>
 						</a>
 						<button th:if="${newRemark != null}" type="submit" class="btn btn-outline-success text-center">
 							<p class="sensit-langPl">ZAPISZ</p>

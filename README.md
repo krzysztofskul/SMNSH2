@@ -7,11 +7,12 @@ SMNSH2 is a SpringBoot version of the SMNSH application. "Inspired by real life 
 Version **#0.3** has been created to test and demonstrate an idea of the project management application as well as consult a possibility to implement for usage across the team. Demo version for testing is deployed at railway.com: [https://smnsh2-production.up.railway.app](https://smnsh2-production.up.railway.app)
 
 #### TECHNOLOGY
-* Java/SpringBoot  
+* Java/SpringBoot
+* SpringSecurity  
 * MySQL/Hibernate  
 * JavaScript/jQuery/Ajax  
 * Thymelyeaf/Bootstrap
-* ChatGPT  
+* OpenAI/ChatGPT  
 
 #### PROJECT STATUS AND TODO'S
 
@@ -19,11 +20,14 @@ Version **#0.3** has been created to test and demonstrate an idea of the project
 
 **TODO:**  
 * create edit milestone functionality  
-* create guest user  
+* ~~create guest user~~  
 * create start page for logged user  
-* update functionality which allows to manage stakeholders  
-* update functionality which allows to read training while upload configuration file without location link  
-* update functionality which allows to save configuration to database while editing project data  
+    * my projects button  
+    * my profile button  
+* update import configuration functionality
+	* rewrite code for import data  
+		* read data without configuration link/location  
+	* separate configuration and training  
 * update init data functionality:
      * essential data  
      * test/demo data  

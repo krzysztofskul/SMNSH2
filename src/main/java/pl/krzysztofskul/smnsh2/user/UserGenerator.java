@@ -107,5 +107,20 @@ public class UserGenerator {
     	return userListEssential;
 
     }
-	   
+	
+    /**
+     * Creates guest user.
+     * 
+     * @return User
+     */
+    public User createUserGuest() {
+    	User user = new User();
+    	user.setNameFirst("User");
+    	user.setNameLast("Guest.");
+    	user.setBusinessPosition(UserBusinessPosition.PROJECT_MANAGER);
+    	user.setEmail("userguest@example.com");
+    	user.setPassword("test");
+    	return user;
+    }
+    
 }

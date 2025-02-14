@@ -20,7 +20,7 @@ Version **#0.3** has been created to test and demonstrate an idea of the project
 
 **TODO:**  
 * create edit milestone functionality  
-* create guest user  
+* ~~create guest user~~  
 * create start page for logged user  
     * my projects button  
     * my profile button  

@@ -65,6 +65,7 @@ import pl.krzysztofskul.smnsh2.project.milestone.MilestoneTemplate;
 import pl.krzysztofskul.smnsh2.project.milestone.MilestoneTemplateGenerator;
 import pl.krzysztofskul.smnsh2.project.remark.Remark;
 import pl.krzysztofskul.smnsh2.project.stakeholder.Stakeholder;
+import pl.krzysztofskul.smnsh2.project.stakeholder.StakeholderService;
 import pl.krzysztofskul.smnsh2.project.training.Training;
 import pl.krzysztofskul.smnsh2.user.User;
 import pl.krzysztofskul.smnsh2.user.UserBusinessPosition;
@@ -83,6 +84,7 @@ public class ProjectController {
 	private MilestoneService milestoneService;
 	private ConfigurationDeviceService configurationDeviceService;
 	private LoggerService loggerService;
+	private StakeholderService stakeholderService;
 	
 	/**
 	 * CONSTRUCTOR
@@ -97,7 +99,8 @@ public class ProjectController {
 			FileSelector fileSelector,
 			MilestoneService milestoneService,
 			ConfigurationDeviceService configurationDeviceService,
-			LoggerService loggerService
+			LoggerService loggerService,
+			StakeholderService stakeholderService
 			) {
 		this.projectService = projectService;
 		this.attachmentCategoryService = attachmentCategoryService;
@@ -108,6 +111,7 @@ public class ProjectController {
 		this.milestoneService = milestoneService;
 		this.configurationDeviceService = configurationDeviceService;
 		this.loggerService = loggerService;
+		this.stakeholderService = stakeholderService;
 	}
 	
 	@ModelAttribute(name = "investorList")
@@ -309,28 +313,32 @@ public class ProjectController {
 				@PathVariable Long id,
 				Model model
 			) {
-		Stakeholder newStakeholder = new Stakeholder(projectService.loadById(id));
+		Stakeholder stakeholder = new Stakeholder(projectService.loadById(id));
 		Project project = projectService.loadByIdWithStakeholders(id);
-		newStakeholder.setCompany(project.getInvestor());
+		stakeholder.setCompany(project.getInvestor());
 		model.addAttribute("project", project);
-		model.addAttribute("newStakeholder", newStakeholder);
+		model.addAttribute("stakeholder", stakeholder);
 		model.addAttribute("companies", companyService.loadAllSubcontrsctorsForRoomAdaptation());
 		return "smnsh2/projects/forms/addStakeholderForm";
 	}
 	
-	@PostMapping("/projects/{id}/stakeholders/add")
+	@PostMapping("/projects/{id}/stakeholders/save")
 	public String postAddStakeholderForm(
 				@PathVariable Long id,
-				Stakeholder newStakeholder,
+				Stakeholder stakeholder,
 				Model model
 			) {
 
+		if (stakeholder.getId() != null && stakeholder.getId() != 0) {
+			stakeholderService.save(stakeholder);
+		}
+		
 		Project project = projectService.loadByIdWithStakeholders(id);
-		project.addStakeholder(newStakeholder);
+		project.addStakeholder(stakeholder);
 		project = projectService.saveAndReturn(project);
 		
 		model.addAttribute("project", project);
-		return "smnsh2/projects/idDetailsAndStakeholders";
+		return "redirect:/smnsh2/projects/"+project.getId()+"/stakeholders";
 	}
 	
 	/*

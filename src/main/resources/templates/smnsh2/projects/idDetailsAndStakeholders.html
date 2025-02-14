@@ -84,14 +84,14 @@
 						-->
 					</div>
 					<div class="col-4 text-right">
-						<button class="btn btn-sm btn-outline-primary sensit-btn-height disabled">
+						<a th:href="@{/smnsh2/stakeholders/edit/{id} (id = ${stakeholder.id}) }" class="btn btn-sm btn-outline-primary sensit-btn-height">
 							<p class="sensit-langPl">EDYTUJ</p>	
 							<p class="sensit-langEn">edit</p>	
-						</button>
-						<button class="btn btn-sm btn-outline-danger sensit-btn-height disabled">
+						</a>
+						<a th:href="@{/smnsh2/stakeholders/delete/{id}?backToPage=/smnsh2/projects/{projectId}/stakeholders (id = ${stakeholder.id}, projectId =${project.id})}" class="btn btn-sm btn-outline-danger sensit-btn-height">
 							<p class="sensit-langPl">USUŃ</p>	
 							<p class="sensit-langEn">del</p>
-						</button>
+						</a>
 					</div>
 					
 				</div>
@@ -99,7 +99,7 @@
 			<div class="card-footer">
 				<div class="row">
 					<div class="col-12 text-right">
-						<a href="#" th:href="@{/smnsh2/projects/{id}/stakeholders/add(id=${project.id})}" class="btn btn-outline-success text-center">
+						<a href="#" th:href="@{/smnsh2/projects/{id}/stakeholders/add (id=${project.id})}" class="btn btn-outline-success text-center">
 							<p class="sensit-langPl">DODAJ</p>
 							<p class="sensit-langEn">ADD</p>
 						</a>

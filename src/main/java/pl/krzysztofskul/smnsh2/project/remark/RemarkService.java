@@ -30,4 +30,8 @@ public class RemarkService {
 		remarkRepo.save(remark);
 	}
 	
+	public void deleteById(Long remarkId) {
+		remarkRepo.deleteById(remarkId);
+	}
+	
 }

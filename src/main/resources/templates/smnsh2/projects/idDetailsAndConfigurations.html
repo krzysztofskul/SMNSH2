@@ -49,7 +49,7 @@
 										</div>
 									</div>
 									<div class="col-2">
-										<a th:href="@{/smnsh2/projects/{projectId}/configurations/delete(projectId=${project.id},configurationDeviceId=${configurationDevice.id})}" class="btn btn-sm btn-outline-danger">
+										<a th:href="@{/smnsh2/projects/{projectId}/configurations/delete(projectId=${project.id},configurationDeviceId=${configurationDevice.id})}" class="btn btn-sm btn-outline-danger float-right">
 											<p class="sensit-langPl">USUŃ</p>
 											<p class="sensit-langEn">delete</p>
 										</a>
@@ -67,16 +67,17 @@
 						<!--
 						<a th:href="@{/smnsh2/projects/{id}/configurations/new(id=${project.id})}" class="btn btn-sm btn-outline-success">+</a>
 						-->
-						
-						<!-- HTML form with two inputs: path and file (name) -->
-						
+						<!-- HTML form with two inputs: path (option) and file/name -->
 						<form method="POST" enctype="multipart/form-data" th:action="@{/smnsh2/projects/{id}/configurationLinks(id=${project.id})}">
-							
+							<!-- Needed if application will store a link to a file on hdd
 							<input type="text" name="filePath" class="form-control-sm width75 border" placeholder="link/ścieżka dostępu do pliku"/>
+							-->
 							<input type="text" name="fileName" disabled class="form-control-sm d-none"/>
-							
 							<input type="file" name="multipartFile" class="form-control-sm"/>
-							<input type="submit" value="+" class="btn btn-sm btn-outline-success"/>
+							<button type="submit"  class="btn btn-sm btn-outline-success">
+								<p class="sensit-langPl">IMPORTUJ Z XLS</p>
+								<p class="sensit-langEn">IMPORT FROM XLS</p>
+							</button>
 							<!--
 							<hr>
 							<p class="font-italic width100 text-muted">
@@ -89,20 +90,7 @@
 					</div>
 
 				</div>
-			</div>
-			
-			<div class="col">
-				<div class="card sensit-card">
-					<div class="card-header">
-						<p class="sensit-langPl">SZKOLENIA</p>
-						<p class="sensit-langEn">training</p>
-					</div>
-					<div class="card-body">
-						<p th:each="training : ${project?.installation?.deviceInstance?.trainingList}" th:text="${training.description}"></p>
-					</div>
-				</div>
-			</div>
-			
+			</div>			
 		</div>
 		
 	</div>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>SMNSH</title>
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- CSS -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+	<div th:replace="./smnsh2/header" :: header class="sensit-header"></div>
+	<div th:replace="./smnsh2/projects/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
+
+	<div class="container">
+
+			<form action="#" th:action="@{|/smnsh2/training/${training.id}|}" th:object="${training}" method="post">		
+			<div class="card sensit-card">
+				<div class="card-header">
+					<div th:if="${edit == null} or ${edit == false}" class="col-12 text-center">
+						<p class="sensit-langPl">FORMULARZ DODAWANIA NOWEGO SZKOLENIA</p>
+						<p class="sensit-langEn">ADD NEW TRAINING TO THE PROJECT</p>
+					</div>
+					<div th:if="${edit != null} and ${edit == true}" class="col-12 text-center">
+						<p class="sensit-langPl">FORMULARZ EDYCJI SZKOLENIA</p>
+						<p class="sensit-langEn">EDIT TRAINING</p>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-12">
+							<div class="row input-group mb-1">
+								<div class="col-4 title">
+									<p class="sensit-langPl">ID</p>
+									<p class="sensit-langEn">ID</p>
+									
+								</div>
+								<div class="col-8 content">
+									<p th:if="${edit == null OR edit == 'false'}" th:text="${training.id}"></p>
+									<input th:if="${edit == 'true'}" class="width100" type="text" th:field="${training.id}" readonly/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="row input-group mb-1">
+								<div class="col-4 title">
+									<p class="sensit-langPl">PROJEKT</p>
+									<p class="sensit-langEn">PROJECT</p>
+									
+								</div>
+								<div class="col-8 content">
+									<p th:if="${edit == null OR edit == 'false'}" th:text="${training.project.code+' | '+training.project.name}"></p>
+									<input th:if="${edit == 'true'}" class="width100" type="text" th:field="${training.project.id}" readonly/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="row input-group mb-1">
+								<div class="col-4 title">
+									<p class="sensit-langPl">NAZWA SZKOLENIA</p>
+									<p class="sensit-langEn">TRAINING TITLE</p>
+								</div>
+								<div class="col-8 content">
+									<p th:if="${edit == null OR edit == 'false'}" th:text="${training.description}"></p>
+									<input th:if="${edit == 'true'}"  class="width100" type="text" th:field="${training.description}"></input>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="row input-group mb-1">
+								<div class="col-4 title">
+									<p class="sensit-langPl">LICZBA DNI SZKOLENIA</p>
+									<p class="sensit-langEn">DAYS OF TRAINING</p>
+								</div>
+								<div class="col-8 content">
+									<p th:if="${edit == null OR edit == 'false'}" th:text="${training.amountOfDays}"></p>
+									<input th:if="${edit == 'true'}" class="width100" type="number" step="1" th:field="${training.amountOfDays}"></input>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="row">
+						<div class="col-12 text-right">
+							<a th:if="${training.id == 0}" th:href="@{/smnsh2/projects/{id}/training (id=${project.id} ) }" class="btn btn-outline-warning text-center float-left">
+								<p class="sensit-langPl">ANULUJ</p>
+								<p class="sensit-langEn">CANCEL</p>
+							</a>
+							<a th:if="${edit == 'true' AND training.id != 0}" th:href="@{/smnsh2/projects/{id}/training/{trainingId} (id=${project.id}, trainingId=${training.id} ) }" class="btn btn-outline-warning text-center float-left">
+								<p class="sensit-langPl">ANULUJ</p>
+								<p class="sensit-langEn">CANCEL</p>
+							</a>
+							<a th:if="${edit != 'true' AND training.id != 0}" th:href="@{/smnsh2/projects/{id}/training (id=${project.id})}" class="btn btn-outline-warning text-center float-left">
+								<p class="sensit-langPl">WSTECZ</p>
+								<p class="sensit-langEn">BACK</p>
+							</a>
+							<a th:if="${edit != 'true'}" href="#" th:href="@{|/smnsh2/projects/${project.id}/training/${training.id}?edit=true|}" class="btn btn-outline-primary text-center">
+								<p class="sensit-langPl">EDYTUJ</p>
+								<p class="sensit-langEn">EDIT</p>
+							</a>
+							<button th:if="${edit == 'true'}" type="submit" class="btn btn-outline-success text-center">
+								<p class="sensit-langPl">ZAPISZ</p>
+								<p class="sensit-langEn">SAVE</p>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	
+	
+		
+	</div>
+
+	<div th:replace="./smnsh2/footer" :: footer class="sensit-footer"></div>
+
+
+</body>
+</html>

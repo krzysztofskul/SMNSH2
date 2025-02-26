@@ -86,6 +86,12 @@ public class ProjectService {
 		return project;
 	}
 
+	public Project loadByIdWithTraining(Long id) {
+		Project project = projectRepo.findById(id).get();
+		Hibernate.initialize(project.getTrainingList());
+		return project;
+	}
+	
 	public Project setStatus(Long projectId, Status status) {
 		Project project = this.loadById(projectId);
 		project.changeStatusTo(status);

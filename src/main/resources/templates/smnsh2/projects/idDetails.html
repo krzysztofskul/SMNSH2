@@ -14,7 +14,7 @@
 	<!-- CSS -->
 	<link th:href="@{/css/style.css}" rel="stylesheet" />
 	<!-- JS -->
-	<script th:src="@{/js/projects/idDetails.js}"></script> 
+	<script th:src="@{/js/projects/idDetails.js}" type="module"></script> 
 </head>
 <body>
 
@@ -22,6 +22,8 @@
 	<div th:replace="./smnsh2/projects/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
 
 	<div class="container">
+		
+		<p th:text="${edit}" id="paramEdit" class="d-none"></p>
 		
 		<form action="#" th:action="@{/smnsh2/projects/save}" th:object="${project}" method="post">
 		
@@ -270,13 +272,14 @@
 						<input class="width100" type="date" th:if="${project.id} == 0 OR ${edit} == true"  th:field="*{deadline}" th:value="*{deadline}"/>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row" id="project-status">
 					<div class="col-4 title">Status</div>
 					<div class="col-8 content">
-						<input  class="width100" type="text" hidden="true" th:if="${project.id} == 0 OR ${edit} == true"  th:field="${project.status}"/>
+						<input id="inputStatus" class="width100" type="text" hidden="true" th:if="${project.id} == 0 OR ${edit} == true"  th:field="${project.status}"/>
 						<button 
 							type="button"
 							id="btn-undefined"
+							data-status="UNDEFINED"
 							class="btn btn-sm sensit-btn-height btn-status"
 							th:classappend="${project?.status?.nameEn == 'UNDEFINED' ? 'btn-outline-success' : 'btn-outline-dark'}"
 							th:disabled="${project.id} == 0 OR ${edit} == true ? 'disabled'"
@@ -287,6 +290,7 @@
 						<button 
 							type="button"
 							id="btn-precontract"
+							data-status="PRECONTRACT"
 							class="btn btn-sm sensit-btn-height btn-status"
 							th:classappend="${project?.status?.nameEn == 'PRE-CONTRACT' ? 'btn-outline-success' : 'btn-outline-dark'}"
 							th:disabled="${project.id} == 0 OR ${edit} == true ? 'disabled'"
@@ -297,6 +301,7 @@
 						<button 
 							type="button"
 							id="btn-contract"
+							data-status="CONTRACT"
 							class="btn btn-sm sensit-btn-height btn-status"
 							th:classappend="${project?.status?.nameEn == 'CONTRACT' ? 'btn-outline-success' : 'btn-outline-dark'}"
 							th:disabled="${project.id} == 0 OR ${edit} == true ? 'disabled'"
@@ -307,6 +312,7 @@
 						<button
 							type="button"
 							id="btn-execution"
+							data-status="EXECUTION"
 							class="btn btn-sm sensit-btn-height btn-status"
 							th:classappend="${project?.status?.nameEn == 'EXECUTION' ? 'btn-outline-success' : 'btn-outline-dark'}"
 							th:disabled="${project.id} == 0 OR ${edit} == true ? 'disabled'"
@@ -317,6 +323,7 @@
 						<button 
 							type="button"
 							id="btn-nobid"
+							data-status="NOBID"
 							class="btn btn-sm sensit-btn-height btn-status"
 							th:classappend="${project?.status?.nameEn == 'NO-BID' ? 'btn-outline-success' : 'btn-outline-dark'}"
 							th:disabled="${project.id} == 0 OR ${edit} == true ? 'disabled'"
@@ -327,6 +334,7 @@
 						<button
 							type="button"
 							id="btn-completed"
+							data-status="COMPLETED"
 							class="btn btn-sm sensit-btn-height btn-status"
 							th:classappend="${project?.status?.nameEn == 'COMPLETED' ? 'btn-outline-success' : 'btn-outline-dark'}"
 							th:disabled="${project.id} == 0 OR ${edit} == true ? 'disabled'"

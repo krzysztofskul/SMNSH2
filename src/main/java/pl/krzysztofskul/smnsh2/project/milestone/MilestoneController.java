@@ -64,6 +64,7 @@ public class MilestoneController {
 		MilestoneInstance milestoneInstanceNew = new MilestoneInstance(project, MilestoneStatusEnum.WAITING);
 		model.addAttribute("milestoneInstanceNew", milestoneInstanceNew);
 		model.addAttribute("project", project);
+		model.addAttribute("edit", "true");
 		return "smnsh2/projects/idDetailsAndMilestones";
 	}
 

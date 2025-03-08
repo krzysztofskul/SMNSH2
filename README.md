@@ -20,7 +20,8 @@ Version **#0.3** has been created to test and demonstrate an idea of the project
 
 **TODO /IN PROGRESS / DONE :**  
 * ~update a functionality setting a project data status using js modules on project data edit page~ (DONE)  
-* create edit milestone functionality   
+* create edit milestone functionality (in progress...)   
+    * ~update new milestone functionality~ (DONE)  
 * create validation  
 * create start page for logged user  
     * my projects button  

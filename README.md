@@ -16,16 +16,27 @@ Version **#0.3** has been created to test and demonstrate an idea of the project
 
 #### PROJECT STATUS AND TODO'S
 
-**Project status:** *in progress*
+**Project status:** *in progress*  
 
-**TODO /IN PROGRESS / DONE :**  
+**TODO:**  
+
 * ~update a functionality setting a project data status using js modules on project data edit page~ (DONE)  
-* create edit milestone functionality (in progress...)   
+* ~create edit milestone functionality~ (DONE)   
     * ~update new milestone functionality~ (DONE)  
-* create validation  
+
+VER. 0.3-RC2:  
+* new milestone and milestones in new projects without deadline set?  
+* add user_guest as a project manager when create new project  
 * create start page for logged user  
     * my projects button  
     * my profile button  
+    * page for no projects yet  
+* set demo projects for user guest  
+
+VER. 0.4-ALPHA:  
+* create validation  
+* sort milestones?  
+* add new customer while creating new project?  
 * update init data functionality:  
      * essential data  
      * test/demo data  

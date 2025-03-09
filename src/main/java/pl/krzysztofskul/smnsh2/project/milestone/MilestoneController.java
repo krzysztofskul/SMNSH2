@@ -60,7 +60,7 @@ public class MilestoneController {
 				@PathVariable Long projectId,
 				Model model
 			) {
-		Project project = projectService.loadByIdWithMilestones(projectId);		
+		Project project = projectService.loadByIdWithMilestones(projectId);	
 		MilestoneInstance milestoneInstanceNew = new MilestoneInstance(project, MilestoneStatusEnum.WAITING);
 		model.addAttribute("milestoneInstanceNew", milestoneInstanceNew);
 		model.addAttribute("project", project);

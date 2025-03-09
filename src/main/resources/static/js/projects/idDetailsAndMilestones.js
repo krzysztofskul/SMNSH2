@@ -8,6 +8,9 @@ function editStatusFunc() {
 		let btnStatus = $(".btn-status");
 		let btnDelete = $(".btn-delete");
 		let projectId = $("#projectId").text();
+		let inputNamePl = $(".inputNamePl");
+		let inputNameEn = $(".inputNameEn");
+		let inputDeadline = $(".inputDeadline")
 
 			//remove href attribute
 			btnStatus.each(function() {
@@ -39,6 +42,47 @@ function editStatusFunc() {
 				
 				;
 			});
+			//TODO: add event listener for input deadline 
+			//...
+			
+			//edd event listener for input namePl/nameEn
+			inputNamePl.on("blur", function() {
+				//console.log($(this).val());
+				//console.log("milestone id: "+$(this).data("milestoneid"));
+				$.ajax({
+				    type: 'PUT',
+				    url: '/smnsh/restapi/milestones/'+$(this).data("milestoneid"),
+				    data: { 
+				        'namePl': $(this).val()
+				    }
+				}).always(function() {
+					location.reload();
+				});
+			})
+			inputNameEn.on("blur", function() {
+				$.ajax({
+				    type: 'PUT',
+				    url: '/smnsh/restapi/milestones/'+$(this).data("milestoneid"),
+				    data: { 
+				        'nameEn': $(this).val()
+				    }
+				}).always(function() {
+					location.reload();
+				});
+			})
+			inputDeadline.on("change", function() {
+				//console.log($(this).val());
+				//console.log("milestone id: "+$(this).data("milestoneid"));
+				$.ajax({
+				    type: 'PUT',
+				    url: '/smnsh/restapi/milestones/'+$(this).data("milestoneid"),
+				    data: { 
+				        'deadline': $(this).val()
+				    }
+				}).always(function() {
+					location.reload();
+				});
+			})
 }
 
 function editNewMilestoneFunc() {
@@ -62,16 +106,19 @@ function editNewMilestoneFunc() {
 	
 }
 
+function editExistingMilestoneFunc() {
+	
+}
+
 $(document).ready(function() {
 	
 	let paramEdit = document.getElementById('paramEdit').innerText;
-	console.log("edit: "+paramEdit);
+	//console.log("edit: "+paramEdit);
 	
 	if (paramEdit === 'true') {		
-		editNewMilestoneFunc();
-		
-	} else if (paramEdit === '') {
-		editStatusFunc();
+		editNewMilestoneFunc();	
+	} else {
+	editStatusFunc();
 	}
 
 	

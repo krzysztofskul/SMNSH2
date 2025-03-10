@@ -20,23 +20,18 @@ Version **#0.3** has been created to test and demonstrate an idea of the project
 
 **TODO:**  
 
-* ~update a functionality setting a project data status using js modules on project data edit page~ (DONE)  
-* ~create edit milestone functionality~ (DONE)   
-    * ~update new milestone functionality~ (DONE)  
-
-VER. 0.3-RC2:  
-* new milestone and milestones in new projects without deadline set (?)  
+VER. 0.3-RC3:  
+* create a management of init data for admin  
 * create start page for logged user  
     * my projects button  
     * my profile button  
     * page for no projects yet  
 
-
-VER. 0.4-ALPHA:  
+VER. 0.4:  
+* 3rd party equipment management functionality  
+* kpds functionality  
 * update a demo modality and products  
-* create a management of init data for admin  
-* create validation  
-* sort milestones (?)  
+* create validation   
 * add new customer while creating new project (?)
 
 

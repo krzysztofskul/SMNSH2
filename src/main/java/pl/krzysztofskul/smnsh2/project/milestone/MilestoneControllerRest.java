@@ -1,6 +1,7 @@
 package pl.krzysztofskul.smnsh2.project.milestone;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,7 +40,12 @@ public class MilestoneControllerRest {
 			milestone.setNameEn(nameEn);
 		}
 		if (deadline != null) {
-			milestone.setDeadline(LocalDate.parse(deadline));
+			if (deadline == "") {
+				milestone.setDeadline(null);
+			} else {
+				milestone.setDeadline(LocalDate.parse(deadline));	
+			}
+			
 		}
 		
 		milestoneService.saveMilestoneInstance(milestone);

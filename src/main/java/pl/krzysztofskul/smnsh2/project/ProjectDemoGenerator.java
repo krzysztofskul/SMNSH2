@@ -97,17 +97,17 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				for (MilestoneTemplate milestoneTemplate : milestoneTemplateList) {
 					switch (milestoneTemplate.getNameEn()) {
 					case "Signing a contract": {
-						project.addMilestoneFromTemplate(milestoneTemplate, project.getDateTimeOfCreation().toLocalDate(), MilestoneStatusEnum.COMPLETED);
+						project.addMilestoneFromTemplate(milestoneTemplate, null, MilestoneStatusEnum.IN_PROGRESS);
 						break;
 					}
 					case "Receipt": {
-						project.addMilestoneFromTemplate(milestoneTemplate, project.getDeadline(), MilestoneStatusEnum.WAITING);
+						project.addMilestoneFromTemplate(milestoneTemplate, null, MilestoneStatusEnum.WAITING);
 						break;
 					}
 					
 
 					default:
-						project.addMilestoneFromTemplate(milestoneTemplate, project.getDeadline().minusDays(7), MilestoneStatusEnum.IN_PROGRESS);
+						project.addMilestoneFromTemplate(milestoneTemplate, null, MilestoneStatusEnum.WAITING);
 					}
 					
 				}

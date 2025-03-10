@@ -69,7 +69,14 @@ public class ProjectService {
 		Project project = this.loadById(id);
 		Hibernate.initialize(project.getMilestones());
 		List<MilestoneInstance> milestones = project.getMilestones();
-		milestones.sort(new MilestoneComparator());
+		//milestones.removeIf(m -> m.getDeadline() == null);
+		//milestones.sort(new MilestoneComparator());
+		milestones.sort((m1, m2) -> {
+		    if (m1.getDeadline() == null && m2.getDeadline() == null) return 0; // Both null, equal
+		    if (m1.getDeadline() == null) return 1;  // m1 is null, comes after m2
+		    if (m2.getDeadline() == null) return -1; // m2 is null, comes after m1
+		    return new MilestoneComparator().compare(m1, m2); // Both non-null, compare normally
+		});
 		project.setMilestones(milestones);
 		return project;
 	}

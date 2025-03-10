@@ -25,21 +25,20 @@ Version **#0.3** has been created to test and demonstrate an idea of the project
     * ~update new milestone functionality~ (DONE)  
 
 VER. 0.3-RC2:  
-* new milestone and milestones in new projects without deadline set?  
-* add user_guest as a project manager when create new project  
+* new milestone and milestones in new projects without deadline set (?)  
 * create start page for logged user  
     * my projects button  
     * my profile button  
     * page for no projects yet  
-* set demo projects for user guest  
+
 
 VER. 0.4-ALPHA:  
+* update a demo modality and products  
+* create a management of init data for admin  
 * create validation  
-* sort milestones?  
-* add new customer while creating new project?  
-* update init data functionality:  
-     * essential data  
-     * test/demo data  
+* sort milestones (?)  
+* add new customer while creating new project (?)
+
 
 #### SCREENSHOTS
 

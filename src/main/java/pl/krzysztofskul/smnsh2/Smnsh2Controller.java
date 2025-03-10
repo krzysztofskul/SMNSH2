@@ -29,7 +29,8 @@ import pl.krzysztofskul.smnsh2.project.attachment.AttachmentCategoryService;
 @RequestMapping("/smnsh2")
 public class Smnsh2Controller {
 
-	private boolean isInitDataDone = false;
+	private boolean isInitDataEssentialsDone = false;
+	private boolean isInitDataDemoDone = false;
 	
 	private ProjectDemoGenerator projectDemoGenerator;
 	private ProjectService projectService;
@@ -65,29 +66,9 @@ public class Smnsh2Controller {
 		this.attachmentCategoryService = attachmentCategoryService;
 	}
 
-
-	@GetMapping("/initData")
-	public String initDemoData() {
-		
-		if (userService.loadAll().size() == 0) {
-			
-			System.out.println("Data initialization to databse has started...");
-			
-			/*
-			 * init. attachemnt categories
-			 */
-			for (AttachmentCategory attCat: attachmentCategoryDefaultGenerator.initDataAndReturn()) {
-				attachmentCategoryService.save(attCat);
-			}
-			
-			/*
-			 * init. essential modality list
-			 */
-			modalityGenerator.createAndSaveToDbEssentialModalities();
-			/*
-			 * init. demo portfolio devices
-			 */
-			devicePortfolioGenerator.initDevicePortfolioListDemo();
+	@GetMapping("/initDataEssentials")
+	public String initDataEssentials() {
+		if (isInitDataEssentialsDone == false) {
 			/*
 			 * init. essential users
 			 */
@@ -95,6 +76,24 @@ public class Smnsh2Controller {
 			for (User user : userList) {
 				userService.save(user);
 			}
+			/*
+			 * init. essential modality list
+			 */
+			modalityGenerator.createAndSaveToDbEssentialModalities();
+			/*
+			 * init. attachemnt categories
+			 */
+			for (AttachmentCategory attCat: attachmentCategoryDefaultGenerator.initDataAndReturn()) {
+				attachmentCategoryService.save(attCat);
+			}
+			isInitDataEssentialsDone = true;
+		}
+		return "redirect:/smnsh2/home";
+	}
+
+	@GetMapping("/initDataDemo")
+	public String initDataDemo() {
+		if (isInitDataDemoDone == false) {
 			/*
 			 * init demo companies
 			 */
@@ -104,24 +103,20 @@ public class Smnsh2Controller {
 				companyService.save(company);
 			}
 			/*
+			 * init. demo portfolio devices
+			 */
+			devicePortfolioGenerator.initDevicePortfolioListDemo();
+			/*
 			 * init. demo projects
 			 */
 			List<Project> projectList = projectDemoGenerator.initDataAndReturn();
 			for (Project project : projectList) {
 				projectService.save(project);
 			}
-			
-
-			
-			this.isInitDataDone = true;
-			System.out.println("Data initialization to databse has been finished.");
+			isInitDataDemoDone = true;
 		}
-		/*
-		 * return to page
-		 */
 		return "redirect:/smnsh2/projects";
 	}
-	
 	
 	@GetMapping("/thymeleaf/projects")
 	public String homeThymeleaf(Model model) {

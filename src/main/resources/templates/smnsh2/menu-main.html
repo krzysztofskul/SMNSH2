@@ -1,5 +1,6 @@
-<html xmlns:th="https://www.thymeleaf.org" 
-  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity">
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
 	<meta charset="UTF-8">
 </head>
@@ -75,6 +76,14 @@
 		    <h3 class="d-inline-block avatar-name" sec:authorize="isAuthenticated()">
 				<span sec:authentication="name"></span>
 			</h3>
+			<!--
+			<sec:authorize access="hasRole('ADMIN')">
+			    <a class="btn btn-sm d-inline-block text-primary border" th:href="@{/smnsh2/admin}">
+			        <p class="sensit-langPl">PANEL STEROWANIA ADMIN</p>
+			        <p class="sensit-langEn">admin control panel</p>
+			    </a>
+			</sec:authorize>
+			-->
 			<a class="btn btn-sm d-inline-block text-primary border" th:href="@{/smnsh2/projects/user/springsecurityname/{userNameBySpringSecurity}(userNameBySpringSecurity=${#authentication.name})}" sec:authorize="isAuthenticated()">
 				<p class="sensit-langPl">MOJE PROJEKTY</p>
 				<p class="sensit-langEn">MY PROJECTS</p>

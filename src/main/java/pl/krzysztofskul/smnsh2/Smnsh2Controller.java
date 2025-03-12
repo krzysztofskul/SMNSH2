@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import pl.krzysztofskul.smnsh2.company.Company;
@@ -65,7 +67,20 @@ public class Smnsh2Controller {
 		this.attachmentCategoryDefaultGenerator = attachmentCategoryDefaultGenerator;
 		this.attachmentCategoryService = attachmentCategoryService;
 	}
-
+	
+	public boolean isInitDataEssentialsDone() {
+		return this.isInitDataEssentialsDone;
+	}
+	
+	@GetMapping("/admin/setInitDataEssentialsDone")
+	public String setInitDataEssentialsDone(
+				@RequestParam(required = true) boolean isInitDataEssentialsDone
+			) {
+		
+		this.isInitDataEssentialsDone = isInitDataEssentialsDone;
+		return "redirect:/smnsh2/admin";
+	}
+	
 	@GetMapping("/initDataEssentials")
 	public String initDataEssentials() {
 		if (isInitDataEssentialsDone == false) {

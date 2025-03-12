@@ -20,11 +20,11 @@ Version **#0.3** has been created to test and demonstrate an idea of the project
 
 **TODO:**  
 
-VER. 0.3-RC3:  
-* create a management of init data for admin  
+VER. 0.3-RC4:  
 * create start page for logged user  
     * my projects button  
     * my profile button  
+    * admin page button (sec:authorize access="hasRole('ADMIN')")  
     * page for no projects yet  
 
 VER. 0.4:  

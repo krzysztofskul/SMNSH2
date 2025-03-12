@@ -34,7 +34,7 @@ public class MilestoneInstance extends Milestone {
 	private MilestoneTemplate milestoneTemplate;
 	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private LocalDate deadline = LocalDate.now();
+	private LocalDate deadline = null;
 	
 	private MilestoneStatusEnum status;
 

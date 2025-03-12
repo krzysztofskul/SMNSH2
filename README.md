@@ -20,9 +20,7 @@ Version **#0.3** has been created to test and demonstrate an idea of the project
 
 **TODO:**  
 
-VER. 0.3-RC5 (DONE)  
-
-VER. 0.4:  
+VER. 0.4-ALPHA:  
 * 3rd party equipment management functionality  
 * kpds functionality  
 * update a demo modality and products  

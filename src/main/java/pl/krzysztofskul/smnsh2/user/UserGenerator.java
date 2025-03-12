@@ -102,6 +102,11 @@ public class UserGenerator {
             		"Ryszard", "G.", UserBusinessPosition.SALES_REP, 
             		"ryszard.g@example.com", "test"
             		));
+            userListEssential.add(new User(
+            		"User", "Guest", UserBusinessPosition.PROJECT_MANAGER, 
+            		"user.guest@example.com", "test"
+            		));
+
     	}
     	
     	return userListEssential;

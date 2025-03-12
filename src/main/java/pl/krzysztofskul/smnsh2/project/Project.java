@@ -37,6 +37,7 @@ import pl.krzysztofskul.smnsh2.project.milestone.MilestoneTemplate;
 import pl.krzysztofskul.smnsh2.project.remark.Remark;
 import pl.krzysztofskul.smnsh2.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.smnsh2.project.status.Status;
+import pl.krzysztofskul.smnsh2.project.training.Training;
 import pl.krzysztofskul.smnsh2.user.User;
 
 @Entity
@@ -129,6 +130,9 @@ public class Project implements Serializable {
 
 	@OneToMany(mappedBy ="project", cascade = CascadeType.ALL)
 	private List<Attachment> attachments = new ArrayList<Attachment>();
+	
+	@OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+	private List<Training> trainingList = new ArrayList<Training>();
 	
 	/**
 	 * Constructor
@@ -513,6 +517,14 @@ public class Project implements Serializable {
 	 */
 	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
+	}
+	
+	public List<Training> getTrainingList() {
+		return trainingList;
+	}
+
+	public void setTrainingList(List<Training> trainingList) {
+		this.trainingList = trainingList;
 	}
 
 	/**

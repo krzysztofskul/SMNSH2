@@ -47,6 +47,7 @@ import pl.krzysztofskul.smnsh2.filestorage.File;
 import pl.krzysztofskul.smnsh2.filestorage.FileStorageService;
 import pl.krzysztofskul.smnsh2.importdata.FileSelector;
 import pl.krzysztofskul.smnsh2.importdata.ImportData;
+import pl.krzysztofskul.smnsh2.importdata.ImportDataTraining;
 import pl.krzysztofskul.smnsh2.importdata.XlsCellReader;
 import pl.krzysztofskul.smnsh2.logger.Log;
 import pl.krzysztofskul.smnsh2.logger.LogTypeEnum;
@@ -67,6 +68,7 @@ import pl.krzysztofskul.smnsh2.project.remark.Remark;
 import pl.krzysztofskul.smnsh2.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.smnsh2.project.stakeholder.StakeholderService;
 import pl.krzysztofskul.smnsh2.project.training.Training;
+import pl.krzysztofskul.smnsh2.project.training.TrainingService;
 import pl.krzysztofskul.smnsh2.user.User;
 import pl.krzysztofskul.smnsh2.user.UserBusinessPosition;
 import pl.krzysztofskul.smnsh2.user.UserService;
@@ -85,6 +87,8 @@ public class ProjectController {
 	private ConfigurationDeviceService configurationDeviceService;
 	private LoggerService loggerService;
 	private StakeholderService stakeholderService;
+	private ImportDataTraining importDataTraining;
+	private TrainingService trainingService;
 	
 	/**
 	 * CONSTRUCTOR
@@ -100,7 +104,9 @@ public class ProjectController {
 			MilestoneService milestoneService,
 			ConfigurationDeviceService configurationDeviceService,
 			LoggerService loggerService,
-			StakeholderService stakeholderService
+			StakeholderService stakeholderService,
+			ImportDataTraining importDataTraining,
+			TrainingService trainingService
 			) {
 		this.projectService = projectService;
 		this.attachmentCategoryService = attachmentCategoryService;
@@ -112,6 +118,8 @@ public class ProjectController {
 		this.configurationDeviceService = configurationDeviceService;
 		this.loggerService = loggerService;
 		this.stakeholderService = stakeholderService;
+		this.importDataTraining = importDataTraining;
+		this.trainingService = trainingService;
 	}
 	
 	@ModelAttribute(name = "investorList")
@@ -247,10 +255,11 @@ public class ProjectController {
 		return "redirect:/smnsh2/projects/"+projectId+"/configurations";
 	}
 	
+	// 1st method when read file to import configuration file
 	@PostMapping("/projects/{id}/configurationLinks")
 	public String postConfigurationLinks(
 			@PathVariable(name="id") Long projectId,
-			@RequestParam(name = "filePath", required = true) String filePath,
+			@RequestParam(name = "filePath", required = false) String filePath,
 			@RequestParam(name = "fileName", required = false) String fileName,
 			@RequestParam(name = "multipartFile", required = false) MultipartFile multipartFile,
 			Model model
@@ -268,38 +277,98 @@ public class ProjectController {
 		
 		Project project = projectService.loadById(projectId);
 		
+		String configurationFilePath = new StringBuilder().append(file.getPath()+"\\"+multipartFile.getOriginalFilename()).toString();
+		
 		/*
 		 * import configurations
 		 */
 		List<ConfigurationDevice> configurationDeviceList = ImportData.getImportDataSingleton().importConfigurationFromXls(filePath);
-		StringBuilder sb = new StringBuilder();
-		String configurationFilePath = sb.append(filePath+"\\"+multipartFile.getOriginalFilename()).toString();
 		for (ConfigurationDevice configurationDevice : configurationDeviceList) {
 			configurationDevice.setLinkToHdd(configurationFilePath);
 			project.getInstallation().getDeviceInstance().addConfigurationDevice(configurationDevice);	
 		}
 		
-		
-		//String slsConfigurationString = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"SCON-1-2", "3", "1"}, true);
-		//List<String> slsConfigurationList = Arrays.asList(slsConfigurationString.split(";"));
-		//List<Part> partList = new ArrayList<Part>();
-		//for (String slsConfiguration : slsConfigurationList) {
-		//	partList.add(new Part(project.getInstallation().getDeviceInstance().getConfigurationDevice(), slsConfiguration));
-		//}
-				
-		/*
-		 * import trainings
-		 */
-		//String slsTrainings = ImportData.getImportDataSingleton().getCellsValuesInRow(file.getAbsolutePath(), new String[]{"Szkolenia", "9", "2"}, false);
-		XlsCellReader xlsCellReader = XlsCellReader.getXlsCellReader(configurationFilePath);
-		List<String> trainingList = xlsCellReader.getCellsValuesInRow(configurationFilePath, "Szkolenia", 9, 2, true);
-		for (String training : trainingList) {
-			project.getInstallation().getDeviceInstance().addTraining(new Training(training));
-		}
-		
 		file.delete();
 		projectService.save(project);
 		return "redirect:/smnsh2/projects/"+projectId+"/configurations";
+	}
+	
+	@GetMapping("/projects/{id}/training")
+	public String getTraining(@PathVariable Long id, Model model) {
+		Project project = projectService.loadByIdWithTraining(id);
+		model.addAttribute("project", project);
+		return "smnsh2/projects/idDetailsAndTraining";
+	}
+	
+	@GetMapping("/projects/{id}/training/{trainingId}")
+	public String getTrainingEdit(
+			@PathVariable Long id, 
+			@PathVariable(required = false) Long trainingId,
+			@RequestParam(required = false) String edit,
+			@RequestParam(required = false) String backToPage,
+			Model model
+			) {
+		if (trainingId == null) {
+			Project project = projectService.loadByIdWithTraining(id);
+			model.addAttribute("project", project);
+			if (backToPage == null) {
+				backToPage = "smnsh2/projects/idDetailsAndTraining";
+			}
+		} else { //trainingId != null
+			Training training = null;
+			model.addAttribute("edit", "false");
+			if (trainingId == 0) {
+				training = new Training();
+				training.setId(Long.parseLong("0"));
+				training.setProject(projectService.loadById(id));
+				model.addAttribute("edit", "true");
+				} else if (trainingId != 0) {
+				training = trainingService.loadById(trainingId);
+			}
+			model.addAttribute("training", training);
+			if (backToPage == null) {
+				backToPage = "smnsh2/projects/training/details";
+			}
+			if (edit != null) {
+				model.addAttribute("edit", edit);
+			}
+		}
+		model.addAttribute("project", projectService.loadById(id));
+		return backToPage;
+	}
+	
+	@PostMapping("/projects/{id}/training-import")
+	public String postTrainingImport(
+			@PathVariable(name="id") Long projectId,
+			@RequestParam(name = "filePath", required = false) String filePath,
+			@RequestParam(name = "fileName", required = false) String fileName,
+			@RequestParam(name = "multipartFile", required = false) MultipartFile multipartFile,
+			Model model
+		) throws FileNotFoundException, IOException {
+		
+		java.io.File file = new java.io.File("src/main/resources/targetFile.tmp");
+
+		try (OutputStream os = new FileOutputStream(file)) {
+		    os.write(multipartFile.getBytes());
+		}
+		
+		String apath = file.getAbsolutePath();
+		String cpath = file.getCanonicalPath();
+		String xpath = file.getPath();
+		
+		ImportData.getImportDataSingleton();
+		ImportData.setFileInputStream(new FileInputStream(file));
+		ImportData.setWorkbook(new XSSFWorkbook(ImportData.getFileInputStream()));
+		
+		Project project = projectService.loadById(projectId);
+		
+		String trainingFilePath = new StringBuilder().append(filePath+"\\"+multipartFile.getOriginalFilename()).toString();
+		
+		project = importDataTraining.importDataTraining(project, file.getPath());
+		
+		file.delete();
+		projectService.save(project);
+		return "redirect:/smnsh2/projects/"+projectId+"/training";
 	}
 	
 	@GetMapping("/projects/{id}/stakeholders")
@@ -495,5 +564,6 @@ public class ProjectController {
 		}
 		return projectList;
 	}
+
 	
 }

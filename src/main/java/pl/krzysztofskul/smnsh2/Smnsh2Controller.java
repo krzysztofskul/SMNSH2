@@ -71,6 +71,9 @@ public class Smnsh2Controller {
 	public boolean isInitDataEssentialsDone() {
 		return this.isInitDataEssentialsDone;
 	}
+	public boolean isInitDataDemoDone() {
+		return this.isInitDataDemoDone;
+	}
 	
 	@GetMapping("/admin/setInitDataEssentialsDone")
 	public String setInitDataEssentialsDone(
@@ -78,6 +81,14 @@ public class Smnsh2Controller {
 			) {
 		
 		this.isInitDataEssentialsDone = isInitDataEssentialsDone;
+		return "redirect:/smnsh2/admin";
+	}
+	@GetMapping("/admin/setInitDataDemoDone")
+	public String setInitDataDemoDone(
+			@RequestParam(required = true) boolean isInitDataDemoDone
+			) {
+		
+		this.isInitDataDemoDone = isInitDataDemoDone;
 		return "redirect:/smnsh2/admin";
 	}
 	

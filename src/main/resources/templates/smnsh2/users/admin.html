@@ -42,6 +42,26 @@
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-2 title">
+							<p class="sensit-langPl">DANE DEMONSTRACYJNE</p>
+							<p class="sensit-langEn">demo data</p>
+						</div>
+						<div class="col-8 content">
+							<p th:text="${isInitDataDemoDone}"></p>
+						</div>
+						<div class="col-2 content">
+							<div class="dropdown">
+							  <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+							    ...
+							  </button>
+							  <div class="dropdown-menu">
+							    <a class="dropdown-item" href="/smnsh2/admin/setInitDataDemoDone?isInitDataDemoDone=true">+</a>
+							    <a class="dropdown-item" href="/smnsh2/admin/setInitDataDemoDone?isInitDataDemoDone=false">-</a>
+							  </div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="card-footer"></div>
 			</div>

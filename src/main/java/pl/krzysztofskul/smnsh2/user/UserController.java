@@ -36,6 +36,7 @@ public class UserController {
 				Model model
 			) {
 		model.addAttribute("isInitDataEssentialsDone", smnsh2Controller.isInitDataEssentialsDone());
+		model.addAttribute("isInitDataDemoDone", smnsh2Controller.isInitDataDemoDone());
 		return "smnsh2/users/admin";
 	}
 	

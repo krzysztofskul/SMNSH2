@@ -1,12 +1,12 @@
-#### INTRODUCTION
+### INTRODUCTION
 
 SMNSH2 is a SpringBoot version of the SMNSH application. "Inspired by real life project management challenges in the Hospital Technology industry. The main goal of the app is to accelerate procedures inside a team of project managers and designers. Additionally, the intention is to gather all information in one place and simplify the process of sharing data between departments". 
 
-#### VERSION DESCRIPTION
+### VERSION DESCRIPTION
 
-Version **#0.3** has been created to test and demonstrate an idea of the project management application as well as consult a possibility to implement for usage across the team. Demo version for testing is deployed at railway.com: [https://smnsh2-production.up.railway.app](https://smnsh2-production.up.railway.app)
+Version **#0.4** has been created to demonstrate an idea of the project management application as well as consult a possibility to implement for usage across the team. Demo version for testing is deployed at railway.com: [https://smnsh2-production.up.railway.app](https://smnsh2-production.up.railway.app)
 
-#### TECHNOLOGY
+### TECHNOLOGY
 * Java/SpringBoot
 * SpringSecurity  
 * MySQL/Hibernate  
@@ -14,28 +14,25 @@ Version **#0.3** has been created to test and demonstrate an idea of the project
 * Thymelyeaf/Bootstrap
 * OpenAI/ChatGPT  
 
-#### PROJECT STATUS AND TODO'S
+### PROJECT STATUS AND TODO'S
 
 **Project status:** *in progress*  
 
 **TODO:**  
 
-VER. 0.3-RC4:  
-* create start page for logged user  
-    * my projects button  
-    * my profile button  
+VER. #0.4-ALPHA-1:
++ update init demo data management for admin;
+
+VER. #0.4-BETA:  
+- 3rd party equipment management functionality  
+- kpds functionality  
+- update a demo modality and products  
+- create validation   
+- add new customer while creating new project (?)  
     * admin page button (sec:authorize access="hasRole('ADMIN')")  
-    * page for no projects yet  
-
-VER. 0.4:  
-* 3rd party equipment management functionality  
-* kpds functionality  
-* update a demo modality and products  
-* create validation   
-* add new customer while creating new project (?)  
 
 
-#### SCREENSHOTS
+### SCREENSHOTS
 
 **HOME PAGE**  
 <img src="src/main/resources/static/pics/readme/screenshothomepage01.jpg" alt="drawing" style="width:720px"/><br>  
@@ -44,6 +41,6 @@ VER. 0.4:
 **PROJECT MILESTONES PAGE**  
 <img src="src/main/resources/static/pics/readme/screenshotmilestones01.jpg" alt="drawing" style="width:720px"/><br>  
 
-#### CONTACT
+### CONTACT
 
 *krzysztofskul@protonmail.com*

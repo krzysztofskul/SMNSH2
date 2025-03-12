@@ -20,19 +20,15 @@ Version **#0.3** has been created to test and demonstrate an idea of the project
 
 **TODO:**  
 
-VER. 0.3-RC4:  
-* create start page for logged user  
-    * my projects button  
-    * my profile button  
-    * admin page button (sec:authorize access="hasRole('ADMIN')")  
-    * page for no projects yet  
+VER. 0.3-RC4 (DONE)  
 
 VER. 0.4:  
 * 3rd party equipment management functionality  
 * kpds functionality  
 * update a demo modality and products  
 * create validation   
-* add new customer while creating new project (?)
+* add new customer while creating new project (?)  
+    * admin page button (sec:authorize access="hasRole('ADMIN')")  
 
 
 #### SCREENSHOTS

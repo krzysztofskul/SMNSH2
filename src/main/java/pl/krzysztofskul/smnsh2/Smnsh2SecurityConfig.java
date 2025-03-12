@@ -23,7 +23,7 @@ public class Smnsh2SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 	   auth.inMemoryAuthentication()
 	       .passwordEncoder(new BCryptPasswordEncoder())
-	           .withUser("User_Guest.")
+	           .withUser("User_Guest")
 	           .password(passwordEncoder().encode("password"))
 	           .roles("USER")
 	           .and()

@@ -16,21 +16,24 @@ Version **#0.3** has been created to test and demonstrate an idea of the project
 
 #### PROJECT STATUS AND TODO'S
 
-**Project status:** *in progress*
+**Project status:** *in progress*  
 
 **TODO:**  
-* create edit milestone functionality  
-* ~~create guest user~~  
+
+VER. 0.3-RC4:  
 * create start page for logged user  
     * my projects button  
     * my profile button  
-* update import configuration functionality
-	* rewrite code for import data  
-		* read data without configuration link/location  
-	* separate configuration and training  
-* update init data functionality:
-     * essential data  
-     * test/demo data  
+    * admin page button (sec:authorize access="hasRole('ADMIN')")  
+    * page for no projects yet  
+
+VER. 0.4:  
+* 3rd party equipment management functionality  
+* kpds functionality  
+* update a demo modality and products  
+* create validation   
+* add new customer while creating new project (?)  
+
 
 #### SCREENSHOTS
 

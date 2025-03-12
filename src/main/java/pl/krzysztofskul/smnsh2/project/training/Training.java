@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import pl.krzysztofskul.smnsh2.project.Project;
 import pl.krzysztofskul.smnsh2.project.device.DeviceInstance;
 import pl.krzysztofskul.smnsh2.project.installation.Installation;
 
@@ -15,6 +16,9 @@ public class Training {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@ManyToOne
+	private Project project;
 	
 	private String description;
 	
@@ -51,6 +55,14 @@ public class Training {
 	 */
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public Project getProject() {
+		return project;
+	}
+
+	public void setProject(Project project) {
+		this.project = project;
 	}
 
 	/**

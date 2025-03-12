@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import pl.krzysztofskul.smnsh2.company.Company;
@@ -29,7 +31,8 @@ import pl.krzysztofskul.smnsh2.project.attachment.AttachmentCategoryService;
 @RequestMapping("/smnsh2")
 public class Smnsh2Controller {
 
-	private boolean isInitDataDone = false;
+	private boolean isInitDataEssentialsDone = false;
+	private boolean isInitDataDemoDone = false;
 	
 	private ProjectDemoGenerator projectDemoGenerator;
 	private ProjectService projectService;
@@ -64,30 +67,23 @@ public class Smnsh2Controller {
 		this.attachmentCategoryDefaultGenerator = attachmentCategoryDefaultGenerator;
 		this.attachmentCategoryService = attachmentCategoryService;
 	}
-
-
-	@GetMapping("/initData")
-	public String initDemoData() {
+	
+	public boolean isInitDataEssentialsDone() {
+		return this.isInitDataEssentialsDone;
+	}
+	
+	@GetMapping("/admin/setInitDataEssentialsDone")
+	public String setInitDataEssentialsDone(
+				@RequestParam(required = true) boolean isInitDataEssentialsDone
+			) {
 		
-		if (userService.loadAll().size() == 0) {
-			
-			System.out.println("Data initialization to databse has started...");
-			
-			/*
-			 * init. attachemnt categories
-			 */
-			for (AttachmentCategory attCat: attachmentCategoryDefaultGenerator.initDataAndReturn()) {
-				attachmentCategoryService.save(attCat);
-			}
-			
-			/*
-			 * init. essential modality list
-			 */
-			modalityGenerator.createAndSaveToDbEssentialModalities();
-			/*
-			 * init. demo portfolio devices
-			 */
-			devicePortfolioGenerator.initDevicePortfolioListDemo();
+		this.isInitDataEssentialsDone = isInitDataEssentialsDone;
+		return "redirect:/smnsh2/admin";
+	}
+	
+	@GetMapping("/initDataEssentials")
+	public String initDataEssentials() {
+		if (isInitDataEssentialsDone == false) {
 			/*
 			 * init. essential users
 			 */
@@ -95,6 +91,24 @@ public class Smnsh2Controller {
 			for (User user : userList) {
 				userService.save(user);
 			}
+			/*
+			 * init. essential modality list
+			 */
+			modalityGenerator.createAndSaveToDbEssentialModalities();
+			/*
+			 * init. attachemnt categories
+			 */
+			for (AttachmentCategory attCat: attachmentCategoryDefaultGenerator.initDataAndReturn()) {
+				attachmentCategoryService.save(attCat);
+			}
+			isInitDataEssentialsDone = true;
+		}
+		return "redirect:/smnsh2/home";
+	}
+
+	@GetMapping("/initDataDemo")
+	public String initDataDemo() {
+		if (isInitDataDemoDone == false) {
 			/*
 			 * init demo companies
 			 */
@@ -104,24 +118,20 @@ public class Smnsh2Controller {
 				companyService.save(company);
 			}
 			/*
+			 * init. demo portfolio devices
+			 */
+			devicePortfolioGenerator.initDevicePortfolioListDemo();
+			/*
 			 * init. demo projects
 			 */
 			List<Project> projectList = projectDemoGenerator.initDataAndReturn();
 			for (Project project : projectList) {
 				projectService.save(project);
 			}
-			
-
-			
-			this.isInitDataDone = true;
-			System.out.println("Data initialization to databse has been finished.");
+			isInitDataDemoDone = true;
 		}
-		/*
-		 * return to page
-		 */
 		return "redirect:/smnsh2/projects";
 	}
-	
 	
 	@GetMapping("/thymeleaf/projects")
 	public String homeThymeleaf(Model model) {

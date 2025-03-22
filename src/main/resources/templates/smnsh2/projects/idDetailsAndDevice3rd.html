@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>SMNSH</title>
+	
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+	
+	<!-- CSS -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+	
+</head>
+<body>
+
+	<div th:replace="./smnsh2/header" :: header class="sensit-header"></div>
+	<div th:replace="./smnsh2/projects/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
+	
+	<div class="container" style="min-height:250px">
+	
+		<div class="row cards-in-columns">
+				
+			<div class="col">
+				<div class="card sensit-card">
+					<div class="card-header">
+						<p class="sensit-langPl">URZĄDZENIA 3RD</p>
+						<p class="sensit-langEn">3rd devices</p>
+					</div>
+					<div class="card-body">
+						<table class="width100">
+						    <thead class="border-bottom">
+						        <tr>
+						            <th>
+										<p class="sensit-langPl">KATEGORIA / NAZWA</p>
+										<p class="sensit-langEn">category / name</p>
+									</th>
+						            <th>
+										<p class="sensit-langPl">PRODUCENT</p>
+										<p class="sensit-langEn">manufacturer</p>
+									</th>
+						            <th>
+										<p class="sensit-langPl">MODEL</p>
+										<p class="sensit-langEn">model</p>
+									</th>
+						            <th>
+										<p class="sensit-langPl">NR SERYJNY</p>
+										<p class="sensit-langEn">serial no</p>
+									</th>
+						            <th>
+										<p class="sensit-langPl">GWARANCJA [m-cy]</p>
+										<p class="sensit-langEn">warranty [months]</p>
+									</th>
+						        </tr>
+						    </thead>
+						    <tbody>
+						        <tr th:each="device : ${devices3rd}">
+						            <td>
+										<p class="sensit-langPl" th:text="${device.categoryNamePl}"></p>
+										<p class="sensit-langEn" th:text="${device.categoryNameEn}"></p>
+									</td>
+						            <td>
+										<p th:text="${device.manufacturer}"></p>
+									</td>
+						            <td>
+										<p th:text="${device.modelName}"></p>
+									</td>
+						            <td>
+										<p th:text="${device.serialNo}"></p>
+									</td>
+						            <td>
+										<p th:text="${device.warranty}"></p>
+									</td>
+						            <td class="float-right">
+						                <a th:href="@{#}" class="btn btn-sm btn-outline-primary d-inline-block">
+											<p class="sensit-langPl">EDYTUJ</p>
+											<p class="sensit-langEn">edit</p>
+										</a>
+						                <a th:href="@{|/smnsh2/device3rd/${device.id}/delete?projectId=${project.id}|}" class="btn btn-sm btn-outline-danger d-inline-block">
+											<p class="sensit-langPl">USUŃ</p>
+											<p class="sensit-langEn">delete</p>
+										</a>
+						            </td>
+						        </tr>
+						    </tbody>
+						</table>
+					
+					</div>
+					<div class="card-footer">
+						<div class="row">
+							<div class="col-12">
+								<a th:href="@{|/smnsh2/devices3rd/project/${project.id}/add|}" class="btn btn-sm btn-outline-success float-right">
+									<p class="sensit-langPl">DODAJ</p>
+									<p class="sensit-langEn">ADD</p>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+		
+	</div>
+
+	<div th:replace="./smnsh2/footer" :: footer class="sensit-footer"></div>
+
+</body>
+</html>

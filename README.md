@@ -21,11 +21,13 @@ Version **#0.4** has been created to demonstrate an idea of the project manageme
 **TODO:**  
 
 VER. #0.4-BETA:  
-  * 3rd party equipment management functionality (IN PROGRESS...)
+  * 3rd party equipment management functionality  
     * add new 3rd party device (DONE)  
     * edit 3rd party functionality  (TODO) 
     * update functionality at front-end (TODO)   
-  * kpds functionality  
+  * kpds functionality  (in progress...)
+    * generate KPDS functionality (DONE)  
+    * download KPDS file (TODO)  
   * update a demo modality and products  
   * create validation   
   * add new customer while creating new project (?)  

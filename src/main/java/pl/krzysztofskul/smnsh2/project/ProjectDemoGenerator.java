@@ -27,6 +27,7 @@ import pl.krzysztofskul.smnsh2.project.milestone.MilestoneTemplateGenerator;
 import pl.krzysztofskul.smnsh2.project.remark.Remark;
 import pl.krzysztofskul.smnsh2.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.smnsh2.project.status.Status;
+import pl.krzysztofskul.smnsh2.project.training.Training;
 import pl.krzysztofskul.smnsh2.user.User;
 import pl.krzysztofskul.smnsh2.user.UserService;
 
@@ -88,7 +89,12 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				
 				project.setStakeholders(stakeholders);
 				project.setDesigner("Krzysztof K.");
-				project.setDeadline(LocalDate.now().plusWeeks(new Random().nextInt(12 * 4)));				
+				project.setDeadline(LocalDate.now().plusWeeks(new Random().nextInt(12 * 4)));
+				
+				List<Training> trainingList = new ArrayList<Training>();
+				trainingList.add(new Training(project, "Szkolenie testowe", Long.valueOf(2)));
+				trainingList.add(new Training(project, "Szkolenie deomstracyjne", Long.valueOf(3)));
+				project.setTrainingList(trainingList);
 				
 				/*
 				 * add milestones <MilestoneInstance> from template

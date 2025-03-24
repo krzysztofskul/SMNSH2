@@ -1,5 +1,6 @@
 package pl.krzysztofskul.smnsh2.project.device;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import pl.krzysztofskul.smnsh2.project.Project;
  * TODO 2023-06-21 create DevicesGenerator and Default/Essential list of devices for demo/test/real app.
  */
 @Entity
-public class DevicePortfolio {
+public class DevicePortfolio implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

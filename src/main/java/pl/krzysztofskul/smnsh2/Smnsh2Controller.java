@@ -156,8 +156,8 @@ public class Smnsh2Controller {
 			 */
 			projectList = projectService.loadAll();
 			for (Project project : projectList) {
-				device3rdService.addDeviceToProject(project.getId(), new Device3rd("Lampa zabiegowa", "Examination Light", LoremIpsum.getInstance().getName(), LoremIpsum.getInstance().getName(), "SN-DEMO-000", 24));
-				device3rdService.addDeviceToProject(project.getId(), new Device3rd("Kolumna anestezjologiczna", "Anaesthesia ceiling supply unit", LoremIpsum.getInstance().getName(), LoremIpsum.getInstance().getName(), "SN-DEMO-000", 48));
+				device3rdService.addDeviceToProject(project.getId(), new Device3rd("Lampa zabiegowa", "Examination Light", LoremIpsum.getInstance().getTitle(1), LoremIpsum.getInstance().getTitle(1), "SN-DEMO-000", 24));
+				device3rdService.addDeviceToProject(project.getId(), new Device3rd("Kolumna anestezjologiczna", "Anaesthesia ceiling supply unit", LoremIpsum.getInstance().getTitle(1), LoremIpsum.getInstance().getTitle(1), "SN-DEMO-000", 48));
 
 			}
 			// set initDataDemoDone true

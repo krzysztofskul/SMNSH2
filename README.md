@@ -25,10 +25,10 @@ VER. #0.4-BETA:
     * add new 3rd party device (DONE)  
     * edit 3rd party functionality  (TODO) 
     * update functionality at front-end (TODO)   
-  * kpds functionality  (in progress...)
+  * kpds functionality  
     * generate KPDS functionality (DONE)  
     * download KPDS file (TODO)  
-  * update a demo modality and products  
+  * update a demo/test functionality (DONE)  
   * create validation   
   * add new customer while creating new project (?)  
     * admin page button (sec:authorize access="hasRole('ADMIN')")  

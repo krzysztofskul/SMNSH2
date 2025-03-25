@@ -16,8 +16,8 @@ public class ModalityGenerator {
 
 	public void createAndSaveToDbEssentialModalities() {
 		
-		modalityRepo.save(new Modality("AT", "Advenced Therapy", "ADVANZO"));
-		modalityRepo.save(new Modality("CT", "Computed Tomography", "COMPUTO"));
+		modalityRepo.save(new Modality("AT", "Advenced Therapy", "ARTEEZO"));
+		modalityRepo.save(new Modality("CT", "Computed Tomography", "SCOMPUTO"));
 		modalityRepo.save(new Modality("MR", "Magnetic Resonance", "MAGNESO"));
 		modalityRepo.save(new Modality("MI", "Molecular Imaging", "MOLECUO"));
 		modalityRepo.save(new Modality("XPF", "Fluoroscopy", "FLUORO"));

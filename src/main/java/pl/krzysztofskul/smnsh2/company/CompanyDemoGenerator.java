@@ -36,71 +36,150 @@ public class CompanyDemoGenerator implements InitDataGenerator<Company> {
 	@Override
 	public List<Company> initDataAndReturn() {
 		for (CompanyCategoryEnum companyCatEnum : CompanyCategoryEnum.values()) {
-			for (int i = 0; i < new Random().nextInt(5)+5; i++) {
-				
-	//			List<CompanyCategory> companyCategoryList = new ArrayList<CompanyCategory>();
-	//			companyCategoryList.add(new CompanyCategory(CompanyCategoryEnum.INVESTOR));
-	//			companyCategoryList.add(new CompanyCategory(CompanyCategoryEnum.USER));
-				
-				String companyName = LoremIpsum.getInstance().getTitle(1);
+			
 				switch (companyCatEnum) {
 				case INVESTOR: {
-					companyName = companyName + " Investments Co.";
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"ENL-MED SP. Z O.O.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"LX-MED SP. Z O.O.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"MED-CVR SP. Z O.O.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"AHOPE-MED SP. Z O.O.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+							));
 					break;
 					}
 				case CUSTOMER: {
-					companyName = companyName + "-MED S.A.";
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"ENL-MED SP. Z O.O.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"LX-MED SP. Z O.O.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"MED-CVR SP. Z O.O.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"AHOPE-MED SP. Z O.O.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
 					break;
 					}
 				case SUPPLIER: {
-					companyName = companyName + " TRANS GmbH";
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"GEES GmbH",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
 					break;
 					}
 				case SUBCONTRACTOR: {
-					companyName = companyName + " Service Ltd.";
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"WR-BUD MEDICAL S.A.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"MQ MEDICAL S.A.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"G MEDICAL S.A.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+							));
 					break;
 					}
 				case SUBCONTRACTOR_GENERAL: {
-					companyName = companyName + " Services Sp. z o.o.";
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"WR-BUD S.A.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"BUDIMED S.A.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
 					break;
 					}
 				case SUBCONTRACTOR_ROOM_ADAPTATION: {
-					companyName = companyName + " BUD S.C.";
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"REM-BUD S.C.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"FLEX-MEDICAL SP. Z O.O.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+					));
+					companyDemoList.add(new Company(
+							Long.valueOf("0"),
+							"FEEGO S.C.",
+							companyCatEnum,
+							new ArrayList<Employee>(),
+							contactDetailsDemoGenerator.getDemoContactDetails()
+							));
 					break;
 					}
 				default:
 					break;
 				}
-
-				Company company = new Company(
-						Long.valueOf("0"),
-						companyName,
-						companyCatEnum,
-						new ArrayList<Employee>(),
-						contactDetailsDemoGenerator.getDemoContactDetails()
-					);
-				
-				Random random = new Random();
-				switch (random.nextInt(LabelEnum.values().length)) {
-					case 0:
-						company.setLabelEnum(LabelEnum.GREEN);
-						break;
-					case 1:
-						company.setLabelEnum(LabelEnum.YELLOW);
-						break;
-					case 2:
-						company.setLabelEnum(LabelEnum.RED);
-						break;
-					case 3:
-						company.setLabelEnum(LabelEnum.BLACK);
-						break;
-					default:
-						company.setLabelEnum(LabelEnum.GRAY);
-						break;
-				}
-				companyDemoList.add(company);
-			}
 		}
+		
 		return companyDemoList;
 	}
 

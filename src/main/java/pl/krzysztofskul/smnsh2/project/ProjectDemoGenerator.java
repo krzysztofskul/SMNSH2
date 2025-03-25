@@ -68,8 +68,8 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 						
 			for (User userPM : userService.loadAllProjectManagers()) {
 				Project project = new Project();
-				project.setName("Demo " + loremIpsum.getTitle(1));
-				project.setCode("TES" + (new Random().nextInt(8999)+1000));
+				project.setName("Dostawa i montaż demonstracyjny");
+				project.setCode("DEMO" + (new Random().nextInt(8999)+1000));
 				
 				project.setBackground(loremIpsum.getParagraphs(1, 2));
 				project.setGoals(loremIpsum.getWords(5, 5));
@@ -83,7 +83,7 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				project.setSubcontractorForRoomAdaptation(companyService.loadRandomSubcontractorForRoomAdaptation());
 				project.setProjectManager(userService.loadByEmail(userPM.getEmail()));		
 				
-				project.setInstallationPlaceDetails("New  building no. A; Floor 0; Room no. A010");
+				project.setInstallationPlaceDetails("Pracownia demontracyjna, parter");
 				
 				List<Stakeholder> stakeholders = generateAndReturnDemoStakeholders(project);
 				
@@ -119,8 +119,8 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				}
 				
 				
-				project.setContractNo("U-TES-2023-" + new Random().nextInt(99));
-				project.setDevicePortfolio(devicePortfolioGenerator.getRandomDevicePortfolio());
+				project.setContractNo("U-DEMO-2025-" + new Random().nextInt(99));
+				project.setDevicePortfolio(devicePortfolioGenerator.getRandomDevicePortfolioDemo());
 
 				project.setStatus(Status.EXECUTION);
 				
@@ -154,7 +154,7 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 			}
 			newStakeholder.setDescription(loremIpsum.getWords(5, 10));
 			newStakeholder.setPhoneNumber(loremIpsum.getPhone());
-			newStakeholder.setEmail(loremIpsum.getEmail());
+			newStakeholder.setEmail("email@example.com");
 			stakeholders.add(newStakeholder);
 
 		}
@@ -175,9 +175,9 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 	
 	private Map<String, String> getDemoEmailsForStakeholder() {
 		Map<String, String> demoEmails = new HashMap<String, String>();
-		demoEmails.put("Email służbowy", LoremIpsum.getInstance().getEmail());
+		demoEmails.put("Email służbowy", "email@example.com");
 		if (new Random().nextBoolean()) {
-			demoEmails.put("Emails prywatny", LoremIpsum.getInstance().getEmail());
+			demoEmails.put("Emails prywatny", "prywatny@example.com");
 		}
 		return demoEmails;
 	}

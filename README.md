@@ -26,7 +26,7 @@ VER. #0.4-BETA:
     * update functionality at front-end  
   * kpds functionality  
     * download KPDS file (DONE)  
-    * delete kpds file from classpath after download (TODO)  
+    * delete kpds file from classpath after download (DONE)  
   * create validation   
   * add new customer while creating new project (?)  
     * admin page button (sec:authorize access="hasRole('ADMIN')")  

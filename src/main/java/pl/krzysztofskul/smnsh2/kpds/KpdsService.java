@@ -28,7 +28,7 @@ import pl.krzysztofskul.smnsh2.project.training.Training;
 @Transactional
 public class KpdsService {
 	
-	private static String path_kpds_generated = "src/main/resources/static/kpds";
+	private static String path_kpds_generated = "src/main/resources/uploads/kpds";
 	private KpdsRepo kpdsRepo;
 	private ProjectService projectService;
 	private Device3rdService device3rdService;

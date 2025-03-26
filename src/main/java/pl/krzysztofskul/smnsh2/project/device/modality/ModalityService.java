@@ -25,4 +25,8 @@ public class ModalityService {
 	public Modality loadByCode(String code) {
 		return modalityRepo.findByCode(code);
 	}
+	
+	public void delete(Modality modality) {
+		modalityRepo.delete(modality);
+	}
 }

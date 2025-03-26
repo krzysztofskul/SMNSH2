@@ -20,7 +20,8 @@ Version **#0.4** has been created to demonstrate an idea of the project manageme
 
 **TODO:**  
 
-VER. #0.4-BETA:  
+VER. #0.4-BETA: 
+  * Fix delete project functionality (log and device3rd issue) (DONE)  
   * 3rd party equipment management functionality  
     * add new 3rd party device (DONE)  
     * edit 3rd party functionality  (TODO) 

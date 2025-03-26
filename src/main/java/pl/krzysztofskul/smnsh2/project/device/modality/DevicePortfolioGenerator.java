@@ -184,6 +184,11 @@ public class DevicePortfolioGenerator {
 		return devicePortfolioListDemo;
 	}
 	
+	public void resetDevicePortfolioDemoList() {
+		this.devicePortfolioListDemo.clear();
+		this.initDevicePortfolioListDemo();
+	}
+	
 	public DevicePortfolio getRandomDevicePortfolioDemo() {	
 		return devicePortfolioListDemo.get(new Random().nextInt(devicePortfolioListDemo.size()));
 	}

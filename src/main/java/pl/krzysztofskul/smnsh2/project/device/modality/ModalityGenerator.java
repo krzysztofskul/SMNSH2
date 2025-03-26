@@ -1,5 +1,7 @@
 package pl.krzysztofskul.smnsh2.project.device.modality;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,11 @@ public class ModalityGenerator {
 	}
 
 	public void createAndSaveToDbEssentialModalities() {
+		
+		List<Modality> modalityList = modalityRepo.findAll();
+		for (Modality modality : modalityList) {
+			modalityRepo.delete(modality);
+		}
 		
 		modalityRepo.save(new Modality("AT", "Advenced Therapy", "ARTEEZO"));
 		modalityRepo.save(new Modality("CT", "Computed Tomography", "SCOMPUTO"));

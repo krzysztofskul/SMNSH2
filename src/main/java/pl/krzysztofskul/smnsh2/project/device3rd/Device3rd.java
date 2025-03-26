@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import pl.krzysztofskul.smnsh2.project.Project;
 
 @Entity
@@ -17,7 +20,8 @@ public class Device3rd {
     private Long id;
     
     @ManyToOne
-    @JoinColumn(name = "project_id", nullable = false)
+    @JoinColumn(name = "project_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Project project;
     
     private String categoryNamePl;

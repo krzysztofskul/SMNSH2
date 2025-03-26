@@ -78,21 +78,12 @@ public class CompanyService {
 		return companyRepo.findById(companyId).get();
 	}
 
+	public List<Company> loadAll() {
+		return companyRepo.findAll();
+	}
 
-//	public List<Company> loadAllByCompanyCategoryEnum(CompanyCategoryEnum comCatEnum) {
-//		List<Company> allCompanies = companyRepo.findAll();
-//		List<Company> companiesFiltered = new ArrayList<Company>();
-//		for (Company company : allCompanies) {
-//			Hibernate.initialize(company.getCompanyCategoryList());
-//		}
-//		for (Company company : allCompanies) {
-//			for (CompanyCategory companyCategory : company.getCompanyCategoryList()) {
-//				if (companyCategory.getCompanyCategoryEnum().equals(comCatEnum)) {
-//					companiesFiltered.add(company);
-//				}
-//			}
-//		}
-//		return companiesFiltered;
-//	}
+	public void delete(Company company) {
+		companyRepo.delete(company);
+	}
 	
 }

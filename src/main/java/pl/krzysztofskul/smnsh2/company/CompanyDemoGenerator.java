@@ -35,6 +35,8 @@ public class CompanyDemoGenerator implements InitDataGenerator<Company> {
 
 	@Override
 	public List<Company> initDataAndReturn() {
+		companyDemoList.clear();
+		
 		for (CompanyCategoryEnum companyCatEnum : CompanyCategoryEnum.values()) {
 			
 				switch (companyCatEnum) {
@@ -179,7 +181,26 @@ public class CompanyDemoGenerator implements InitDataGenerator<Company> {
 					break;
 				}
 		}
-		
+		for (Company company : companyDemoList) {
+			Random random = new Random();
+			switch (random.nextInt(LabelEnum.values().length)) {
+				case 0:
+					company.setLabelEnum(LabelEnum.GREEN);
+					break;
+				case 1:
+					company.setLabelEnum(LabelEnum.YELLOW);
+					break;
+				case 2:
+					company.setLabelEnum(LabelEnum.RED);
+					break;
+				case 3:
+					company.setLabelEnum(LabelEnum.BLACK);
+					break;
+				default:
+					company.setLabelEnum(LabelEnum.GRAY);
+					break;
+			}
+		}
 		return companyDemoList;
 	}
 

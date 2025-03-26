@@ -36,6 +36,7 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import pl.krzysztofskul.smnsh2.filestorage.File;
+import pl.krzysztofskul.smnsh2.project.ProjectService;
 
 
 @Controller
@@ -43,11 +44,16 @@ import pl.krzysztofskul.smnsh2.filestorage.File;
 public class KpdsController {
 	
 	private KpdsService kpdsService;
+	private ProjectService projectService;
 	
 	@Autowired
-	private KpdsController(KpdsService kpdsService) {
+	private KpdsController(
+			KpdsService kpdsService
+			, ProjectService projectService
+			) {
 		super();
 		this.kpdsService = kpdsService;
+		this.projectService = projectService;
 	}
 
 	@GetMapping("/downloadTestKpds")
@@ -102,11 +108,12 @@ public class KpdsController {
 
 	@GetMapping("/generate-kpds/{projectId}")
 	public String generateKpds(	
-			@PathVariable Long projectId
+			@PathVariable Long projectId,
+			Model model
 			) {
 		kpdsService.generateKpds(projectId);
-		
-		return "redirect:/home";
+		model.addAttribute("project", projectService.loadById(projectId));
+		return "smnsh2/kpds/kpds";
 	}
 	
 	// test

@@ -177,12 +177,14 @@ public class KpdsService {
 				contentStream.newLineAtOffset(325, y);
 				contentStream.showText("nr seryjny: ");
 				contentStream.endText();
+				this.writeText(contentStream, font, 10, 435, y, device3rd.getSerialNo());
 				
 				contentStream.beginText();
 				contentStream.setFont(font, 10);
 				contentStream.newLineAtOffset(325, y-15);
 				contentStream.showText("gwarancja: ");
 				contentStream.endText();
+				this.writeText(contentStream, font, 10, 435, y-15, String.valueOf(device3rd.getWarranty()));
 				
 				contentStream.beginText();
 				contentStream.setFont(font, 10);

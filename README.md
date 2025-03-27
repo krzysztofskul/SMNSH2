@@ -21,12 +21,10 @@ Version **#0.4** has been created to demonstrate an idea of the project manageme
 **TODO:**  
 
 VER. #0.4-BETA: 
+
   * 3rd party equipment management functionality  
     * edit 3rd party functionality   
     * update functionality at front-end  
-  * kpds functionality  
-    * download KPDS file (DONE)  
-    * delete kpds file from classpath after download (DONE)  
   * create validation   
   * add new customer while creating new project (?)  
     * admin page button (sec:authorize access="hasRole('ADMIN')")  

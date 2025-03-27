@@ -16,7 +16,7 @@
 	<div th:replace="./smnsh2/projects/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
 
 	<div class="container">
-	<form class="row" action="#" th:action="@{/smnsh2/projects/{id}/remarks(id=${project.id})}" method="post" th:object="${newRemark}">
+	<form action="#" th:action="@{/smnsh2/projects/{id}/remarks(id=${project.id})}" method="post" th:object="${newRemark}">
 		
 		<div class="card sensit-card">
 			<div class="card-header">

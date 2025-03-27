@@ -18,7 +18,7 @@ public class Training {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Project project;
 	
 	private String description;

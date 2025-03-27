@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>SMNSH</title>
+	<!-- BOOTSTRAP -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- CSS -->
+	<link th:href="@{/css/style.css}" rel="stylesheet" />
+</head>
+<body>
+
+	<div th:replace="./smnsh2/header" :: header class="sensit-header"></div>
+	<div th:replace="./smnsh2/projects/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
+
+	<div class="container">
+
+		<form action="#" th:action="@{/smnsh2/projects/{id}/device3rd/save (id=${project.id})}" th:object="${device3rd}" method="post">		
+			<div class="card sensit-card">
+				<div class="card-header">
+					<div th:if="${edit == null} or ${edit == false}" class="col-12 text-center">
+						<p class="sensit-langPl">FORMULARZ DODAWANIA NOWEGO URZĄDZENIA 3RD</p>
+						<p class="sensit-langEn">ADD NEW DEVICE 3RD TO THE PROJECT FORM</p>
+					</div>
+					<div th:if="${edit != null} and ${edit == true}" class="col-12 text-center">
+						<p class="sensit-langPl">FORMULARZ EDYCJI URZĄDZENIA 3RD</p>
+						<p class="sensit-langEn">EDIT DEVICE 3RD FORM</p>
+					</div>
+				</div>
+				<div class="card-body">
+					<div class="row">
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title" hidden="true">Device 3rd id</div>
+									<div class="col-8 content">
+										<input type="text" th:field="${device3rd.id}" th:value="0" hidden="true"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title" hidden="true">project id</div>
+									<div class="col-8 content">
+										<input type="text" th:field="${device3rd.project.id}" th:value="${project.id}" hidden="true"/>
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">
+										<p class="sensit-langPl">KATEGORIA URZĄDZENIA 3RD [pl]</p>
+										<p class="sensit-langEn">device 3rd category [pl]</p>
+									</div>
+									<div class="col-8 content">
+										<input type="text" class="width75" th:field="${device3rd.categoryNamePl}" placeholder="np. lampa zabiegowa">
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">
+										<p class="sensit-langPl">PRODUCENT</p>
+										<p class="sensit-langEn">manufacturer</p>
+									</div>
+									<div class="col-8 content">
+										<input type="text" class="width75" th:field="${device3rd.manufacturer}">
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">
+										<p class="sensit-langPl">NAZWA MODELU</p>
+										<p class="sensit-langEn">model name</p>
+									</div>
+									<div class="col-8 content">
+										<input type="text" class="width75" th:field="${device3rd.modelName}">
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">
+										<p class="sensit-langPl">NR SERYJNY</p>
+										<p class="sensit-langEn">serial number</p>
+									</div>
+									<div class="col-8 content">
+										<input type="text" class="width75" th:field="${device3rd.serialNo}">
+									</div>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="row input-group mb-1">
+									<div class="col-4 title">
+										<p class="sensit-langPl">GWARANCJA [m-cy]</p>
+										<p class="sensit-langEn">warranty [months]</p>
+									</div>
+									<div class="col-8 content">
+										<input type="text" class="width75" th:field="${device3rd.warranty}">
+									</div>
+								</div>
+							</div>
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="row">
+						<div class="col-12 text-right">
+							<a th:href="@{/smnsh2/devices3rd/project/{id} (id = ${project.id}) }" class="btn btn-outline-warning text-center float-left">
+								<p class="sensit-langPl">ANULUJ</p>
+								<p class="sensit-langEn">CANCEL</p>
+							</a>
+							<button type="submit" class="btn btn-outline-success text-center">
+								<p class="sensit-langPl">ZAPISZ</p>
+								<p class="sensit-langEn">SAVE</p>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div th:replace="./smnsh2/footer" :: footer class="sensit-footer"></div>
+
+</body>
+</html>

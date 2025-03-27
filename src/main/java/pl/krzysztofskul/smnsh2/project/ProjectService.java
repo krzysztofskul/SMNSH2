@@ -9,8 +9,11 @@ import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import pl.krzysztofskul.smnsh2.logger.Log;
 import pl.krzysztofskul.smnsh2.logger.LogTypeEnum;
 import pl.krzysztofskul.smnsh2.logger.LoggerService;
+import pl.krzysztofskul.smnsh2.project.device3rd.Device3rd;
+import pl.krzysztofskul.smnsh2.project.device3rd.Device3rdService;
 import pl.krzysztofskul.smnsh2.project.installation.configuration.ConfigurationDevice;
 import pl.krzysztofskul.smnsh2.project.installation.configuration.ConfigurationDeviceService;
 import pl.krzysztofskul.smnsh2.project.milestone.MilestoneComparator;
@@ -26,6 +29,7 @@ public class ProjectService {
 	private UserService userService;
 	private ConfigurationDeviceService configurationDeviceService;
 	private LoggerService loggerService;
+	private Device3rdService device3rdService;
 	
 	/**
 	 * CONSTRUCTOR
@@ -35,12 +39,14 @@ public class ProjectService {
 				ProjectRepo projectRepo,
 				UserService userService,
 				ConfigurationDeviceService configurationDeviceService,
-				LoggerService loggerService
+				LoggerService loggerService,
+				Device3rdService device3rdService
 			) {
 		this.projectRepo = projectRepo;
 		this.userService = userService;
 		this.configurationDeviceService = configurationDeviceService;
 		this.loggerService = loggerService;
+		this.device3rdService = device3rdService;
 	}
 
 	public void save(Project project) {
@@ -120,8 +126,25 @@ public class ProjectService {
 	}
 
 	public void deleteById(Long projectId) {
+		List<Log> logList = loggerService.loadAll();
+		for (Log log : logList) {
+			if (log.getProject() != null) {
+				if (log.getProject().getId() == projectId) {
+					log.setProject(null);
+					loggerService.save(log);				
+				}	
+			}
+		}
+		List<Device3rd> device3rdList = device3rdService.getAll();
+		for (Device3rd device3rd : device3rdList) {
+			if (device3rd.getProject() != null) {
+				if (device3rd.getProject().getId() == projectId) {
+					device3rd.setProject(null);
+					device3rdService.save(device3rd);				
+				}	
+			}
+		}
 		projectRepo.deleteById(projectId);
-		
 	}
 
 	public Project addLinkToConfigurationFile(Project project, String filePath) {

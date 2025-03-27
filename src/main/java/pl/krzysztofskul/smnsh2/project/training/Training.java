@@ -1,5 +1,6 @@
 package pl.krzysztofskul.smnsh2.project.training;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +29,18 @@ public class Training {
 	private DeviceInstance deviceInstance;
 
 	public Training() {}
+	
+	/**
+	 * @param project
+	 * @param description
+	 * @param amountOfDays
+	 */
+	public Training(Project project, String description, Long amountOfDays) {
+		super();
+		this.project = project;
+		this.description = description;
+		this.amountOfDays = amountOfDays;
+	}
 
 	/**
 	 * @param description

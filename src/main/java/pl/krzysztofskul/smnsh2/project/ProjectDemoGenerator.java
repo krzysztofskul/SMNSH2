@@ -27,6 +27,7 @@ import pl.krzysztofskul.smnsh2.project.milestone.MilestoneTemplateGenerator;
 import pl.krzysztofskul.smnsh2.project.remark.Remark;
 import pl.krzysztofskul.smnsh2.project.stakeholder.Stakeholder;
 import pl.krzysztofskul.smnsh2.project.status.Status;
+import pl.krzysztofskul.smnsh2.project.training.Training;
 import pl.krzysztofskul.smnsh2.user.User;
 import pl.krzysztofskul.smnsh2.user.UserService;
 
@@ -67,8 +68,8 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 						
 			for (User userPM : userService.loadAllProjectManagers()) {
 				Project project = new Project();
-				project.setName("Demo " + loremIpsum.getTitle(1));
-				project.setCode("TES" + (new Random().nextInt(8999)+1000));
+				project.setName("Dostawa i montaż demonstracyjny");
+				project.setCode("DEMO" + (new Random().nextInt(8999)+1000));
 				
 				project.setBackground(loremIpsum.getParagraphs(1, 2));
 				project.setGoals(loremIpsum.getWords(5, 5));
@@ -82,13 +83,18 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				project.setSubcontractorForRoomAdaptation(companyService.loadRandomSubcontractorForRoomAdaptation());
 				project.setProjectManager(userService.loadByEmail(userPM.getEmail()));		
 				
-				project.setInstallationPlaceDetails("New  building no. A; Floor 0; Room no. A010");
+				project.setInstallationPlaceDetails("Pracownia demontracyjna, parter");
 				
 				List<Stakeholder> stakeholders = generateAndReturnDemoStakeholders(project);
 				
 				project.setStakeholders(stakeholders);
 				project.setDesigner("Krzysztof K.");
-				project.setDeadline(LocalDate.now().plusWeeks(new Random().nextInt(12 * 4)));				
+				project.setDeadline(LocalDate.now().plusWeeks(new Random().nextInt(12 * 4)));
+				
+				List<Training> trainingList = new ArrayList<Training>();
+				trainingList.add(new Training(project, "Szkolenie testowe", Long.valueOf(2)));
+				trainingList.add(new Training(project, "Szkolenie deomstracyjne", Long.valueOf(3)));
+				project.setTrainingList(trainingList);
 				
 				/*
 				 * add milestones <MilestoneInstance> from template
@@ -113,8 +119,8 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 				}
 				
 				
-				project.setContractNo("U-TES-2023-" + new Random().nextInt(99));
-				project.setDevicePortfolio(devicePortfolioGenerator.getRandomDevicePortfolio());
+				project.setContractNo("U-DEMO-2025-" + new Random().nextInt(99));
+				project.setDevicePortfolio(devicePortfolioGenerator.getRandomDevicePortfolioDemo());
 
 				project.setStatus(Status.EXECUTION);
 				
@@ -148,7 +154,7 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 			}
 			newStakeholder.setDescription(loremIpsum.getWords(5, 10));
 			newStakeholder.setPhoneNumber(loremIpsum.getPhone());
-			newStakeholder.setEmail(loremIpsum.getEmail());
+			newStakeholder.setEmail("email@example.com");
 			stakeholders.add(newStakeholder);
 
 		}
@@ -169,9 +175,9 @@ public class ProjectDemoGenerator implements InitDataGenerator<Project> {
 	
 	private Map<String, String> getDemoEmailsForStakeholder() {
 		Map<String, String> demoEmails = new HashMap<String, String>();
-		demoEmails.put("Email służbowy", LoremIpsum.getInstance().getEmail());
+		demoEmails.put("Email służbowy", "email@example.com");
 		if (new Random().nextBoolean()) {
-			demoEmails.put("Emails prywatny", LoremIpsum.getInstance().getEmail());
+			demoEmails.put("Emails prywatny", "prywatny@example.com");
 		}
 		return demoEmails;
 	}

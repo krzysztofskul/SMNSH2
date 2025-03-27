@@ -47,10 +47,10 @@ public class ContactDetailsDemoGenerator implements InitDataGenerator<ContactDet
 	
 	private Address getDemoAddress() {
 		Address address = new Address();
-		address.setCountry(LoremIpsum.getInstance().getCountry());
+		address.setCountry("PL");
 		address.setZipCode(LoremIpsum.getInstance().getZipCode());
-		address.setCity(LoremIpsum.getInstance().getCity());
-		address.setStreetName(LoremIpsum.getInstance().getName());
+		address.setCity(this.getRandomCityPl());
+		address.setStreetName("Demonstracyjna");
 		address.setStreetNo(String.valueOf(new Random().nextInt(200)+1));
 		return address;
 	}
@@ -64,9 +64,15 @@ public class ContactDetailsDemoGenerator implements InitDataGenerator<ContactDet
 	
 	private Map<String, String> getDemoEmailAdresses() {
 		Map<String, String> emailAddresses = new HashMap<String, String>();
-		emailAddresses.put("Email sekretariat zarządu", LoremIpsum.getInstance().getEmail());
-		emailAddresses.put("Email dział techniczny", LoremIpsum.getInstance().getEmail());
+		emailAddresses.put("Email sekretariat zarządu", "biurot@example.com");
+		emailAddresses.put("Email dział techniczny", "tech@example.com");
 		return emailAddresses;
+	}
+	
+	private String getRandomCityPl() {
+		String[] cityList = {"Warszawa", "Kraków", "Poznań", "Gdańsk", "Wrocław", "Łódź", "Lublin", "Szczecin"};
+		int x = new Random().nextInt(cityList.length);
+		return cityList[x];
 	}
 	
 }

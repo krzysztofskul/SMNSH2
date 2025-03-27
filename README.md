@@ -20,15 +20,13 @@ Version **#0.4** has been created to demonstrate an idea of the project manageme
 
 **TODO:**  
 
-VER. #0.4-ALPHA-1:
-+ update init demo data management for admin;
+VER. #0.4-BETA: 
 
-VER. #0.4-BETA:  
-- 3rd party equipment management functionality  
-- kpds functionality  
-- update a demo modality and products  
-- create validation   
-- add new customer while creating new project (?)  
+  * 3rd party equipment management functionality  
+    * edit 3rd party functionality   
+    * update functionality at front-end  
+  * create validation   
+  * add new customer while creating new project (?)  
     * admin page button (sec:authorize access="hasRole('ADMIN')")  
 
 

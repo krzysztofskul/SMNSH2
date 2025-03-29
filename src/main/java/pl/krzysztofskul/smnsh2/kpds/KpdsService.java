@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import java.io.IOException;
-
+import java.io.InputStream;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -46,6 +46,9 @@ public class KpdsService {
 	}
 
 	public void generateKpds(Long projectId) {
+		InputStream fontStream = getClass().getClassLoader().getResourceAsStream("fonts/NotoSans-Regular.ttf");
+		
+		
 		//load project connected with kpds
 		Project project = projectService.loadById(projectId);
 		
@@ -69,8 +72,9 @@ public class KpdsService {
 			document.addPage(page);
 
 			PDPageContentStream contentStream = new PDPageContentStream(document, page);
+			PDType0Font font = PDType0Font.load(document, fontStream);
 			//PDType0Font font = PDType0Font.load(document, new File("c:/windows/fonts/times.ttf"));
-			PDFont font = PDType1Font.HELVETICA;
+//			PDFont font = PDType1Font.HELVETICA;
 //			PDType0Font font = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Roman.ttf"));
 //			PDType0Font fontItalic = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Italic.ttf"));
 //			PDType0Font fontBold = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Bold.ttf"));

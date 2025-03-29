@@ -20,8 +20,9 @@ Version **#0.4** has been created to demonstrate an idea of the project manageme
 
 **TODO:**  
 
-VER. #0.4-BETA: 
+VER. #0.4-RC: 
 
+  * fix: save kpds file to the database and download it from deployed environment (DONE)
   * 3rd party equipment management functionality  
     * edit 3rd party functionality   
     * update functionality at front-end  

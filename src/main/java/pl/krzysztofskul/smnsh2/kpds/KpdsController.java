@@ -25,7 +25,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
@@ -111,16 +113,37 @@ public class KpdsController {
 			@PathVariable Long projectId,
 			Model model
 			) {
-		kpdsService.generateKpds(projectId);
+		kpdsService.generateAndSaveKpds(projectId);
 		model.addAttribute("project", projectService.loadById(projectId));
 		return "smnsh2/kpds/kpds";
 	}
 	
 	// test
-	@GetMapping("/kpds/{kpdsId}")
-	public void getKpdsById(
-				@PathVariable Long kpdsId
-			) {
-		Kpds kpds = kpdsService.loadById(kpdsId);
-	}
+//	@GetMapping("/kpds/{kpdsId}")
+//	public void getKpdsById(
+//				@PathVariable Long kpdsId
+//			) {
+//		Kpds kpds = kpdsService.loadById(kpdsId);
+//	}
+	
+    @GetMapping("/save")
+    public String saveKpdsFilePdf(
+    			@RequestParam Long projectId,
+    			Model model
+    		) {
+       kpdsService.generateAndSaveKpds(projectId);
+		model.addAttribute("project", projectService.loadById(projectId));
+       return "smnsh2/kpds/kpds";
+    }
+
+    @GetMapping("/download/{id}")
+    public ResponseEntity<byte[]> downloadPdf(@PathVariable Long id) {
+        byte[] pdfBytes = kpdsService.loadByProjectId(id);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=kpds.pdf")
+                .contentType(MediaType.APPLICATION_PDF)
+                .body(pdfBytes);
+    }
+	
 }

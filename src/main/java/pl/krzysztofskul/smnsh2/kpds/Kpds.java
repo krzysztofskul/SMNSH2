@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 
@@ -26,6 +27,12 @@ public class Kpds {
     @JoinColumn(name = "project_id")
 	private Project project;
 	
+	private String fileName;
+	
+	@Lob
+	private byte[] data;
+	
+	//TODO: to del
 	private int warranty;
 	
 	private LocalDateTime dateTimeGenerated;
@@ -46,7 +53,19 @@ public class Kpds {
 		
 	}
 	
-	public Kpds(Project project, int warranty) {
+	/**
+	 * @param project
+	 * @param fileName
+	 * @param data
+	 */
+	public Kpds(Project project, String fileName, byte[] data) {
+		super();
+		this.project = project;
+		this.fileName = fileName;
+		this.data = data;
+	}
+
+	private Kpds(Project project, int warranty) {
 		super();
 		this.dateTimeGenerated = LocalDateTime.now();
 		this.project = project;
@@ -98,5 +117,20 @@ public class Kpds {
 		this.dateTimeGenerated = dateTimeGenerated;
 	}
 
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public byte[] getData() {
+		return data;
+	}
+
+	public void setData(byte[] data) {
+		this.data = data;
+	}
 	
 }

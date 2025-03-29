@@ -46,7 +46,7 @@ public class KpdsService {
 	}
 
 	public void generateKpds(Long projectId) {
-		InputStream fontStream = getClass().getClassLoader().getResourceAsStream("fonts/NotoSans-Regular.ttf");
+		InputStream fontStream = getClass().getClassLoader().getResourceAsStream("fonts/NotoSans-Black.otf");
 		
 		
 		//load project connected with kpds

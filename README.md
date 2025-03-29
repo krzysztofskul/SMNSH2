@@ -22,6 +22,7 @@ Version **#0.4** has been created to demonstrate an idea of the project manageme
 
 VER. #0.4-BETA: 
 
+  * fix: kpds download functionality from railway.com (testing...)
   * 3rd party equipment management functionality  
     * edit 3rd party functionality   
     * update functionality at front-end  

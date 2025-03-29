@@ -69,50 +69,50 @@ public class KpdsService {
 			document.addPage(page);
 
 			PDPageContentStream contentStream = new PDPageContentStream(document, page);
-//			PDType0Font font = PDType0Font.load(document, new File("c:/windows/fonts/times.ttf"));
-			PDType0Font font = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Roman.ttf"));
-			PDType0Font fontItalic = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Italic.ttf"));
-			PDType0Font fontBold = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Bold.ttf"));
-			PDType0Font fontBoldItalic = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_BoldItalic.ttf"));
+			PDType0Font font = PDType0Font.load(document, new File("c:/windows/fonts/times.ttf"));
+//			PDType0Font font = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Roman.ttf"));
+//			PDType0Font fontItalic = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Italic.ttf"));
+//			PDType0Font fontBold = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Bold.ttf"));
+//			PDType0Font fontBoldItalic = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_BoldItalic.ttf"));
 
 			PDImageXObject logo = PDImageXObject.createFromFile("src/main/resources/static/pics/logo/logo00.jpg", document);
 			contentStream.drawImage(logo, 10, 750);
 			
-			writeText(contentStream, fontBold, 20, 275, 740, "KPDS");			
+			writeText(contentStream, font, 20, 275, 740, "KPDS");			
 
 			
 			/*
 			 * section 1
 			 */
 			drawLine(contentStream, 10, 730, 595, 730);
-			writeText(contentStream, fontBold, 14, 150, 710, "1. INFORMACJE OGÓLNE");
+			writeText(contentStream, font, 14, 150, 710, "1. INFORMACJE OGÓLNE");
 			drawLine(contentStream, 10, 700, 595, 700);
 			
 			/*
 			 * section 1a
 			 */		
-			this.writeText(contentStream, fontBold, 10, 20, 680, "Nazwa użytownika: ");
+			this.writeText(contentStream, font, 10, 20, 680, "Nazwa użytownika: ");
 			this.writeText(contentStream, font, 10, 170, 680, kpds.getProject().getCustomer().getName());
 			
-			this.writeText(contentStream, fontBold, 10, 20, 660, "Ulica: ");
+			this.writeText(contentStream, font, 10, 20, 660, "Ulica: ");
 			this.writeText(contentStream, font, 10, 170, 660, kpds.getProject().getCustomer().getContactDetails().getAddress().getStreetName() + " " + kpds.getProject().getCustomer().getContactDetails().getAddress().getStreetNo());
 			
 			
-			this.writeText(contentStream, fontBold, 10, 20, 640, "Kod pocztowy / Miejscowość: ");
+			this.writeText(contentStream, font, 10, 20, 640, "Kod pocztowy / Miejscowość: ");
 			String zipcode = kpds.getProject().getCustomer().getContactDetails().getAddress().getZipCode();
 			zipcode = zipcode.substring(0, 2) + "-" + zipcode.substring(2);
 			this.writeText(contentStream, font, 10, 170, 640,  zipcode + " " + kpds.getProject().getCustomer().getContactDetails().getAddress().getCity());
 			
-			this.writeText(contentStream, fontBold, 10, 20, 620, "Płatnik (inwestor): ");
+			this.writeText(contentStream, font, 10, 20, 620, "Płatnik (inwestor): ");
 			this.writeTextWithMaxLength(contentStream, font, 10, 170, 620, inwestor, 36);
 			
 			/*
 			 * section 1b
 			 */
-			this.writeText(contentStream, fontBold, 10, 325, 680, "Nr projektu: ");
+			this.writeText(contentStream, font, 10, 325, 680, "Nr projektu: ");
 			this.writeText(contentStream, font, 10, 435, 680, kpds.getProject().getCode());
 
-			this.writeText(contentStream, fontBold, 10, 325, 660, "Kierownik projektu: ");
+			this.writeText(contentStream, font, 10, 325, 660, "Kierownik projektu: ");
 			this.writeText(contentStream, font, 10, 435, 660, kpds.getProject().getProjectManager().getNameFirst()+" "+kpds.getProject().getProjectManager().getNameLast());
 			
 //			this.writeText(contentStream, fontBold, 10, 325, 640, "Z-ca projektu: ");
@@ -138,7 +138,7 @@ public class KpdsService {
 			 * section 2
 			 */
 			drawLine(contentStream, 10, 560, 595, 560);
-			writeText(contentStream, fontBold, 14, 150, 540, "2. DANE APARATU");
+			writeText(contentStream, font, 14, 150, 540, "2. DANE APARATU");
 			drawLine(contentStream, 10, 530, 595, 530);
 
 			contentStream.beginText();
@@ -147,20 +147,20 @@ public class KpdsService {
 			contentStream.showText(kpds.getProject().getDevicePortfolio().getModality() + " " + kpds.getProject().getDevicePortfolio().getModelName());
 			contentStream.endText();
 			
-			this.writeText(contentStream, fontBold, 10, 325, 510, "Gwarancja: ");
+			this.writeText(contentStream, font, 10, 325, 510, "Gwarancja: ");
 			this.writeText(contentStream, font, 10, 435, 510, "b.d.");
 
-			this.writeText(contentStream, fontBold, 10, 325, 490, "Data odbioru: ");
+			this.writeText(contentStream, font, 10, 325, 490, "Data odbioru: ");
 			this.writeText(contentStream, font, 10, 435, 490, "b.d.");
 			
-			this.writeText(contentStream, fontBold, 10, 325, 470, "Czas reakcji/naprawy: ");
+			this.writeText(contentStream, font, 10, 325, 470, "Czas reakcji/naprawy: ");
 			this.writeText(contentStream, font, 10, 435, 470, "b.d.");
 			
 			/*
 			 * section 3
 			 */
 			drawLine(contentStream, 10, 450, 595, 450);
-			writeText(contentStream, fontBold, 14, 150, 430, "3. SPRZĘT OBCY");
+			writeText(contentStream, font, 14, 150, 430, "3. SPRZĘT OBCY");
 			drawLine(contentStream, 10, 420, 595, 420);
 			
 			int y = 400;
@@ -199,7 +199,7 @@ public class KpdsService {
 			 * section 4
 			 */
 			drawLine(contentStream, 10, 250, 595, 250);
-			writeText(contentStream, fontBold, 14, 150, 230, "4. WYKONAWCY ADAPTACJI");
+			writeText(contentStream, font, 14, 150, 230, "4. WYKONAWCY ADAPTACJI");
 			drawLine(contentStream, 10, 220, 595, 220);
 			
 			contentStream.beginText();
@@ -219,7 +219,7 @@ public class KpdsService {
 			 * section 5
 			 */
 			drawLine(contentStream, 10, 180, 595, 180);
-			writeText(contentStream, fontBold, 14, 150, 160, "5. SZKOLENIA");
+			writeText(contentStream, font, 14, 150, 160, "5. SZKOLENIA");
 			drawLine(contentStream, 10, 150, 595, 150);
 
 			y = 130;
@@ -246,7 +246,7 @@ public class KpdsService {
 			drawLine(contentStream, 10, 50, 595, 50);
 			
 			contentStream.beginText();
-			contentStream.setFont(fontItalic, 11);
+			contentStream.setFont(font, 11);
 			contentStream.newLineAtOffset(475, 35);
 			contentStream.showText(kpds.getDateTimeGenerated().toLocalDate().toString());
 			contentStream.endText();

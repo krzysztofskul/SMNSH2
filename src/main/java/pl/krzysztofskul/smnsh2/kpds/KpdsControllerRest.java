@@ -34,7 +34,7 @@ import java.io.*;
 public class KpdsControllerRest {
 
 	private static final String FILE_PATH = "src/main/resources/uploads/kpds/";
-	private static final String FILE_PATH_2 = "static/kpds/"; // Path inside src/main/resources
+	private static final String FILE_PATH_2 = "uploads/kpds/"; // Path inside src/main/resources
 	
 	@GetMapping("/download/{projectId}")
     public ResponseEntity<byte[]> downloadFile(

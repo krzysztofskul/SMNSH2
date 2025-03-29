@@ -70,7 +70,7 @@ public class KpdsService {
 
 			PDPageContentStream contentStream = new PDPageContentStream(document, page);
 			//PDType0Font font = PDType0Font.load(document, new File("c:/windows/fonts/times.ttf"));
-			PDFont font = PDType1Font.TIMES_ROMAN;
+			PDFont font = PDType1Font.HELVETICA;
 //			PDType0Font font = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Roman.ttf"));
 //			PDType0Font fontItalic = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Italic.ttf"));
 //			PDType0Font fontBold = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Bold.ttf"));

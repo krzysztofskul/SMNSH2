@@ -9,9 +9,9 @@ import java.io.IOException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
-
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +69,8 @@ public class KpdsService {
 			document.addPage(page);
 
 			PDPageContentStream contentStream = new PDPageContentStream(document, page);
-			PDType0Font font = PDType0Font.load(document, new File("c:/windows/fonts/times.ttf"));
+			//PDType0Font font = PDType0Font.load(document, new File("c:/windows/fonts/times.ttf"));
+			PDFont font = PDType1Font.TIMES_ROMAN;
 //			PDType0Font font = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Roman.ttf"));
 //			PDType0Font fontItalic = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Italic.ttf"));
 //			PDType0Font fontBold = PDType0Font.load(document, new File("c:/windows/fonts/SiemensSans_Prof_Bold.ttf"));
@@ -272,7 +273,8 @@ public class KpdsService {
 
 	private void writeTextWithMaxLength(
 			PDPageContentStream contentStream, 
-			PDType0Font fontType,
+			PDFont fontType,
+			//PDType0Font fontType,
 			int fontSize,
 			int xStart,
 			int yStart,
@@ -295,7 +297,8 @@ public class KpdsService {
 	
 	private void writeText(
 			PDPageContentStream contentStream, 
-			PDType0Font fontType,
+			PDFont fontType,
+			//PDType0Font fontType,
 			int fontSize,
 			int xStart,
 			int yStart,

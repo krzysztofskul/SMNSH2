@@ -4,31 +4,20 @@ package pl.krzysztofskul.smnsh2.kpds;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
-
-
-
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -36,10 +25,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.pdf.PdfWriter;
-
-import pl.krzysztofskul.smnsh2.filestorage.File;
 import pl.krzysztofskul.smnsh2.project.ProjectService;
-
 
 @Controller
 @RequestMapping("/smnsh2/kpds")
@@ -57,7 +43,8 @@ public class KpdsController {
 		this.kpdsService = kpdsService;
 		this.projectService = projectService;
 	}
-
+	
+	// TODO: to del (?)
 	@GetMapping("/downloadTestKpds")
 	public String generateTestKpdsPdf() throws IOException {
 		
@@ -118,14 +105,6 @@ public class KpdsController {
 		return "smnsh2/kpds/kpds";
 	}
 	
-	// test
-//	@GetMapping("/kpds/{kpdsId}")
-//	public void getKpdsById(
-//				@PathVariable Long kpdsId
-//			) {
-//		Kpds kpds = kpdsService.loadById(kpdsId);
-//	}
-	
     @GetMapping("/save")
     public String saveKpdsFilePdf(
     			@RequestParam Long projectId,
@@ -138,10 +117,12 @@ public class KpdsController {
 
     @GetMapping("/download/{id}")
     public ResponseEntity<byte[]> downloadPdf(@PathVariable Long id) {
-        byte[] pdfBytes = kpdsService.loadByProjectId(id);
+        Kpds kpds = kpdsService.loadByProjectId(id);
+    	byte[] pdfBytes = kpds.getData();
+        //byte[] pdfBytes = kpdsService.loadByProjectId(id);
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=kpds.pdf")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=kpds-"+kpds.getProject().getId()+".pdf")
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdfBytes);
     }

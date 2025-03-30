@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+//TODO: to del (?)
 @RestController
 @RequestMapping("/smnsh2/rest/kpds")
 public class KpdsControllerRest {

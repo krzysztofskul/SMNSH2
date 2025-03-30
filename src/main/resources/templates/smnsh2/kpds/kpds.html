@@ -19,6 +19,7 @@
 <body>
 
 	<div th:replace="./smnsh2/header" :: header class="sensit-header"></div>
+	<div th:replace="./smnsh2/projects/menu-project :: menu-project(projectId=${project.id})" class="sensit-menu"></div>
 	
 	<div class="container text-center pt-5" style="min-height:100px">
 		

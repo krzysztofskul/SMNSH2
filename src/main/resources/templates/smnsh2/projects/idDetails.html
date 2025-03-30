@@ -153,10 +153,13 @@
 							</div>
 						</div>
 						<div class="row" th:if="${project.id} == 0 OR ${edit} == true">
-							<div class="col-12">
+							<div class="col-11">
 								<select th:field="*{investor}" class="width100">
 									<option th:each="investor : ${investorList}" th:value="${investor.id}" th:text="${investor.name}"/>
 								</select>
+							</div>
+							<div class="col-1">
+								<a href="#" class="btn btn-sm btn-outline-success" disabled>+</a>
 							</div>
 						</div>
 					</div>
@@ -181,10 +184,13 @@
 							</div>
 						</div>
 						<div class="row" th:if="${project.id} == 0 OR ${edit} == true">
-							<div class="col-12">
+							<div class="col-11">
 								<select th:field="*{customer}" class="width100">
 									<option th:each="customer : ${customerList}" th:value="${customer.id}" th:text="${customer.name}"/>
 								</select>
+							</div>
+							<div class="col-1">
+								<a href="#" class="btn btn-sm btn-outline-success" disabled>+</a>
 							</div>
 						</div>
 					</div>
@@ -234,10 +240,13 @@
 							</div>
 						</div>
 						<div class="row" th:if="${project.id} == 0 OR ${edit} == true">
-							<div class="col-12">
+							<div class="col-11">
 								<select th:field="*{subcontractorForRoomAdaptation}" class="width100">
 									<option th:each="subcontractor: ${subcontractorList}" th:value="${subcontractor.id}" th:text="${subcontractor.name}"/>
 								</select>
+							</div>
+							<div class="col-1">
+								<a href="#" class="btn btn-sm btn-outline-success" disabled>+</a>
 							</div>
 						</div>
 					</div>

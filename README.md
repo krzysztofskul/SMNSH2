@@ -20,15 +20,22 @@ Version **#0.4** has been created to demonstrate an idea of the project manageme
 
 **TODO:**  
 
-VER. #0.4-RC: 
-
-  * fix: save kpds file to the database and download it from deployed environment (DONE)
+VER. #0.4-RC2: (DONE)
+  * kpds functionality:  
+    * save kpds with project id in filename  
+    * load kpds by id (not by project id)  
+    * block import xls for released  version  
+    
+VER. #0.4-RC3: (DONE)  
+  * implement: new button customer and sub-contractor while creating new project  
+  * update: disable import xls file for released version  
+  
+VER. #0.4-RC4:  
   * 3rd party equipment management functionality  
     * edit 3rd party functionality   
     * update functionality at front-end  
   * create validation   
-  * add new customer while creating new project (?)  
-    * admin page button (sec:authorize access="hasRole('ADMIN')")  
+  * admin page button (sec:authorize access="hasRole('ADMIN')")  
 
 
 ### SCREENSHOTS

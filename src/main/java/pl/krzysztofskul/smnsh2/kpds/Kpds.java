@@ -32,9 +32,6 @@ public class Kpds {
 	@Lob
 	private byte[] data;
 	
-	//TODO: to del
-	private int warranty;
-	
 	private LocalDateTime dateTimeGenerated;
 
 	/*
@@ -65,14 +62,6 @@ public class Kpds {
 		this.data = data;
 	}
 
-	private Kpds(Project project, int warranty) {
-		super();
-		this.dateTimeGenerated = LocalDateTime.now();
-		this.project = project;
-		this.warranty = warranty;
-		
-	}
-
 	/*
 	 * getters and setters
 	 */
@@ -99,14 +88,6 @@ public class Kpds {
 
 	public void setProject(Project project) {
 		this.project = project;
-	}
-
-	public int getWarranty() {
-		return warranty;
-	}
-
-	public void setWarranty(int warranty) {
-		this.warranty = warranty;
 	}
 
 	public LocalDateTime getDateTimeGenerated() {
